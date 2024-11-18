@@ -3,6 +3,6 @@ import pluginESLintPlugin from 'eslint-plugin-eslint-plugin'
 
 const config = defineESLintConfig()
 
-config.prepend(pluginESLintPlugin.configs['flat/recommended'])
+config.prepend(pluginESLintPlugin.configs['flat/all'])
 
 export default config

@@ -22,6 +22,30 @@ yarn add eslint-plugin-github-action -D
 pnpm add eslint-plugin-github-action -D
 ```
 
+## Usage
+
+Config in ESLint config files:
+
+```ts
+import pluginGitHubAction from 'eslint-plugin-github-action'
+
+/**
+ * @type {import('eslint').Linter.Config[]}
+ */
+export default [
+  ...pluginGitHubAction.configs.recommended,
+  // Other configs...
+]
+```
+
+## Rules
+
+- 💼 Configurations enabled in.
+- 🌐 Set in the all preset.
+- ✅ Set in the recommended preset.
+- 🔧 Automatically fixable by the --fix CLI option.
+- 💡 Manually fixable by editor suggestions.
+
 ## License
 
 [MIT](./LICENSE) License © 2024-PRESENT [ntnyq](https://github.com/ntnyq)

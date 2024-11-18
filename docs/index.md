@@ -1,6 +1,6 @@
 # Introduction
 
-[eslint-plugin-github-action](https://www.npmjs.com/package/eslint-plugin-github-action) is An opinionated ESLint plugin.
+[eslint-plugin-github-action](https://www.npmjs.com/package/eslint-plugin-github-action) is an ESLint plugin that provide rules for consistent, readable and valid GitHub action files.
 
 <div id="package_status">
 
@@ -26,4 +26,4 @@ See [CHANGELOG](https://github.com/ntnyq/eslint-plugin-github-action/releases).
 
 ## :lock: License
 
-[MIT](https://github.com/ntnyq/eslint-plugin-github-action/blob/main/LICENSE) License © 2023-PRESENT [ntnyq](https://github.com/ntnyq)
+[MIT](https://github.com/ntnyq/eslint-plugin-github-action/blob/main/LICENSE) License © 2024-PRESENT [ntnyq](https://github.com/ntnyq)
