@@ -1,14 +1,14 @@
-import type {
-  RuleListener,
-  RuleWithMeta,
-  RuleWithMetaAndName,
-} from '@typescript-eslint/utils/eslint-utils'
-import type { RuleContext } from '@typescript-eslint/utils/ts-eslint'
+/**
+ * @copyright {@link https://github.com/eslint-stylistic/eslint-stylistic}
+ */
+
+import { deepMerge, isObjectNotArray } from './merge'
 import type { Rule } from 'eslint'
+import type { RuleContext, RuleListener, RuleWithMeta, RuleWithMetaAndName } from '../types'
 
 const docsUrl = 'https://eslint-plugin-github-action.ntnyq.com/rules/'
 
-export interface RuleModule<T extends readonly unknown[]> extends Rule.RuleModule {
+export interface ESLintRuleModule<T extends readonly unknown[]> extends Rule.RuleModule {
   defaultOptions: T
 }
 
@@ -20,19 +20,23 @@ function createRule<TOptions extends readonly unknown[], TMessageIds extends str
   create,
   defaultOptions,
   meta,
-}: Readonly<RuleWithMeta<TOptions, TMessageIds, PluginDocs>>): RuleModule<TOptions> {
+}: Readonly<RuleWithMeta<TOptions, TMessageIds, PluginDocs>>): ESLintRuleModule<TOptions> {
   return {
     create: ((context: Readonly<RuleContext<TMessageIds, TOptions>>): RuleListener => {
-      const optionsWithDefault = context.options.map((option, index) => {
-        return {
-          ...(defaultOptions[index] || {}),
-          ...(option || {}),
+      const optionsCount = Math.max(context.options.length, defaultOptions.length)
+      const optionsWithDefault = Array.from({ length: optionsCount }, (_, i) => {
+        if (isObjectNotArray(context.options[i]) && isObjectNotArray(defaultOptions[i])) {
+          return deepMerge(defaultOptions[i], context.options[i])
         }
+        return context.options[i] ?? defaultOptions[i]
       }) as unknown as TOptions
       return create(context, optionsWithDefault)
     }) as any,
     defaultOptions,
-    meta: meta as any,
+    meta: {
+      ...meta,
+      defaultOptions: defaultOptions as unknown as unknown[],
+    },
   }
 }
 
@@ -41,7 +45,7 @@ function RuleCreator(urlCreator: (name: string) => string) {
     name,
     meta,
     ...rule
-  }: Readonly<RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>>): RuleModule<TOptions> {
+  }: Readonly<RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>>): ESLintRuleModule<TOptions> {
     return createRule<TOptions, TMessageIds>({
       meta: {
         ...meta,
@@ -58,5 +62,5 @@ export const createESLintRule: <TOptions extends readonly unknown[], TMessageIds
   name,
   meta,
   ...rule
-}: Readonly<RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>>) => RuleModule<TOptions> =
+}: Readonly<RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>>) => ESLintRuleModule<TOptions> =
   RuleCreator(ruleName => `${docsUrl}${ruleName}.html`)

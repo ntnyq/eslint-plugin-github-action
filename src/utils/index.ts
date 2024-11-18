@@ -1,2 +1,3 @@
-export * from './createRule'
-export * from './getSourceCode'
+export * from './merge'
+export * from './create-rule'
+export * from './get-source-code'

@@ -1,0 +1,37 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Integration test > should lint without errors 1`] = `[]`;
+
+exports[`Integration test > should lint without errors 2`] = `
+[
+  {
+    "column": 1,
+    "endColumn": 34,
+    "endLine": 10,
+    "line": 1,
+    "message": "Require action name to be set.",
+    "messageId": "requireActionName",
+    "nodeType": "YAMLMapping",
+    "ruleId": "github-action/require-action-name",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`Integration test > should lint without errors 3`] = `[]`;
+
+exports[`Integration test > should lint without errors 4`] = `
+[
+  {
+    "column": 1,
+    "endColumn": 34,
+    "endLine": 10,
+    "line": 1,
+    "message": "Require action name to be set.",
+    "messageId": "requireActionName",
+    "nodeType": "YAMLMapping",
+    "ruleId": "github-action/require-action-name",
+    "severity": 2,
+  },
+]
+`;

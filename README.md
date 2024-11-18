@@ -46,6 +46,10 @@ export default [
 - 🔧 Automatically fixable by the --fix CLI option.
 - 💡 Manually fixable by editor suggestions.
 
+## Links
+
+- [GitHub Actions documentation](https://docs.github.com/en/actions)
+
 ## License
 
 [MIT](./LICENSE) License © 2024-PRESENT [ntnyq](https://github.com/ntnyq)
