@@ -27,14 +27,19 @@ export const themeConfig: DefaultTheme.Config = {
         text: 'Rules',
         items: [
           {
-            text: 'Available Rules',
+            text: 'Overview',
             link: '/rules/',
           },
         ],
       },
       {
-        text: 'Stylistic Issues',
-        items: [],
+        text: 'Rules list',
+        items: [
+          {
+            text: 'require-action-name',
+            link: '/rules/require-action-name',
+          },
+        ],
       },
     ],
     '/': [
