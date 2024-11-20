@@ -1,13 +1,11 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Integration test > should lint without errors 1`] = `[]`;
-
-exports[`Integration test > should lint without errors 2`] = `
+exports[`should lint without error > .github/workflows/empty-name.yml 1`] = `
 [
   {
     "column": 1,
-    "endColumn": 34,
-    "endLine": 10,
+    "endColumn": 13,
+    "endLine": 6,
     "line": 1,
     "message": "Require action name to be set.",
     "messageId": "requireActionName",
@@ -18,14 +16,12 @@ exports[`Integration test > should lint without errors 2`] = `
 ]
 `;
 
-exports[`Integration test > should lint without errors 3`] = `[]`;
-
-exports[`Integration test > should lint without errors 4`] = `
+exports[`should lint without error > .github/workflows/no-name-yaml.yaml 1`] = `
 [
   {
     "column": 1,
-    "endColumn": 34,
-    "endLine": 10,
+    "endColumn": 13,
+    "endLine": 4,
     "line": 1,
     "message": "Require action name to be set.",
     "messageId": "requireActionName",
@@ -35,3 +31,23 @@ exports[`Integration test > should lint without errors 4`] = `
   },
 ]
 `;
+
+exports[`should lint without error > .github/workflows/no-name-yml.yml 1`] = `
+[
+  {
+    "column": 1,
+    "endColumn": 13,
+    "endLine": 4,
+    "line": 1,
+    "message": "Require action name to be set.",
+    "messageId": "requireActionName",
+    "nodeType": "YAMLMapping",
+    "ruleId": "github-action/require-action-name",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`should lint without error > .github/workflows/with-name-yaml.yaml 1`] = `[]`;
+
+exports[`should lint without error > .github/workflows/with-name-yml.yml 1`] = `[]`;

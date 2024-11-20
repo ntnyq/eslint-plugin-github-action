@@ -1,4 +1,5 @@
-import { createESLintRule } from '../utils'
+import { isNonEmptyString } from '@ntnyq/utils'
+import { createESLintRule, isYAMLScalar } from '../utils'
 import type { ASTNode } from '../types'
 import type { YAMLAst } from '../types/yaml'
 
@@ -24,8 +25,8 @@ export default createESLintRule<Options, MessageIds>({
     return {
       'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
         const hasName = node.pairs.some(v => {
-          if (v.key?.type === 'YAMLScalar') {
-            return v.key.value === 'name'
+          if (isYAMLScalar(v.key) && isYAMLScalar(v.value)) {
+            return v.key.value === 'name' && isNonEmptyString(v.value.value)
           } else {
             return false
           }

@@ -1,24 +1,24 @@
 import { ESLint } from 'eslint'
-import { describe, expect, it } from 'vitest'
+import { configs } from 'eslint-plugin-github-action'
+import { glob } from 'tinyglobby'
+import { expect, it } from 'vitest'
 import { resolve } from './internal'
 
-const TEST_CWD = resolve('tests/fixtures/integrations/eslint-plugin')
+const TEST_CWD = resolve('tests/fixtures/eslint-plugin')
 
-describe('Integration test', () => {
-  it('should lint without errors', async () => {
-    const eslint = new ESLint({ cwd: TEST_CWD })
-    const files = [
-      '.github/workflows/valid.yml',
-      '.github/workflows/invalid.yml',
-      '.github/workflows/valid.yaml',
-      '.github/workflows/invalid.yaml',
-    ]
-    const results: ESLint.LintResult[] = await eslint.lintFiles(files)
+it('should lint without error', async () => {
+  const files = await glob('.github/workflows/*.{yml,yaml}', { cwd: TEST_CWD, onlyFiles: true })
+  const eslint = new ESLint({
+    overrideConfigFile: true,
+    overrideConfig: [...configs.recommended],
+    cwd: TEST_CWD,
+    ignore: false,
+  })
+  const results: ESLint.LintResult[] = await eslint.lintFiles(files)
 
-    expect(results.length).toBe(files.length)
+  expect(results.length).toBe(files.length)
 
-    results.forEach(result => {
-      expect(result.messages).toMatchSnapshot()
-    })
+  results.forEach((result, idx) => {
+    expect(result.messages).toMatchSnapshot(files[idx])
   })
 })

@@ -3,6 +3,7 @@
     "target": "ES2022",
     "lib": ["DOM", "ESNext"],
     "module": "ESNext",
+    "rootDir": ".",
     "moduleResolution": "Bundler",
     "types": ["node"],
     "resolveJsonModule": true,

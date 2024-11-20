@@ -19,33 +19,34 @@ This rule reports when action has no name.
 ### Good
 
 ```yaml
-name: Release
+name: CI
 
 on:
   push:
     branches:
       - main
-
-jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 ```
 
 ### Bad
+
+### without `name`
 
 ```yaml
 on:
   push:
     branches:
       - main
+```
 
-jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+### empty `name`
+
+```yaml
+name:
+
+on:
+  push:
+    branches:
+      - main
 ```
 
 ## :wrench: Options

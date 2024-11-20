@@ -8,8 +8,6 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 export const resolve = (...args: string[]) => path.resolve(__dirname, '..', ...args)
 
-export { unindent as $ } from 'eslint-vitest-rule-tester'
-
 export function run(options: TestCasesOptions & RuleTesterInitOptions) {
   return _run({
     languageOptions: {
@@ -18,3 +16,5 @@ export function run(options: TestCasesOptions & RuleTesterInitOptions) {
     ...options,
   })
 }
+
+export { unindent as $ } from 'eslint-vitest-rule-tester'

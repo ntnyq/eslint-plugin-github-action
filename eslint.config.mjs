@@ -1,7 +1,9 @@
 import { defineESLintConfig } from '@ntnyq/eslint-config'
 import pluginESLintPlugin from 'eslint-plugin-eslint-plugin'
 
-const config = defineESLintConfig()
+const config = defineESLintConfig({
+  ignores: ['**/tests/fixtures'],
+})
 
 config.prepend(pluginESLintPlugin.configs['flat/all'], {
   rules: {
