@@ -14,3 +14,4 @@ sidebarDepth: 0
 | :-------------------------------------------------------------------------------------------------- | :---------------------------------------- | :-: | :-: | :-: |
 | [action-name-casing](https://eslint-plugin-github-action.ntnyq.com/rules/action-name-casing.html)   | enforce naming convention to action name. |     | 🔧  |     |
 | [require-action-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-name.html) | require action name to be set.            | ✅  |     |     |
+| [max-jobs-per-action](https://eslint-plugin-github-action.ntnyq.com/rules/max-jobs-per-action.html) | enforce maximum jobs per action file.     |     |     |     |

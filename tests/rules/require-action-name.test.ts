@@ -9,7 +9,7 @@ run({
       filename: 'valid-name.yml',
       code: $`
         name: Release
-
+        
         on:
           push:
             branches:

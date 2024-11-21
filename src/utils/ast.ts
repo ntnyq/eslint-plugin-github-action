@@ -8,7 +8,7 @@
 import type { YAMLAst, YAMLComment, YAMLToken } from '../types/yaml'
 
 /**
- * Check if the given value is a YAMLScalar.
+ * Checks if the given value is a YAMLScalar.
  * @param value The value to check.
  * @returns Whether the given value is a YAMLScalar.
  */
@@ -16,6 +16,17 @@ export function isYAMLScalar(
   value: YAMLAst.YAMLContent | YAMLAst.YAMLWithMeta | null,
 ): value is YAMLAst.YAMLScalar {
   return value?.type === 'YAMLScalar'
+}
+
+/**
+ * Checks if the given value is a YAMLMapping.
+ * @param value The value to check.
+ * @returns Whether the given value is a YAMLMapping.
+ */
+export function isYAMLMapping(
+  value: YAMLAst.YAMLContent | YAMLAst.YAMLWithMeta | null,
+): value is YAMLAst.YAMLMapping {
+  return value?.type === 'YAMLMapping'
 }
 
 /**

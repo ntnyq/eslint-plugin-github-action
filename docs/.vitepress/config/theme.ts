@@ -43,6 +43,10 @@ export const themeConfig: DefaultTheme.Config = {
             text: 'require-action-name',
             link: '/rules/require-action-name',
           },
+          {
+            text: 'max-jobs-per-action',
+            link: '/rules/max-jobs-per-action',
+          },
         ],
       },
     ],
