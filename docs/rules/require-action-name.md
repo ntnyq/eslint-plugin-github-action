@@ -8,7 +8,7 @@ since: v0.0.0
 
 # github-action/require-action-name
 
-💼 This rule is enabled in the ✅ `recommended` config.
+- 💼 This rule is enabled in the ✅ `recommended` config.
 
 > Require action name to be set.
 

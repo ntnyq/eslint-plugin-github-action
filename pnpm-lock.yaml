@@ -4,13 +4,18 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@ntnyq/utils':
+    hash: v2tnm37idlgtrlldodblasabjy
+    path: patches/@ntnyq__utils.patch
+
 importers:
 
   .:
     dependencies:
       '@ntnyq/utils':
         specifier: ^0.3.1
-        version: 0.3.1
+        version: 0.3.1(patch_hash=v2tnm37idlgtrlldodblasabjy)
       '@typescript-eslint/utils':
         specifier: ^8.15.0
         version: 8.15.0(eslint@9.15.0(jiti@2.3.1))(typescript@5.6.3)
@@ -3890,7 +3895,7 @@ snapshots:
 
   '@ntnyq/prettier-config@1.21.3': {}
 
-  '@ntnyq/utils@0.3.1':
+  '@ntnyq/utils@0.3.1(patch_hash=v2tnm37idlgtrlldodblasabjy)':
     dependencies:
       scule: 1.3.0
 

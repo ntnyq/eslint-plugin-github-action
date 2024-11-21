@@ -14,7 +14,7 @@ run({
           push:
             branches:
               - main
-    `,
+      `,
     },
   ],
   invalid: [
@@ -25,7 +25,7 @@ run({
           push:
             branches:
               - main
-    `,
+      `,
       errors: [
         {
           messageId: 'requireActionName',
@@ -40,7 +40,7 @@ run({
           push:
             branches:
               - main
-    `,
+      `,
       errors: [
         {
           messageId: 'requireActionName',

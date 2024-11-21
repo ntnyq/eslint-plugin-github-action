@@ -84,6 +84,11 @@
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
   },
+  "pnpm": {
+    "patchedDependencies": {
+      "@ntnyq/utils": "patches/@ntnyq__utils.patch"
+    }
+  },
   "prettier": "@ntnyq/prettier-config",
   "nano-staged": {
     "*.{js,ts,mjs,cjs,json,md,yml,yaml}": "eslint --fix"

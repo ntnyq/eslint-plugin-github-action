@@ -36,6 +36,10 @@ export const themeConfig: DefaultTheme.Config = {
         text: 'Rules list',
         items: [
           {
+            text: 'action-name-casing',
+            link: '/rules/action-name-casing',
+          },
+          {
             text: 'require-action-name',
             link: '/rules/require-action-name',
           },
