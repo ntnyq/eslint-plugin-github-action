@@ -2,7 +2,7 @@ import { ESLint } from 'eslint'
 import { configs } from 'eslint-plugin-github-action'
 import { glob } from 'tinyglobby'
 import { expect, it } from 'vitest'
-import { resolve } from './internal'
+import { resolve } from '../scripts/utils'
 
 const TEST_CWD = resolve('tests/fixtures/eslint-plugin')
 
