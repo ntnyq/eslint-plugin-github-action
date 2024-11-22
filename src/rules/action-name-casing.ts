@@ -64,6 +64,7 @@ export default createESLintRule<Options, MessageIds>({
             context.report({
               node: node as unknown as ASTNode,
               messageId: 'actionNameNotMatch',
+              loc: namePair.value.loc,
               data: {
                 name,
                 caseType,

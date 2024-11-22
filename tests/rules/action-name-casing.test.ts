@@ -30,6 +30,8 @@ run({
       errors: [
         {
           messageId: 'actionNameNotMatch',
+          line: 1,
+          column: 7,
           data: {
             name: 'unit-test',
             caseType: 'Title Case',
@@ -45,6 +47,8 @@ run({
       errors: [
         {
           messageId: 'actionNameNotMatch',
+          line: 1,
+          column: 7,
           data: {
             name: 'unit_test',
             caseType: 'Title Case',
@@ -60,6 +64,8 @@ run({
       errors: [
         {
           messageId: 'actionNameNotMatch',
+          line: 1,
+          column: 7,
           data: {
             name: 'unitTest',
             caseType: 'Title Case',
@@ -75,6 +81,8 @@ run({
       errors: [
         {
           messageId: 'actionNameNotMatch',
+          line: 1,
+          column: 7,
           data: {
             name: 'UnitTest',
             caseType: 'Title Case',
@@ -90,6 +98,8 @@ run({
       errors: [
         {
           messageId: 'actionNameNotMatch',
+          line: 1,
+          column: 7,
           data: {
             name: 'UNIT_TEST',
             caseType: 'Title Case',
