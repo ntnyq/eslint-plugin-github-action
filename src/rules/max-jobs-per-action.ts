@@ -6,7 +6,7 @@ export const RULE_NAME = 'max-jobs-per-action'
 export type MessageIds = 'toManyJobs'
 export type Options = [number]
 
-const defaultLimit = 3
+const defaultOptions: Options[0] = 3
 
 export default createESLintRule<Options, MessageIds>({
   name: RULE_NAME,
@@ -27,10 +27,10 @@ export default createESLintRule<Options, MessageIds>({
       toManyJobs: 'There are {{count}} jobs, maximum allowed is {{limit}}.',
     },
   },
-  defaultOptions: [defaultLimit],
+  defaultOptions: [defaultOptions],
   create(context) {
     const optionLimit = context.options?.[0]
-    const limit = optionLimit <= 0 ? defaultLimit : optionLimit
+    const limit = optionLimit <= 0 ? defaultOptions : optionLimit
     return {
       'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
         const jobsPair = node.pairs.find(v => isYAMLScalar(v.key) && v.key.value === 'jobs')

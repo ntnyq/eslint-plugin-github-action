@@ -40,12 +40,16 @@ export const themeConfig: DefaultTheme.Config = {
             link: '/rules/action-name-casing',
           },
           {
-            text: 'require-action-name',
-            link: '/rules/require-action-name',
+            text: 'job-id-casing',
+            link: '/rules/job-id-casing',
           },
           {
             text: 'max-jobs-per-action',
             link: '/rules/max-jobs-per-action',
+          },
+          {
+            text: 'require-action-name',
+            link: '/rules/require-action-name',
           },
         ],
       },

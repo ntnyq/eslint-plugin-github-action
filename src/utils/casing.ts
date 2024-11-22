@@ -4,15 +4,16 @@
 
 import { camelCase, kebabCase, pascalCase, snakeCase, titleCase, trainCase } from '@ntnyq/utils'
 
-export const allowedCaseOptions = [
-  'camelCase',
-  'kebab-case',
-  'PascalCase',
-  'snake_case',
-  'Title Case',
-  'Train-Case',
-  'SCREAMING_SNAKE_CASE',
-]
+export const CASING = {
+  camelCase: 'camelCase',
+  kebabCase: 'kebab-case',
+  pascalCase: 'PascalCase',
+  snakeCase: 'snake_case',
+  titleCase: 'Title Case',
+  trainCase: 'Train-Case',
+  screamingSnakeCase: 'SCREAMING_SNAKE_CASE',
+} as const
+
 export type CasingKind =
   | 'camelCase'
   | 'kebab-case'

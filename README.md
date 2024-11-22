@@ -48,12 +48,15 @@ export default [
 | Name                                                                                                | Description                               | 💼  | 🔧  | 💡  |
 | :-------------------------------------------------------------------------------------------------- | :---------------------------------------- | :-: | :-: | :-: |
 | [action-name-casing](https://eslint-plugin-github-action.ntnyq.com/rules/action-name-casing.html)   | enforce naming convention to action name. |     | 🔧  |     |
-| [require-action-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-name.html) | require action name to be set.            | ✅  |     |     |
+| [job-id-casing](https://eslint-plugin-github-action.ntnyq.com/rules/job-id-casing.html)             | enforce naming convention to job id.      |     |     |     |
 | [max-jobs-per-action](https://eslint-plugin-github-action.ntnyq.com/rules/max-jobs-per-action.html) | enforce maximum jobs per action file.     |     |     |     |
+| [require-action-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-name.html) | require action name to be set.            | ✅  |     |     |
 
 ## Links
 
 - [GitHub Actions documentation](https://docs.github.com/en/actions)
+- [Understanding the workflow file](https://docs.github.com/en/actions/use-cases-and-examples/creating-an-example-workflow#understanding-the-workflow-file)
+- [Workflow syntax for GitHub Actions](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions)
 
 ## License
 

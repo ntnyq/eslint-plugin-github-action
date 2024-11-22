@@ -1,13 +1,25 @@
 import { isNonEmptyString } from '@ntnyq/utils'
-import { allowedCaseOptions, createESLintRule, getExactConverter, isYAMLScalar } from '../utils'
+import { CASING, createESLintRule, getExactConverter, isYAMLScalar } from '../utils'
 import type { ASTNode } from '../types'
 import type { YAMLAst } from '../types/yaml'
+import type { CasingKind } from '../utils'
+
+type AllowedCasing = CasingKind
 
 export const RULE_NAME = 'action-name-casing'
 export type MessageIds = 'actionNameNotMatch'
-export type Options = [string]
+export type Options = [AllowedCasing]
 
-const defaultCaseType = 'Title Case'
+const allowedCaseOptions: AllowedCasing[] = [
+  CASING.camelCase,
+  CASING.kebabCase,
+  CASING.pascalCase,
+  CASING.snakeCase,
+  CASING.titleCase,
+  CASING.trainCase,
+  CASING.screamingSnakeCase,
+]
+const defaultOptions: Options[0] = CASING.titleCase
 
 export default createESLintRule<Options, MessageIds>({
   name: RULE_NAME,
@@ -29,10 +41,10 @@ export default createESLintRule<Options, MessageIds>({
       actionNameNotMatch: `Action name '{{name}}' is not in {{caseType}}.`,
     },
   },
-  defaultOptions: [defaultCaseType],
+  defaultOptions: [defaultOptions],
   create(context) {
     const optionCase = context.options?.[0]
-    const caseType = allowedCaseOptions.includes(optionCase) ? optionCase : defaultCaseType
+    const caseType = allowedCaseOptions.includes(optionCase) ? optionCase : defaultOptions
 
     return {
       'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
