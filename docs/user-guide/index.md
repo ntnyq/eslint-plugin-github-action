@@ -32,8 +32,7 @@ import pluginGitHubAction from 'eslint-plugin-github-action'
  */
 export default [
   ...pluginGitHubAction.configs.recommended,
-  // Or
-  // ...pluginGitHubAction.configs.all,
+  // Other configs...
 ]
 ```
 
@@ -42,12 +41,6 @@ export default [
 The `recommended` config enables a subset of [the rules](#rules) that should be most useful to most users.
 
 _See [src/configs/recommended.ts](https://github.com/ntnyq/eslint-plugin-github-action/blob/main/src/configs/recommended.ts) for more details._
-
-### The all preset
-
-The `all` config enables all the [the rules](#rules).
-
-_See [src/configs/all.ts](https://github.com/ntnyq/eslint-plugin-github-action/blob/main/src/configs/all.ts) for more details._
 
 ### Advanced Configuration
 
