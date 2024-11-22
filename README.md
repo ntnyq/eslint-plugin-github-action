@@ -8,6 +8,9 @@
 
 > Rules for consistent, readable and valid GitHub action files.
 
+> [!WARNING]
+> This plugin is Work In Progress. API may change at every release. Please use with caution.
+
 ## Install
 
 ```bash
