@@ -33,7 +33,7 @@ export function getThemeConfig() {
     socialLinks: [{ icon: 'github', link: 'https://github.com/ntnyq/eslint-plugin-github-action' }],
 
     nav: [
-      { text: 'Introduction', link: '/' },
+      { text: 'Home', link: '/' },
       { text: 'User Guide', link: '/user-guide/' },
       { text: 'Rules', link: '/rules/' },
       {
@@ -62,7 +62,7 @@ export function getThemeConfig() {
         {
           text: 'Guide',
           items: [
-            { text: 'Introduction', link: '/' },
+            { text: 'Home', link: '/' },
             { text: 'User Guide', link: '/user-guide/' },
             { text: 'Rules', link: '/rules/' },
             {

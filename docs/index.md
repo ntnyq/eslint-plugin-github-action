@@ -1,4 +1,19 @@
-# Introduction
+---
+layout: home
+
+hero:
+  name: ESLint Plugin
+  text: GitHub Action
+  tagline: Rules for consistent, readable and valid GitHub action files
+  image:
+    light: /logo-light.svg
+    dark: /logo-dark.svg
+    alt: ESLint Plugin GitHub Action Logo
+  actions:
+    - theme: brand
+      text: Get Started
+      link: /user-guide/
+---
 
 [eslint-plugin-github-action](https://www.npmjs.com/package/eslint-plugin-github-action) is an ESLint plugin that provide rules for consistent, readable and valid GitHub action files.
 
