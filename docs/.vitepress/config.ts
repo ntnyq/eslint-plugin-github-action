@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { head } from './config/head'
-import { themeConfig } from './config/theme'
+import { getThemeConfig } from './config/theme'
 
 export default defineConfig({
   title: 'eslint-plugin-github-action',
@@ -8,6 +8,6 @@ export default defineConfig({
   description: 'Rules for consistent, readable and valid GitHub action files.',
 
   head,
-  themeConfig,
+  themeConfig: getThemeConfig(),
   lastUpdated: true,
 })

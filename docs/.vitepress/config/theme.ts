@@ -1,72 +1,79 @@
+import { globSync } from 'tinyglobby'
+import { resolve } from '../../../scripts/utils'
 import type { DefaultTheme } from 'vitepress'
 
-export const themeConfig: DefaultTheme.Config = {
-  search: {
-    provider: 'local',
-  },
+function ruleToSidebarItem(ruleId: string): DefaultTheme.SidebarItem {
+  return {
+    text: ruleId,
+    link: `/rules/${ruleId}`,
+  }
+}
 
-  editLink: {
-    pattern: 'https://github.com/ntnyq/eslint-plugin-github-action/edit/main/docs/:path',
-  },
+export function getThemeConfig() {
+  const rules = globSync(resolve('src/rules/*.ts'), {
+    ignore: ['**/index.ts'],
+    onlyFiles: true,
+    cwd: resolve(),
+  })
+    .map(path => path.split('/').pop()!)
+    .map(path => path.replace('.ts', ''))
 
-  socialLinks: [{ icon: 'github', link: 'https://github.com/ntnyq/eslint-plugin-github-action' }],
-
-  nav: [
-    { text: 'Introduction', link: '/' },
-    { text: 'User Guide', link: '/user-guide/' },
-    { text: 'Rules', link: '/rules/' },
-    {
-      text: 'Changelog',
-      link: 'https://github.com/ntnyq/eslint-plugin-github-action/releases',
+  const config: DefaultTheme.Config = {
+    search: {
+      provider: 'local',
+      options: {
+        detailedView: true,
+      },
     },
-  ],
 
-  sidebar: {
-    '/rules/': [
+    editLink: {
+      pattern: 'https://github.com/ntnyq/eslint-plugin-github-action/edit/main/docs/:path',
+    },
+
+    socialLinks: [{ icon: 'github', link: 'https://github.com/ntnyq/eslint-plugin-github-action' }],
+
+    nav: [
+      { text: 'Introduction', link: '/' },
+      { text: 'User Guide', link: '/user-guide/' },
+      { text: 'Rules', link: '/rules/' },
       {
-        text: 'Rules',
-        items: [
-          {
-            text: 'Overview',
-            link: '/rules/',
-          },
-        ],
-      },
-      {
-        text: 'Rules list',
-        items: [
-          {
-            text: 'action-name-casing',
-            link: '/rules/action-name-casing',
-          },
-          {
-            text: 'job-id-casing',
-            link: '/rules/job-id-casing',
-          },
-          {
-            text: 'max-jobs-per-action',
-            link: '/rules/max-jobs-per-action',
-          },
-          {
-            text: 'require-action-name',
-            link: '/rules/require-action-name',
-          },
-        ],
+        text: 'Changelog',
+        link: 'https://github.com/ntnyq/eslint-plugin-github-action/releases',
       },
     ],
-    '/': [
-      {
-        text: 'Guide',
-        items: [
-          { text: 'Introduction', link: '/' },
-          { text: 'User Guide', link: '/user-guide/' },
-          { text: 'Rules', link: '/rules/' },
-          {
-            text: 'Changelog',
-            link: 'https://github.com/ntnyq/eslint-plugin-github-action/releases',
-          },
-        ],
-      },
-    ],
-  },
+
+    sidebar: {
+      '/rules/': [
+        {
+          text: 'Rules',
+          items: [
+            {
+              text: 'Overview',
+              link: '/rules/',
+            },
+          ],
+        },
+        {
+          text: 'Rules list',
+          items: rules.map(ruleId => ruleToSidebarItem(ruleId)),
+        },
+      ],
+      '/': [
+        {
+          text: 'Guide',
+          items: [
+            { text: 'Introduction', link: '/' },
+            { text: 'User Guide', link: '/user-guide/' },
+            { text: 'Rules', link: '/rules/' },
+            {
+              text: 'Changelog',
+              link: 'https://github.com/ntnyq/eslint-plugin-github-action/releases',
+            },
+          ],
+        },
+      ],
+    },
+  }
+
+  return config
 }

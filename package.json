@@ -91,6 +91,6 @@
   },
   "prettier": "@ntnyq/prettier-config",
   "nano-staged": {
-    "*.{js,ts,mjs,cjs,json,md,yml,yaml}": "eslint --fix"
+    "*.{js,ts,mjs,cjs,vue,json,md,yml,yaml}": "eslint --fix"
   }
 }
