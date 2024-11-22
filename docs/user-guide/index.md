@@ -20,7 +20,7 @@ yarn add eslint-plugin-github-action -D
 pnpm add eslint-plugin-github-action -D
 ```
 
-## Usage
+## Basic Usage
 
 Config in `eslint.config.mjs`
 
@@ -40,31 +40,59 @@ export default [
 
 The `recommended` config enables a subset of [the rules](#rules) that should be most useful to most users.
 
-_See [src/configs/recommended.ts](https://github.com/ntnyq/eslint-plugin-github-action/blob/main/src/configs/recommended.ts) for more details._
-
-### Advanced Configuration
+## Advanced Usage
 
 Override/add specific rules configurations.
 
 _See also: [http://eslint.org/docs/user-guide/configuring](http://eslint.org/docs/user-guide/configuring)_.
 
 ```js
-import pluginGitHubAction from 'eslint-plugin-github-action'
-import * as yamlParser from 'yaml-eslint-parser'
+import { createRecommendedConfig } from 'eslint-plugin-github-action'
 
+/**
+ * @type {import('eslint').Linter.Config[]}
+ */
 export default [
-  {
-    files: ['**/.github/workflows/*.y?(a)ml'],
-    ignore: ['!**/.github/workflows/*.y?(a)ml'],
-    languageOptions: {
-      parser: yamlParser,
+  // Create a single config based on the recommended config
+  createRecommendedConfig({
+    // Overrides built-in recommended rules
+    overridesRules: {
+      'github-action/action-name-casing': ['error', 'kebab-case'],
     },
-    plugins: {
-      'github-action': pluginGitHubAction,
-    },
-    rules: {
-      'github-action/require-action-name': 'error',
-    },
-  },
+  }),
 ]
 ```
+
+## Options of `createRecommendedConfig`
+
+### name
+
+The name of the config.
+
+- Type: `string`
+- Required: `false`
+- Default: `github-action/recommended`
+
+### files
+
+The files to be linted.
+
+- Type: `string[]`
+- Required: `false`
+- Default: `['.github/workflows/*.y?(a)ml']`
+
+### ignores
+
+The files to be ignored. negated patterns for force lint.
+
+- Type: `string[]`
+- Required: `false`
+- Default: `['!**/.github/workflows/*.y?(a)ml']`
+
+### overridesRules
+
+Override rules in the `recommended` preset.
+
+- Type: `Record<string, Linter.RuleEntry>`
+- Required: `false`
+- Default: `undefined`

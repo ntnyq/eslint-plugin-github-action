@@ -38,6 +38,8 @@ export default [
 ]
 ```
 
+:apple: For advanced usaged, please check [Advanced Usage](https://eslint-plugin-github-action.ntnyq.com/user-guide/#advanced-usage)
+
 ## Rules
 
 💼 Configurations enabled in.\
