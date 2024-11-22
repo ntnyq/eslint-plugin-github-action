@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/max-jobs-per-action'
 import { $, run } from '../internal'
 
@@ -48,15 +49,23 @@ run({
             steps:
               - uses: actions/checkout@v4
       `,
-      errors: [
-        {
-          messageId: 'toManyJobs',
-          data: {
-            count: 4,
-            limit: 3,
-          },
-        },
-      ],
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 1,
+              "endColumn": 34,
+              "endLine": 19,
+              "line": 1,
+              "message": "There are 4 jobs, maximum allowed is 3.",
+              "messageId": "toManyJobs",
+              "nodeType": "YAMLMapping",
+              "ruleId": "max-jobs-per-action",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
     },
   ],
 })

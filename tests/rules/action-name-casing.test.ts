@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/action-name-casing'
 import { $, run } from '../internal'
 
@@ -27,85 +28,150 @@ run({
       code: $`
         name: unit-test
       `,
-      errors: [
-        {
-          messageId: 'actionNameNotMatch',
-          line: 1,
-          column: 7,
-          data: {
-            name: 'unit-test',
-            caseType: 'Title Case',
-          },
-        },
-      ],
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 7,
+              "endColumn": 16,
+              "endLine": 1,
+              "fix": {
+                "range": [
+                  6,
+                  15,
+                ],
+                "text": "Unit Test",
+              },
+              "line": 1,
+              "message": "Action name 'unit-test' is not in Title Case.",
+              "messageId": "actionNameNotMatch",
+              "nodeType": "YAMLMapping",
+              "ruleId": "action-name-casing",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
     },
     {
       filename: 'snake-case.yml',
       code: $`
         name: unit_test
       `,
-      errors: [
-        {
-          messageId: 'actionNameNotMatch',
-          line: 1,
-          column: 7,
-          data: {
-            name: 'unit_test',
-            caseType: 'Title Case',
-          },
-        },
-      ],
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 7,
+              "endColumn": 16,
+              "endLine": 1,
+              "fix": {
+                "range": [
+                  6,
+                  15,
+                ],
+                "text": "Unit Test",
+              },
+              "line": 1,
+              "message": "Action name 'unit_test' is not in Title Case.",
+              "messageId": "actionNameNotMatch",
+              "nodeType": "YAMLMapping",
+              "ruleId": "action-name-casing",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
     },
     {
       filename: 'camel-case.yml',
       code: $`
         name: unitTest
       `,
-      errors: [
-        {
-          messageId: 'actionNameNotMatch',
-          line: 1,
-          column: 7,
-          data: {
-            name: 'unitTest',
-            caseType: 'Title Case',
-          },
-        },
-      ],
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 7,
+              "endColumn": 15,
+              "endLine": 1,
+              "fix": {
+                "range": [
+                  6,
+                  14,
+                ],
+                "text": "Unit Test",
+              },
+              "line": 1,
+              "message": "Action name 'unitTest' is not in Title Case.",
+              "messageId": "actionNameNotMatch",
+              "nodeType": "YAMLMapping",
+              "ruleId": "action-name-casing",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
     },
     {
       filename: 'pascal-case.yml',
       code: $`
         name: UnitTest
       `,
-      errors: [
-        {
-          messageId: 'actionNameNotMatch',
-          line: 1,
-          column: 7,
-          data: {
-            name: 'UnitTest',
-            caseType: 'Title Case',
-          },
-        },
-      ],
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 7,
+              "endColumn": 15,
+              "endLine": 1,
+              "fix": {
+                "range": [
+                  6,
+                  14,
+                ],
+                "text": "Unit Test",
+              },
+              "line": 1,
+              "message": "Action name 'UnitTest' is not in Title Case.",
+              "messageId": "actionNameNotMatch",
+              "nodeType": "YAMLMapping",
+              "ruleId": "action-name-casing",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
     },
     {
       filename: 'screaming-snake-case.yml',
       code: $`
         name: UNIT_TEST
       `,
-      errors: [
-        {
-          messageId: 'actionNameNotMatch',
-          line: 1,
-          column: 7,
-          data: {
-            name: 'UNIT_TEST',
-            caseType: 'Title Case',
-          },
-        },
-      ],
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 7,
+              "endColumn": 16,
+              "endLine": 1,
+              "fix": {
+                "range": [
+                  6,
+                  15,
+                ],
+                "text": "UNIT TEST",
+              },
+              "line": 1,
+              "message": "Action name 'UNIT_TEST' is not in Title Case.",
+              "messageId": "actionNameNotMatch",
+              "nodeType": "YAMLMapping",
+              "ruleId": "action-name-casing",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
     },
   ],
 })

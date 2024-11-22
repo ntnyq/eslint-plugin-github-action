@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/require-action-name'
 import { $, run } from '../internal'
 
@@ -26,11 +27,23 @@ run({
             branches:
               - main
       `,
-      errors: [
-        {
-          messageId: 'requireActionName',
-        },
-      ],
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 1,
+              "endColumn": 13,
+              "endLine": 4,
+              "line": 1,
+              "message": "Require action name to be set.",
+              "messageId": "requireActionName",
+              "nodeType": "YAMLMapping",
+              "ruleId": "require-action-name",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
     },
     {
       filename: 'empty-name.yml',
@@ -41,11 +54,23 @@ run({
             branches:
               - main
       `,
-      errors: [
-        {
-          messageId: 'requireActionName',
-        },
-      ],
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 1,
+              "endColumn": 13,
+              "endLine": 5,
+              "line": 1,
+              "message": "Require action name to be set.",
+              "messageId": "requireActionName",
+              "nodeType": "YAMLMapping",
+              "ruleId": "require-action-name",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
     },
   ],
 })

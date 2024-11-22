@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/job-id-casing'
 import { $, run } from '../internal'
 
@@ -56,17 +57,23 @@ run({
             steps:
               - uses: actions/checkout@v4
       `,
-      errors: [
-        {
-          messageId: 'jobIdNotMatch',
-          line: 2,
-          column: 3,
-          data: {
-            id: 'unitTest',
-            caseTypes: 'kebab-case',
-          },
-        },
-      ],
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 3,
+              "endColumn": 11,
+              "endLine": 2,
+              "line": 2,
+              "message": "Job id 'unitTest' is not in kebab-case.",
+              "messageId": "jobIdNotMatch",
+              "nodeType": "YAMLMapping",
+              "ruleId": "job-id-casing",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
     },
     {
       filename: 'snake-case.yml',
@@ -77,17 +84,23 @@ run({
             steps:
               - uses: actions/checkout@v4
       `,
-      errors: [
-        {
-          messageId: 'jobIdNotMatch',
-          line: 2,
-          column: 3,
-          data: {
-            id: 'unit_test',
-            caseTypes: 'kebab-case',
-          },
-        },
-      ],
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 3,
+              "endColumn": 12,
+              "endLine": 2,
+              "line": 2,
+              "message": "Job id 'unit_test' is not in kebab-case.",
+              "messageId": "jobIdNotMatch",
+              "nodeType": "YAMLMapping",
+              "ruleId": "job-id-casing",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
     },
     {
       filename: 'pascal-case.yml',
@@ -98,17 +111,23 @@ run({
             steps:
               - uses: actions/checkout@v4
       `,
-      errors: [
-        {
-          messageId: 'jobIdNotMatch',
-          line: 2,
-          column: 3,
-          data: {
-            id: 'UnitTest',
-            caseTypes: 'kebab-case',
-          },
-        },
-      ],
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 3,
+              "endColumn": 11,
+              "endLine": 2,
+              "line": 2,
+              "message": "Job id 'UnitTest' is not in kebab-case.",
+              "messageId": "jobIdNotMatch",
+              "nodeType": "YAMLMapping",
+              "ruleId": "job-id-casing",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
     },
     {
       filename: 'train-case.yml',
@@ -119,17 +138,23 @@ run({
             steps:
               - uses: actions/checkout@v4
       `,
-      errors: [
-        {
-          messageId: 'jobIdNotMatch',
-          line: 2,
-          column: 3,
-          data: {
-            id: 'Unit-Test',
-            caseTypes: 'kebab-case',
-          },
-        },
-      ],
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 3,
+              "endColumn": 12,
+              "endLine": 2,
+              "line": 2,
+              "message": "Job id 'Unit-Test' is not in kebab-case.",
+              "messageId": "jobIdNotMatch",
+              "nodeType": "YAMLMapping",
+              "ruleId": "job-id-casing",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
     },
     {
       filename: 'screaming-snake-case.yml',
@@ -140,17 +165,23 @@ run({
             steps:
               - uses: actions/checkout@v4
       `,
-      errors: [
-        {
-          messageId: 'jobIdNotMatch',
-          line: 2,
-          column: 3,
-          data: {
-            id: 'UNIT_TEST',
-            caseTypes: 'kebab-case',
-          },
-        },
-      ],
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 3,
+              "endColumn": 12,
+              "endLine": 2,
+              "line": 2,
+              "message": "Job id 'UNIT_TEST' is not in kebab-case.",
+              "messageId": "jobIdNotMatch",
+              "nodeType": "YAMLMapping",
+              "ruleId": "job-id-casing",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
     },
   ],
 })
