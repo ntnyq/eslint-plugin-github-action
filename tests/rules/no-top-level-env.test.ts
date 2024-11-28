@@ -31,6 +31,8 @@ run({
     {
       filename: 'top-level-env.yml',
       code: $`
+        name: Release
+        
         env:
           SERVER: production
       `,
@@ -40,8 +42,8 @@ run({
             {
               "column": 1,
               "endColumn": 21,
-              "endLine": 2,
-              "line": 1,
+              "endLine": 4,
+              "line": 3,
               "message": "Disallow using top level env.",
               "messageId": "disallowTopLevelEnv",
               "nodeType": "YAMLMapping",

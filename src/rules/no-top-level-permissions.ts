@@ -23,13 +23,14 @@ export default createESLintRule<Options, MessageIds>({
   create(context) {
     return {
       'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
-        const hasPermissions = node.pairs.some(
+        const nodePermissions = node.pairs.find(
           v => isYAMLScalar(v.key) && v.key.value === 'permissions',
         )
 
-        if (hasPermissions) {
+        if (nodePermissions) {
           context.report({
             node: node as unknown as ASTNode,
+            loc: nodePermissions.loc,
             messageId: 'disallowTopLevelPermissions',
           })
         }

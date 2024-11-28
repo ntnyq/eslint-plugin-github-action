@@ -32,6 +32,8 @@ run({
     {
       filename: 'top-level-permissions.yml',
       code: $`
+        name: Release
+        
         permissions:
           id-token: write
           contents: write
@@ -42,8 +44,8 @@ run({
             {
               "column": 1,
               "endColumn": 18,
-              "endLine": 3,
-              "line": 1,
+              "endLine": 5,
+              "line": 3,
               "message": "Disallow using top level permissions.",
               "messageId": "disallowTopLevelPermissions",
               "nodeType": "YAMLMapping",

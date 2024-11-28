@@ -23,11 +23,12 @@ export default createESLintRule<Options, MessageIds>({
   create(context) {
     return {
       'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
-        const hasEnv = node.pairs.some(v => isYAMLScalar(v.key) && v.key.value === 'env')
+        const nodeEnv = node.pairs.find(v => isYAMLScalar(v.key) && v.key.value === 'env')
 
-        if (hasEnv) {
+        if (nodeEnv) {
           context.report({
             node: node as unknown as ASTNode,
+            loc: nodeEnv.loc,
             messageId: 'disallowTopLevelEnv',
           })
         }
