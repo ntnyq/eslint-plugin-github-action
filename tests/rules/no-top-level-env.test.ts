@@ -1,5 +1,5 @@
 import { expect } from 'vitest'
-import rule, { RULE_NAME } from '../../src/rules/no-top-level-permissions'
+import rule, { RULE_NAME } from '../../src/rules/no-top-level-env'
 import { $, run } from '../internal'
 
 run({
@@ -11,43 +11,41 @@ run({
       code: '',
     },
     {
-      filename: 'no-permissions.yml',
+      filename: 'no-env.yml',
       code: $`
         name: Release
       `,
     },
     {
-      filename: 'non-top-level-permissions.yml',
+      filename: 'non-top-level-env.yml',
       code: $`
         jobs:
           unit-test:
             runs-on: ubuntu-latest
-            permissions:
-              id-token: write
-              contents: write
+            env:
+              SERVER: production
       `,
     },
   ],
   invalid: [
     {
-      filename: 'top-level-permissions.yml',
+      filename: 'top-level-env.yml',
       code: $`
-        permissions:
-          id-token: write
-          contents: write
+        env:
+          SERVER: production
       `,
       errors(errors) {
         expect(errors).toMatchInlineSnapshot(`
           [
             {
               "column": 1,
-              "endColumn": 18,
-              "endLine": 3,
+              "endColumn": 21,
+              "endLine": 2,
               "line": 1,
-              "message": "Disallow using top level permissions.",
-              "messageId": "disallowTopLevelPermissions",
+              "message": "Disallow using top level env.",
+              "messageId": "disallowTopLevelEnv",
               "nodeType": "YAMLMapping",
-              "ruleId": "no-top-level-permissions",
+              "ruleId": "no-top-level-env",
               "severity": 2,
             },
           ]

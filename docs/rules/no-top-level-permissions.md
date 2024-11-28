@@ -22,7 +22,7 @@ name: CI
 jobs:
   unit-test:
     runs-on: ubuntu-latest
-    # No top level permissions
+    # Non top level permissions
     permissions:
       id-token: write
       contents: write

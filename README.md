@@ -52,11 +52,12 @@ export default [
 
 | Name                                                                                                          | Description                               | 💼  | 🔧  | 💡  |
 | :------------------------------------------------------------------------------------------------------------ | :---------------------------------------- | :-: | :-: | :-: |
-| [action-name-casing](https://eslint-plugin-github-action.ntnyq.com/rules/action-name-casing.html)             | enforce naming convention to action name. |     | 🔧  |     |
-| [job-id-casing](https://eslint-plugin-github-action.ntnyq.com/rules/job-id-casing.html)                       | enforce naming convention to job id.      |     |     |     |
-| [max-jobs-per-action](https://eslint-plugin-github-action.ntnyq.com/rules/max-jobs-per-action.html)           | enforce maximum jobs per action file.     |     |     |     |
+| [action-name-casing](https://eslint-plugin-github-action.ntnyq.com/rules/action-name-casing.html)             | Enforce naming convention to action name. |     | 🔧  |     |
+| [job-id-casing](https://eslint-plugin-github-action.ntnyq.com/rules/job-id-casing.html)                       | Enforce naming convention to job id.      |     |     |     |
+| [max-jobs-per-action](https://eslint-plugin-github-action.ntnyq.com/rules/max-jobs-per-action.html)           | Enforce maximum jobs per action file.     |     |     |     |
+| [no-top-level-env](https://eslint-plugin-github-action.ntnyq.com/rules/no-top-level-env.html)                 | Disallow using top level env.             |     |     |     |
 | [no-top-level-permissions](https://eslint-plugin-github-action.ntnyq.com/rules/no-top-level-permissions.html) | Disallow using top level permissions.     |     |     |     |
-| [require-action-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-name.html)           | require action name to be set.            | ✅  |     |     |
+| [require-action-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-name.html)           | Require action name to be set.            | ✅  |     |     |
 
 ## Links
 

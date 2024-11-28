@@ -2,8 +2,8 @@ import { createESLintRule, isYAMLScalar } from '../utils'
 import type { ASTNode } from '../types'
 import type { YAMLAst } from '../types/yaml'
 
-export const RULE_NAME = 'no-top-level-permissions'
-export type MessageIds = 'disallowTopLevelPermissions'
+export const RULE_NAME = 'no-top-level-env'
+export type MessageIds = 'disallowTopLevelEnv'
 export type Options = []
 
 export default createESLintRule<Options, MessageIds>({
@@ -12,25 +12,23 @@ export default createESLintRule<Options, MessageIds>({
     type: 'suggestion',
     docs: {
       recommended: false,
-      description: 'disallow using top level permissions.',
+      description: 'disallow using top level env.',
     },
     schema: [],
     messages: {
-      disallowTopLevelPermissions: 'Disallow using top level permissions.',
+      disallowTopLevelEnv: 'Disallow using top level env.',
     },
   },
   defaultOptions: [],
   create(context) {
     return {
       'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
-        const hasPermissions = node.pairs.some(
-          v => isYAMLScalar(v.key) && v.key.value === 'permissions',
-        )
+        const hasEnv = node.pairs.some(v => isYAMLScalar(v.key) && v.key.value === 'env')
 
-        if (hasPermissions) {
+        if (hasEnv) {
           context.report({
             node: node as unknown as ASTNode,
-            messageId: 'disallowTopLevelPermissions',
+            messageId: 'disallowTopLevelEnv',
           })
         }
       },

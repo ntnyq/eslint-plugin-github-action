@@ -11,8 +11,9 @@ sidebarDepth: 0
 
 | Name                                                        | Description                               | 💼  | 🔧  | 💡  |
 | :---------------------------------------------------------- | :---------------------------------------- | :-: | :-: | :-: |
-| [action-name-casing](./action-name-casing.html)             | enforce naming convention to action name. |     | 🔧  |     |
-| [job-id-casing](./job-id-casing.html)                       | enforce naming convention to job id.      |     |     |     |
-| [max-jobs-per-action](./max-jobs-per-action.html)           | enforce maximum jobs per action file.     |     |     |     |
+| [action-name-casing](./action-name-casing.html)             | Enforce naming convention to action name. |     | 🔧  |     |
+| [job-id-casing](./job-id-casing.html)                       | Enforce naming convention to job id.      |     |     |     |
+| [max-jobs-per-action](./max-jobs-per-action.html)           | Enforce maximum jobs per action file.     |     |     |     |
+| [no-top-level-env](./no-top-level-env.html)                 | Disallow using top level env.             |     |     |     |
 | [no-top-level-permissions](./no-top-level-permissions.html) | Disallow using top level permissions.     |     |     |     |
-| [require-action-name](./require-action-name.html)           | require action name to be set.            | ✅  |     |     |
+| [require-action-name](./require-action-name.html)           | Require action name to be set.            | ✅  |     |     |
