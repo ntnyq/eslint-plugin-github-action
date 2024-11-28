@@ -23,6 +23,16 @@ export default createESLintRule<Options, MessageIds>({
   defaultOptions: [],
   create(context) {
     return {
+      YAMLDocument(node: YAMLAst.YAMLDocument) {
+        if (node.content) return
+
+        // Empty file
+        context.report({
+          node: node as unknown as ASTNode,
+          messageId: 'requireActionName',
+        })
+      },
+
       'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
         const hasName = node.pairs.some(v => {
           if (isYAMLScalar(v.key) && isYAMLScalar(v.value)) {

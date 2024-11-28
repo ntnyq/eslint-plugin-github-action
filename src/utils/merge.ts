@@ -15,8 +15,8 @@ export function isObjectNotArray(obj: unknown): obj is ObjectLike {
 /**
  * Pure function - doesn't mutate either parameter!
  * Merges two objects together deeply, overwriting the properties in first with the properties in second
- * @param first The first object
- * @param second The second object
+ * @param first - The first object
+ * @param second - The second object
  * @returns a new object
  */
 export function deepMerge(

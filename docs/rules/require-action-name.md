@@ -29,6 +29,11 @@ on:
 
 ### Bad
 
+### empty file
+
+```yaml
+```
+
 ### without `name`
 
 ```yaml

@@ -20,6 +20,27 @@ run({
   ],
   invalid: [
     {
+      filename: 'empty.yml',
+      code: '',
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 1,
+              "endColumn": 1,
+              "endLine": 1,
+              "line": 1,
+              "message": "Require action name to be set.",
+              "messageId": "requireActionName",
+              "nodeType": "YAMLDocument",
+              "ruleId": "require-action-name",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
+    },
+    {
       filename: 'no-name.yml',
       code: $`
         on:
