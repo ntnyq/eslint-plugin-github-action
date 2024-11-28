@@ -14,12 +14,14 @@
     "skipLibCheck": true
   },
   "include": [
-    "typings/**/*.d.ts",
-    "src/**/*.ts",
-    "docs/**/*/ts",
-    "docs/.vitepress/**/*.ts",
-    "scripts/**/*.ts",
-    "tests/**/*.ts",
+    "./src/**/*.ts",
+    "./docs/**/*/ts",
+    "./docs/.vitepress/**/*.ts",
+    "./docs/.vitepress/**/*.vue",
+    "./docs/**/*.d.ts",
+    "./typings/**/*.d.ts",
+    "./scripts/**/*.ts",
+    "./tests/**/*.ts",
     "*.config.ts",
     "eslint.config.mjs"
   ],

@@ -14,7 +14,7 @@ since: v0.0.3
 
 This rule enforces the consistent case usage of job ids.
 
-### Good
+::: correct
 
 ```yaml
 jobs:
@@ -24,7 +24,9 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
-### Bad
+:::
+
+::: incorrect
 
 ```yaml
 # camelCase
@@ -35,6 +37,10 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
+:::
+
+::: incorrect
+
 ```yaml
 # snake_case
 jobs:
@@ -43,6 +49,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 ```
+
+:::
+
+::: incorrect
 
 ```yaml
 # PascalCase
@@ -53,6 +63,10 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
+:::
+
+::: incorrect
+
 ```yaml
 # Train-Case
 jobs:
@@ -62,6 +76,10 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
+:::
+
+::: incorrect
+
 ```yaml
 # SCREAMING_SNAKE_CASE
 jobs:
@@ -70,6 +88,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 ```
+
+:::
 
 ## :wrench: Options
 
@@ -99,7 +119,9 @@ type JobIdCasingOptions = [
 
 ### `"kebab-case"` (default)
 
-#### Good
+Examples of **correct** code for this rule with default option:
+
+::: correct
 
 ```yaml
 jobs:
@@ -109,7 +131,11 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
-#### Bad
+:::
+
+Examples of **incorrect** code for this rule with default option:
+
+::: incorrect
 
 ```yaml
 # camelCase
@@ -119,6 +145,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 ```
+
+:::
+
+::: incorrect
 
 ```yaml
 # snake_case
@@ -129,6 +159,10 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
+:::
+
+::: incorrect
+
 ```yaml
 # PascalCase
 jobs:
@@ -137,6 +171,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 ```
+
+:::
+
+::: incorrect
 
 ```yaml
 # Train-Case
@@ -147,6 +185,10 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
+:::
+
+::: incorrect
+
 ```yaml
 # SCREAMING_SNAKE_CASE
 jobs:
@@ -156,9 +198,13 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
+:::
+
 ### `"snake_case"`
 
-#### Good
+Examples of **correct** code for this rule with `"snake_case"` option:
+
+::: correct
 
 ```yaml
 jobs:
@@ -168,7 +214,11 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
-#### Bad
+:::
+
+Examples of **incorrect** code for this rule with `"snake_case"` option:
+
+::: incorrect
 
 ```yaml
 # camelCase
@@ -179,6 +229,10 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
+:::
+
+::: incorrect
+
 ```yaml
 # kebab-case
 jobs:
@@ -187,6 +241,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 ```
+
+:::
+
+::: incorrect
 
 ```yaml
 # PascalCase
@@ -197,6 +255,10 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
+:::
+
+::: incorrect
+
 ```yaml
 # Train-Case
 jobs:
@@ -206,6 +268,10 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
+:::
+
+::: incorrect
+
 ```yaml
 # SCREAMING_SNAKE_CASE
 jobs:
@@ -214,6 +280,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 ```
+
+:::
 
 ## :rocket: Version
 

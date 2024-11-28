@@ -16,43 +16,67 @@ since: v0.0.2
 
 This rule enforces the consistent case usage of action names.
 
-### Good
+::: correct
 
 ```yaml
 name: Unit Test
 ```
 
-### Bad
+:::
+
+::: incorrect
 
 ```yaml
 # camelCase
 name: unitTest
 ```
 
+:::
+
+::: incorrect
+
 ```yaml
 # kebab-case
 name: unit-test
 ```
+
+:::
+
+::: incorrect
 
 ```yaml
 # PascalCase
 name: UnitTest
 ```
 
+:::
+
+::: incorrect
+
 ```yaml
 # snake_case
 name: unit_test
 ```
+
+:::
+
+::: incorrect
 
 ```yaml
 # Train-Case
 name: Unit-Test
 ```
 
+:::
+
+::: incorrect
+
 ```yaml
 # SCREAMING_SNAKE_CASE
 name: UNIT_TEST
 ```
+
+:::
 
 ## :wrench: Options
 
@@ -75,83 +99,139 @@ type ActionNameCasingOptions = [
 
 ### `"Title Case"` (default)
 
-#### Good
+Examples of **correct** code for this rule with default option:
+
+::: correct
 
 ```yaml
 name: Unit Test
 ```
 
-#### Bad
+Examples of **incorrect** code for this rule with default option:
+
+:::
+
+::: incorrect
 
 ```yaml
 # camelCase
 name: unitTest
 ```
+
+:::
+
+::: incorrect
 
 ```yaml
 # kebab-case
 name: unit-test
 ```
 
+:::
+
+::: incorrect
+
 ```yaml
 # PascalCase
 name: UnitTest
 ```
+
+:::
+
+::: incorrect
 
 ```yaml
 # snake_case
 name: unit_test
 ```
 
+:::
+
+::: incorrect
+
 ```yaml
 # Train-Case
 name: Unit-Test
 ```
+
+:::
+
+::: incorrect
 
 ```yaml
 # SCREAMING_SNAKE_CASE
 name: UNIT_TEST
 ```
 
+:::
+
 ### `"kebab-case"`
 
-#### Good
+Examples of **correct** code for this rule with `"kebab-case"` option:
+
+::: correct
 
 ```yaml
 name: unit-test
 ```
 
-#### Bad
+Examples of **incorrect** code for this rule with `"kebab-case"` option:
+
+:::
+
+::: incorrect
 
 ```yaml
 # camelCase
 name: unitTest
 ```
 
+:::
+
+::: incorrect
+
 ```yaml
 # PascalCase
 name: UnitTest
 ```
+
+:::
+
+::: incorrect
 
 ```yaml
 # snake_case
 name: unit_test
 ```
 
+:::
+
+::: incorrect
+
 ```yaml
 # Title Case
 name: unit-test
 ```
+
+:::
+
+::: incorrect
 
 ```yaml
 # Train-Case
 name: Unit-Test
 ```
 
+:::
+
+::: incorrect
+
 ```yaml
 # SCREAMING_SNAKE_CASE
 name: UNIT_TEST
 ```
+
+:::
 
 ## :rocket: Version
 

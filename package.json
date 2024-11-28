@@ -41,6 +41,7 @@
   "scripts": {
     "build": "tsup",
     "coverage": "vitest --coverage",
+    "deploy": "run-s build docs:build",
     "dev": "tsup --watch src",
     "docs:build": "pnpm -C docs run build",
     "docs:dev": "pnpm -C docs run dev",
@@ -59,7 +60,7 @@
   "dependencies": {
     "@ntnyq/utils": "^0.3.1",
     "@typescript-eslint/utils": "^8.16.0",
-    "yaml-eslint-parser": "^1.2.3"
+    "yaml-eslint-parser": "catalog:"
   },
   "devDependencies": {
     "@ntnyq/eslint-config": "^3.6.0",

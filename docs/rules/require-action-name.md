@@ -16,7 +16,7 @@ since: v0.0.0
 
 This rule reports when action has no name.
 
-### Good
+::: correct
 
 ```yaml
 name: CI
@@ -27,25 +27,32 @@ on:
       - main
 ```
 
-### Bad
+:::
 
-### empty file
+::: incorrect
 
 ```yaml
+# empty file
 ```
 
-### without `name`
+:::
+
+::: incorrect
 
 ```yaml
+# no name
 on:
   push:
     branches:
       - main
 ```
 
-### empty `name`
+:::
+
+::: incorrect
 
 ```yaml
+# name is empty
 name:
 
 on:
@@ -53,6 +60,8 @@ on:
     branches:
       - main
 ```
+
+:::
 
 ## :wrench: Options
 

@@ -1,3 +1,5 @@
+catalog:
+  yaml-eslint-parser: ^1.2.3
 packages:
   - .
   - docs

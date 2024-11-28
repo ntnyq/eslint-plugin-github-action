@@ -14,7 +14,7 @@ since: v0.0.4
 
 This rule reports when action has a top level `permissions` property.
 
-### Good
+::: correct
 
 ```yaml
 name: CI
@@ -28,7 +28,9 @@ jobs:
       contents: write
 ```
 
-### Bad
+:::
+
+::: incorrect
 
 ```yaml
 name: CI
@@ -37,6 +39,8 @@ permissions:
   id-token: write
   contents: write
 ```
+
+:::
 
 ## :wrench: Options
 

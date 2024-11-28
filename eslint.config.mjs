@@ -4,6 +4,11 @@ import pluginESLintPlugin from 'eslint-plugin-eslint-plugin'
 export default defineESLintConfig(
   {
     ignores: ['**/tests/fixtures'],
+    yml: {
+      overrides: {
+        'yml/no-empty-document': 'off',
+      },
+    },
   },
   {
     ...pluginESLintPlugin.configs['flat/all'],

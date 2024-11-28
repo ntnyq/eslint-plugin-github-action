@@ -1,6 +1,19 @@
 import './app.css'
+import '@shikijs/vitepress-twoslash/style.css'
 import 'uno.css'
 import 'virtual:group-icons.css'
-import theme from 'vitepress/theme'
+import TwoSlash from '@shikijs/vitepress-twoslash/client'
+import DefaultTheme from 'vitepress/theme'
+import { h } from 'vue'
+import CustomWrapper from '../components/CustomWrapper.vue'
+import CustomLayout from './CustomLayout.vue'
+import type { Theme } from 'vitepress'
 
-export default theme
+export default {
+  extends: DefaultTheme,
+  Layout: () => h(CustomLayout),
+  enhanceApp({ app }) {
+    app.use(TwoSlash)
+    app.component('CustomWrapper', CustomWrapper)
+  },
+} satisfies Theme

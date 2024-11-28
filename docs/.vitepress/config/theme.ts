@@ -1,6 +1,13 @@
 import { globSync } from 'tinyglobby'
+import { version } from '../../../package.json'
 import { resolve } from '../../../scripts/utils'
+import { appTitle } from '../meta'
 import type { DefaultTheme } from 'vitepress'
+
+const VERSIONS: DefaultTheme.NavItemWithLink[] = [
+  { text: `v${version} (current)`, link: '/' },
+  { text: `Release Notes`, link: `https://github.com/ntnyq/${appTitle}/releases` },
+]
 
 function ruleToSidebarItem(ruleId: string): DefaultTheme.SidebarItem {
   return {
@@ -27,18 +34,22 @@ export function getThemeConfig() {
     },
 
     editLink: {
-      pattern: 'https://github.com/ntnyq/eslint-plugin-github-action/edit/main/docs/:path',
+      text: 'Suggest changes to this page',
+      pattern: `https://github.com/ntnyq/${appTitle}/edit/main/docs/:path`,
     },
 
-    socialLinks: [{ icon: 'github', link: 'https://github.com/ntnyq/eslint-plugin-github-action' }],
+    socialLinks: [
+      { icon: 'x', link: `https://twitter.com/ntnyq` },
+      { icon: 'github', link: `https://github.com/ntnyq/${appTitle}` },
+    ],
 
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/' },
       { text: 'Rules', link: '/rules/' },
       {
-        text: 'Changelog',
-        link: 'https://github.com/ntnyq/eslint-plugin-github-action/releases',
+        text: `v${version}`,
+        items: VERSIONS,
       },
     ],
 
@@ -65,10 +76,6 @@ export function getThemeConfig() {
             { text: 'Home', link: '/' },
             { text: 'Guide', link: '/guide/' },
             { text: 'Rules', link: '/rules/' },
-            {
-              text: 'Changelog',
-              link: 'https://github.com/ntnyq/eslint-plugin-github-action/releases',
-            },
           ],
         },
       ],

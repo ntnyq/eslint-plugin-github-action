@@ -24,10 +24,13 @@
     "bumpp",
     "changelogithub",
     "codecov",
+    "iconify",
     "lcov",
     "pnpm",
+    "shikijs",
     "tses",
     "tsup",
+    "unplugin",
     "vite",
     "vitepress",
     "vitest"

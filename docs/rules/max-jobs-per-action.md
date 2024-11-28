@@ -12,9 +12,9 @@ since: v0.0.2
 
 ## :book: Rule Details
 
-This rule reports when action jobs exceed limit.
+This rule reports when action jobs count exceed limit.
 
-### Good
+::: correct
 
 ```yaml
 name: CI
@@ -26,7 +26,9 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
-### Bad
+:::
+
+::: incorrect
 
 ```yaml
 name: CI
@@ -50,9 +52,11 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
+:::
+
 ## :wrench: Options
 
-Default casing is set to `3`.
+Default limit is set to `3`.
 
 ```ts
 type MaxJobsPerActionOptions = ['error' | 'warn' | 'off' | 2 | 1 | 0, number]
@@ -60,7 +64,9 @@ type MaxJobsPerActionOptions = ['error' | 'warn' | 'off' | 2 | 1 | 0, number]
 
 ### `3` (default)
 
-#### Good
+Examples of **correct** code for this rule with default option:
+
+::: correct
 
 ```yaml
 name: CI
@@ -72,7 +78,11 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
-#### Bad
+:::
+
+Examples of **incorrect** code for this rule with default option:
+
+::: incorrect
 
 ```yaml
 name: CI
@@ -96,9 +106,13 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
+:::
+
 ### `1`
 
-#### Good
+Examples of **correct** code for this rule with `1` option:
+
+::: correct
 
 ```yaml
 name: CI
@@ -110,7 +124,11 @@ jobs:
       - uses: actions/checkout@v4
 ```
 
-#### Bad
+:::
+
+Examples of **incorrect** code for this rule with `1` option:
+
+::: incorrect
 
 ```yaml
 name: CI
@@ -125,6 +143,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 ```
+
+:::
 
 ## :rocket: Version
 
