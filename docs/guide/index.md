@@ -2,29 +2,27 @@
 
 ## Install
 
-**npm**:
+::: code-group
 
-```bash
+```bash [npm]
 npm i eslint-plugin-github-action -D
 ```
 
-**yarn**
-
-```bash
+```bash [yarn]
 yarn add eslint-plugin-github-action -D
 ```
 
-**pnpm**
-
-```bash
+```bash [pnpm]
 pnpm add eslint-plugin-github-action -D
 ```
 
+:::
+
 ## Basic Usage
 
-Config in `eslint.config.mjs`
+Highly recommended to use `eslint.config.mjs` as config file.
 
-```js
+```js [eslint.config.mjs]
 import pluginGitHubAction from 'eslint-plugin-github-action'
 
 /**
@@ -46,7 +44,7 @@ Override/add specific rules configurations.
 
 _See also: [http://eslint.org/docs/user-guide/configuring](http://eslint.org/docs/user-guide/configuring)_.
 
-```js
+```js [eslint.config.mjs]
 import { createRecommendedConfig } from 'eslint-plugin-github-action'
 
 /**

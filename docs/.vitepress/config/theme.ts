@@ -34,7 +34,7 @@ export function getThemeConfig() {
 
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'User Guide', link: '/user-guide/' },
+      { text: 'Guide', link: '/guide/' },
       { text: 'Rules', link: '/rules/' },
       {
         text: 'Changelog',
@@ -63,7 +63,7 @@ export function getThemeConfig() {
           text: 'Guide',
           items: [
             { text: 'Home', link: '/' },
-            { text: 'User Guide', link: '/user-guide/' },
+            { text: 'Guide', link: '/guide/' },
             { text: 'Rules', link: '/rules/' },
             {
               text: 'Changelog',

@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /user-guide/
+      link: /guide/
 ---
 
 [eslint-plugin-github-action](https://www.npmjs.com/package/eslint-plugin-github-action) is an ESLint plugin that provide rules for consistent, readable and valid GitHub action files.
@@ -29,7 +29,7 @@ hero:
 
 ## :book: Usage
 
-See [User Guide](./user-guide/index.md).
+See [Guide](./guide/index.md).
 
 ## :white_check_mark: Rules
 
