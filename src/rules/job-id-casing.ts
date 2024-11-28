@@ -1,5 +1,6 @@
 import { isNonEmptyString, isString } from '@ntnyq/utils'
-import { CASING, createESLintRule, getExactConverter, isYAMLMapping, isYAMLScalar } from '../utils'
+import { CASING, createESLintRule, getExactConverter, isYAMLScalar } from '../utils'
+import { getNodeJobsMapping } from '../utils/action'
 import type { ASTNode } from '../types'
 import type { YAMLAst } from '../types/yaml'
 import type { CasingKind } from '../utils'
@@ -121,15 +122,11 @@ export default createESLintRule<Options, MessageIds>({
 
     return {
       'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
-        const jobsPair = node.pairs.find(v => isYAMLScalar(v.key) && v.key.value === 'jobs')
+        const jobsMapping = getNodeJobsMapping(node)
 
-        // action has no jobs
-        if (!jobsPair) return
+        if (!jobsMapping) return
 
-        // jobs is not a mapping
-        if (!isYAMLMapping(jobsPair.value)) return
-
-        for (const job of jobsPair.value.pairs) {
+        for (const job of jobsMapping.pairs) {
           if (isYAMLScalar(job.key) && isNonEmptyString(job.key.value)) {
             const id = job.key.value
 

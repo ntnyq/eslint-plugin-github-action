@@ -17,3 +17,4 @@ sidebarDepth: 0
 | [no-top-level-env](./no-top-level-env.html)                 | Disallow using top level env.             |     |     |     |
 | [no-top-level-permissions](./no-top-level-permissions.html) | Disallow using top level permissions.     |     |     |     |
 | [require-action-name](./require-action-name.html)           | Require action name to be set.            | ✅  |     |     |
+| [require-job-name](./require-job-name.html)                 | Require job name to be set.               |     |     |     |
