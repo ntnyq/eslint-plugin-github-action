@@ -46,6 +46,63 @@ run({
               - uses: actions/checkout@v4
       `,
     },
+    {
+      filename: 'snake-case.yml',
+      code: $`
+        jobs:
+          unit_test:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v4
+      `,
+      options: ['snake_case'],
+    },
+    {
+      filename: 'multi-case.yml',
+      code: $`
+        jobs:
+          unitTest:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v4
+          UnitTest:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v4
+      `,
+      options: [
+        {
+          camelCase: true,
+          PascalCase: true,
+        },
+      ],
+    },
+    {
+      filename: 'empty-object-options.yml',
+      code: $`
+        jobs:
+          unit-test:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v4
+      `,
+      options: [{}],
+    },
+    {
+      filename: 'empty-object-options.yml',
+      code: $`
+        jobs:
+          UnitTest:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v4
+      `,
+      options: [
+        {
+          ignores: ['UnitTest'],
+        },
+      ],
+    },
   ],
   invalid: [
     {

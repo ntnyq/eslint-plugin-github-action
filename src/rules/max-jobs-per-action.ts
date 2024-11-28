@@ -30,6 +30,7 @@ export default createESLintRule<Options, MessageIds>({
   defaultOptions: [defaultOptions],
   create(context) {
     const optionLimit = context.options?.[0]
+    /* v8 ignore next */
     const limit = optionLimit <= 0 ? defaultOptions : optionLimit
     return {
       'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {

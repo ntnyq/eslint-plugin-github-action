@@ -110,14 +110,19 @@ export default createESLintRule<Options, MessageIds>({
           .filter((key): key is AllowedCasing => allowedCaseOptions.includes(key as AllowedCasing))
           .filter(key => rawOptions[key]),
       )
+
+      // Object options is empty, use defaultOptions
+      if (caseTypes.length === 0) {
+        caseTypes.push(defaultOptions)
+      }
     }
     const converters = caseTypes.map(caseType => getExactConverter(caseType))
 
     function isJobIdValid(id: string) {
       if (ignores.some(regex => regex.test(id))) return true
 
-      // Every converter can NOT change job id
-      return converters.every(converter => !converter(id).changed)
+      // Some converter can NOT change job id
+      return converters.some(converter => !converter(id).changed)
     }
 
     return {

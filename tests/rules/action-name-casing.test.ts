@@ -21,6 +21,26 @@ run({
         name: Unit Test
       `,
     },
+    {
+      filename: 'invalid-option.yml',
+      code: $`
+        name: Unit Test
+      `,
+    },
+    {
+      filename: 'kebab-case.yml',
+      code: $`
+        name: unit-test
+      `,
+      options: ['kebab-case'],
+    },
+    {
+      filename: 'snake-case.yml',
+      code: $`
+        name: unit_test
+      `,
+      options: ['snake_case'],
+    },
   ],
   invalid: [
     {

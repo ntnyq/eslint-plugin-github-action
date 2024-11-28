@@ -24,6 +24,39 @@ run({
               - uses: actions/checkout@v4
       `,
     },
+    {
+      filename: 'jobs-is-not-mapping.yml',
+      code: $`
+        name: CI
+        
+        jobs: helloWorld
+      `,
+    },
+    {
+      filename: 'limit-4-jobs.yml',
+      code: $`
+        name: CI
+        
+        jobs:
+          job1:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v4
+          job2:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v4
+          job3:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v4
+          job4:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v4
+      `,
+      options: [4],
+    },
   ],
   invalid: [
     {
