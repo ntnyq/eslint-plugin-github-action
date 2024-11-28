@@ -11,6 +11,7 @@ import {
   isYAMLComment,
   isYAMLMapping,
   isYAMLScalar,
+  isYAMLSequence,
 } from '../../src/utils/ast'
 
 describe('isYAMLScalar', () => {
@@ -28,6 +29,12 @@ describe('isYAMLComment', () => {
 describe('isYAMLMapping', () => {
   it('should return false for null', () => {
     expect(isYAMLMapping(null)).toBeFalsy()
+  })
+})
+
+describe('isYAMLSequence', () => {
+  it('should return false for null', () => {
+    expect(isYAMLSequence(null)).toBeFalsy()
   })
 })
 

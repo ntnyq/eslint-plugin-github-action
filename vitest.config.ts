@@ -9,8 +9,15 @@ export default defineConfig({
   test: {
     reporters: ['dot'],
     coverage: {
+      thresholds: {
+        functions: 90,
+        lines: 90,
+        statements: 90,
+        branches: 75,
+        perFile: false,
+      },
       include: ['**/src/**/*.ts'],
-      reporter: ['lcov', 'text', 'json'],
+      reporter: ['lcov', 'text'],
     },
   },
 })

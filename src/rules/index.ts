@@ -5,6 +5,7 @@ import noTopLevelEnv from './no-top-level-env'
 import noTopLevelPermissions from './no-top-level-permissions'
 import requireActionName from './require-action-name'
 import requireJobName from './require-job-name'
+import requireJobStepName from './require-job-step-name'
 
 export const rules = {
   'action-name-casing': actionNameCasing,
@@ -14,4 +15,5 @@ export const rules = {
   'no-top-level-permissions': noTopLevelPermissions,
   'require-action-name': requireActionName,
   'require-job-name': requireJobName,
+  'require-job-step-name': requireJobStepName,
 }

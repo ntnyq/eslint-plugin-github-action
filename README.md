@@ -59,6 +59,7 @@ export default [
 | [no-top-level-permissions](https://eslint-plugin-github-action.ntnyq.com/rules/no-top-level-permissions.html) | Disallow using top level permissions.     |     |     |     |
 | [require-action-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-name.html)           | Require action name to be set.            | ✅  |     |     |
 | [require-job-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-job-name.html)                 | Require job name to be set.               |     |     |     |
+| [require-job-step-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-job-step-name.html)       | Require job step name to be set.          |     |     |     |
 
 ## Links
 

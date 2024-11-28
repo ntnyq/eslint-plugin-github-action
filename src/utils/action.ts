@@ -2,7 +2,7 @@
  * @file utils for GitHub action
  */
 
-import { isYAMLMapping, isYAMLScalar } from './ast'
+import { isYAMLMapping, isYAMLScalar, isYAMLSequence } from './ast'
 import type { YAMLAst } from '../types/yaml'
 
 /**
@@ -21,4 +21,25 @@ export function getNodeJobsMapping(node: YAMLAst.YAMLMapping) {
   if (!isYAMLMapping(jobsPair.value)) return
 
   return jobsPair.value
+}
+
+/**
+ * Get `steps` sequence node from given job node.
+ *
+ * @param node - job node of `jobs` sequence
+ * @returns - `steps` sequence node or `undefined`
+ */
+export function getNodeStepsSequence(node: YAMLAst.YAMLPair) {
+  // job is not a mapping
+  if (!isYAMLMapping(node.value)) return
+
+  const stepsPair = node.value.pairs.find(v => isYAMLScalar(v.key) && v.key.value === 'steps')
+
+  // job has no steps
+  if (!stepsPair) return
+
+  // steps is not a sequence
+  if (!isYAMLSequence(stepsPair.value)) return
+
+  return stepsPair.value
 }

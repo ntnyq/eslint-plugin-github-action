@@ -30,6 +30,17 @@ export function isYAMLMapping(
 }
 
 /**
+ * Checks if the given value is a YAMLSequence.
+ * @param value - The value to check.
+ * @returns Whether the given value is a YAMLSequence.
+ */
+export function isYAMLSequence(
+  value: YAMLAst.YAMLContent | YAMLAst.YAMLWithMeta | null,
+): value is YAMLAst.YAMLSequence {
+  return value?.type === 'YAMLSequence'
+}
+
+/**
  * Checks if the given value is a YAMLComment.
  * @param token - The value to check.
  * @returns Whether the given value is a YAMLComment.

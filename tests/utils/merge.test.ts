@@ -2,48 +2,74 @@ import { describe, expect, it } from 'vitest'
 import { deepMerge, isObjectNotArray } from '../../src/utils/merge'
 
 describe('deepMerge', () => {
+  const OBJECT_DEEP = {
+    a: 1,
+    b: {
+      c: 2,
+      d: 3,
+    },
+  }
+  const OBJECT_SHALLOW = {
+    b: {
+      c: 3,
+      e: 4,
+    },
+    f: 5,
+  }
+  const OBJECT_ARRAY = {
+    b: [3, 4, 5],
+    c: 2,
+  }
   it('should merge two objects', () => {
-    const obj1 = {
-      a: 1,
-      b: {
-        c: 2,
-        d: 3,
-      },
-    }
-    const obj2 = {
-      b: {
-        c: 3,
-        e: 4,
-      },
-      f: 5,
-    }
-    const result = deepMerge(obj1, obj2)
-    expect(result).toEqual({
-      a: 1,
-      b: {
-        c: 3,
-        d: 3,
-        e: 4,
-      },
-      f: 5,
-    })
+    expect(deepMerge(OBJECT_DEEP, OBJECT_SHALLOW)).toMatchInlineSnapshot(`
+      {
+        "a": 1,
+        "b": {
+          "c": 3,
+          "d": 3,
+          "e": 4,
+        },
+        "f": 5,
+      }
+    `)
   })
 
   it('should merge object with array', () => {
-    const obj1 = {
-      a: 1,
-      b: [1, 2, 3],
-    }
-    const obj2 = {
-      b: [3, 4, 5],
-      c: 2,
-    }
-    const result = deepMerge(obj1, obj2)
-    expect(result).toEqual({
-      a: 1,
-      b: [3, 4, 5],
-      c: 2,
-    })
+    expect(deepMerge(OBJECT_DEEP, OBJECT_ARRAY)).toMatchInlineSnapshot(`
+      {
+        "a": 1,
+        "b": [
+          3,
+          4,
+          5,
+        ],
+        "c": 2,
+      }
+    `)
+  })
+
+  it('should merge with first empty', () => {
+    expect(deepMerge({}, OBJECT_SHALLOW)).toMatchInlineSnapshot(`
+      {
+        "b": {
+          "c": 3,
+          "e": 4,
+        },
+        "f": 5,
+      }
+    `)
+  })
+
+  it('should merge with second empty', () => {
+    expect(deepMerge(OBJECT_DEEP, {})).toMatchInlineSnapshot(`
+      {
+        "a": 1,
+        "b": {
+          "c": 2,
+          "d": 3,
+        },
+      }
+    `)
   })
 })
 

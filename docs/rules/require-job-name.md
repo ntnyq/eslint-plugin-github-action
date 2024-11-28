@@ -57,6 +57,35 @@ jobs:
 ::: incorrect
 
 ```yaml
+# job name is empty
+name: Release
+
+jobs:
+  test:
+    name:
+    runs-on: ubuntu-latest
+```
+
+:::
+
+::: incorrect
+
+```yaml
+# job name is not a string
+name: Release
+
+jobs:
+  test:
+    name:
+      - Test
+    runs-on: ubuntu-latest
+```
+
+:::
+
+::: incorrect
+
+```yaml
 # one or more job has no name
 name: Release
 
