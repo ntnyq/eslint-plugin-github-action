@@ -31,7 +31,7 @@ jobs:
 
 ::: incorrect
 
-```yaml
+```yaml eslint-check
 name: CI
 
 env:

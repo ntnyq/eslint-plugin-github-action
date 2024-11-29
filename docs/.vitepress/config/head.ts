@@ -1,4 +1,4 @@
-import { appTitle, appUrl } from '../meta'
+import { appDescription, appTitle, appUrl } from '../meta'
 import type { HeadConfig } from 'vitepress'
 
 export const head: HeadConfig[] = [
@@ -8,4 +8,7 @@ export const head: HeadConfig[] = [
   ['meta', { property: 'og:type', content: 'website' }],
   ['meta', { property: 'og:title', content: appTitle }],
   ['meta', { property: 'og:url', content: appUrl }],
+  ['meta', { property: 'og:description', content: appDescription }],
+  // ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+  // ['meta', { name: 'twitter:image', content: `${appUrl}/og.png` }],
 ]

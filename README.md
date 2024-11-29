@@ -58,6 +58,7 @@ export default [
 | [no-external-job](https://eslint-plugin-github-action.ntnyq.com/rules/no-external-job.html)                   | Disallow using external job.              |     |     |     |
 | [no-top-level-env](https://eslint-plugin-github-action.ntnyq.com/rules/no-top-level-env.html)                 | Disallow using top level env.             |     |     |     |
 | [no-top-level-permissions](https://eslint-plugin-github-action.ntnyq.com/rules/no-top-level-permissions.html) | Disallow using top level permissions.     |     |     |     |
+| [prefer-job-step-uses](https://eslint-plugin-github-action.ntnyq.com/rules/prefer-job-step-uses.html)         | Enforce the style of job step uses.       |     |     |     |
 | [require-action-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-name.html)           | Require action name to be set.            | ✅  |     |     |
 | [require-job-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-job-name.html)                 | Require job name to be set.               |     |     |     |
 | [require-job-step-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-job-step-name.html)       | Require job step name to be set.          |     |     |     |

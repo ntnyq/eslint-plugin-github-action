@@ -22,7 +22,7 @@ pnpm add eslint-plugin-github-action -D
 
 Highly recommended to use `eslint.config.mjs` as config file.
 
-```js [eslint.config.mjs]
+```ts [eslint.config.mjs] twoslash
 import pluginGitHubAction from 'eslint-plugin-github-action'
 
 /**

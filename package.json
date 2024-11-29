@@ -2,7 +2,7 @@
   "name": "eslint-plugin-github-action",
   "type": "module",
   "version": "0.0.6",
-  "packageManager": "pnpm@9.14.3",
+  "packageManager": "pnpm@9.14.4",
   "description": "Rules for consistent, readable and valid GitHub action files.",
   "keywords": [
     "eslint",
@@ -63,12 +63,12 @@
     "yaml-eslint-parser": "catalog:"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^3.6.0",
+    "@ntnyq/eslint-config": "^3.7.1",
     "@ntnyq/prettier-config": "^1.22.0",
     "@types/node": "^22.10.1",
     "@vitest/coverage-v8": "^2.1.6",
     "bumpp": "^9.8.1",
-    "eslint": "^9.15.0",
+    "eslint": "^9.16.0",
     "eslint-plugin-eslint-plugin": "^6.3.2",
     "eslint-plugin-github-action": "workspace:*",
     "eslint-vitest-rule-tester": "^0.6.1",

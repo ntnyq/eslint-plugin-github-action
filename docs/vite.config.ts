@@ -13,8 +13,8 @@ export default defineConfig({
     VueComponents({
       dirs: [fileURLToPath(new URL('./.vitepress/components', import.meta.url))],
       dts: fileURLToPath(new URL('./components.d.ts', import.meta.url)),
-      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       extensions: ['vue', 'md'],
+      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
     }),
     groupIconVitePlugin(),
   ],

@@ -4,9 +4,9 @@ export default defineConfig({
   presets: [
     presetUno(),
     presetIcons({
-      scale: 1.2,
       autoInstall: true,
       extraProperties: {},
+      scale: 1.2,
     }),
   ],
 })

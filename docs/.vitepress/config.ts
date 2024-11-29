@@ -57,6 +57,9 @@ export default defineConfig({
         position: 'boundary',
       }),
       transformerTwoslash({
+        explicitTrigger: /\btwoslash\b/,
+      }),
+      transformerTwoslash({
         errorRendering: 'hover',
         explicitTrigger: /\beslint-check\b/,
         twoslasher: createTwoslasher({
