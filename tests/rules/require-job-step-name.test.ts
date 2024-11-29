@@ -7,6 +7,14 @@ run({
   rule,
   valid: [
     {
+      filename: 'no-jobs.yml',
+      code: $`
+        name: Release
+        
+        jobs:
+      `,
+    },
+    {
       filename: 'no-job-steps.yml',
       code: $`
         name: Release
@@ -14,6 +22,15 @@ run({
         jobs:
           test:
             name: Test
+      `,
+    },
+    {
+      filename: 'job-is-invalid.yml',
+      code: $`
+        name: Release
+        
+        jobs:
+          test: helloWorld
       `,
     },
     {

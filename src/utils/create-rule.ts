@@ -25,10 +25,12 @@ function createRule<TOptions extends readonly unknown[], TMessageIds extends str
     create: ((context: Readonly<RuleContext<TMessageIds, TOptions>>): RuleListener => {
       const optionsCount = Math.max(context.options.length, defaultOptions.length)
       const optionsWithDefault = Array.from({ length: optionsCount }, (_, i) => {
+        /* v8 ignore start */
         if (isObjectNotArray(context.options[i]) && isObjectNotArray(defaultOptions[i])) {
           return deepMerge(defaultOptions[i], context.options[i])
         }
         return context.options[i] ?? defaultOptions[i]
+        /* v8 ignore stop */
       }) as unknown as TOptions
       return create(context, optionsWithDefault)
     }) as any,

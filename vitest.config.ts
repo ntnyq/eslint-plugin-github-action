@@ -10,10 +10,10 @@ export default defineConfig({
     reporters: ['dot'],
     coverage: {
       thresholds: {
-        functions: 90,
-        lines: 90,
-        statements: 90,
-        branches: 75,
+        functions: 95,
+        lines: 95,
+        statements: 95,
+        branches: 85,
         perFile: false,
       },
       include: ['**/src/**/*.ts'],

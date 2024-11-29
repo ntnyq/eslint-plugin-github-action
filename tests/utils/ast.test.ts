@@ -8,11 +8,13 @@ import {
   isOpeningBraceToken,
   isOpeningBracketToken,
   isQuestion,
+  isTokenOnSameLine,
   isYAMLComment,
   isYAMLMapping,
   isYAMLScalar,
   isYAMLSequence,
 } from '../../src/utils/ast'
+import type { YAMLToken } from '../../src/types/yaml'
 
 describe('isYAMLScalar', () => {
   it('should return false for null', () => {
@@ -83,5 +85,41 @@ describe('isOpeningBraceToken', () => {
 describe('isClosingBraceToken', () => {
   it('should return false for null', () => {
     expect(isClosingBraceToken(null)).toBeFalsy()
+  })
+})
+
+describe('isTokenOnSameLine', () => {
+  const tokenSource: YAMLToken = {
+    type: 'String',
+    value: 'FooBar',
+    loc: {
+      start: {
+        line: 0,
+        column: 0,
+      },
+      end: {
+        line: 0,
+        column: 0,
+      },
+    },
+    range: [0, 0],
+  }
+  const tokenTarget: YAMLToken = {
+    type: 'String',
+    value: 'FooBar',
+    loc: {
+      start: {
+        line: 0,
+        column: 0,
+      },
+      end: {
+        line: 0,
+        column: 0,
+      },
+    },
+    range: [0, 0],
+  }
+  it('should return false for null', () => {
+    expect(isTokenOnSameLine(tokenSource, tokenTarget)).toBeTruthy()
   })
 })

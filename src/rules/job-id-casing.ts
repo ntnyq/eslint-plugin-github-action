@@ -93,6 +93,7 @@ export default createESLintRule<Options, MessageIds>({
   defaultOptions: [defaultOptions],
   create(context) {
     // If options[0] is undefined, use defaultOptions
+    /* v8 ignore next guard by json-schema */
     const rawOptions = context.options?.[0] ?? defaultOptions
 
     const caseTypes: AllowedCasing[] = []
@@ -102,6 +103,7 @@ export default createESLintRule<Options, MessageIds>({
 
     if (isString(rawOptions)) {
       // Enum options
+      /* v8 ignore next guard by json-schema */
       caseTypes.push(allowedCaseOptions.includes(rawOptions) ? rawOptions : defaultOptions)
     } else {
       // Object options

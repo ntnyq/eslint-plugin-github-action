@@ -21,9 +21,11 @@ export function createRecommendedConfig(options: RecommendedOptions = {}) {
       parser: yamlParser,
     },
     plugins: {
+      /* v8 ignore start */
       get 'github-action'() {
         return plugin
       },
+      /* v8 ignore stop */
     },
     rules: {
       'github-action/require-action-name': 'error',

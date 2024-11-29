@@ -14,6 +14,7 @@ sidebarDepth: 0
 | [action-name-casing](./action-name-casing.html)             | Enforce naming convention to action name. |     | 🔧  |     |
 | [job-id-casing](./job-id-casing.html)                       | Enforce naming convention to job id.      |     |     |     |
 | [max-jobs-per-action](./max-jobs-per-action.html)           | Enforce maximum jobs per action file.     |     |     |     |
+| [no-external-job](./no-external-job.html)                   | Disallow using external job.              |     |     |     |
 | [no-top-level-env](./no-top-level-env.html)                 | Disallow using top level env.             |     |     |     |
 | [no-top-level-permissions](./no-top-level-permissions.html) | Disallow using top level permissions.     |     |     |     |
 | [require-action-name](./require-action-name.html)           | Require action name to be set.            | ✅  |     |     |
