@@ -1,14 +1,14 @@
 import * as yamlParser from 'yaml-eslint-parser'
 import { plugin } from '..'
 import type { Linter } from 'eslint'
-import type { Rules } from '../dts'
+import type { RulesWithPluginName } from '../dts'
 
 export interface RecommendedOptions
   extends Pick<Linter.Config, 'name' | 'files' | 'ignores' | 'languageOptions'> {
   /**
    * Overrides rules.
    */
-  overridesRules?: Rules
+  overridesRules?: RulesWithPluginName
 }
 
 export function createRecommendedConfig(options: RecommendedOptions = {}) {
