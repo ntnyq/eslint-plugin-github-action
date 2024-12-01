@@ -18,6 +18,7 @@ sidebarDepth: 0
 | [no-invalid-key](./no-invalid-key)                     | Disallow using invalid key.               | ✅  |     |     |
 | [no-top-level-env](./no-top-level-env)                 | Disallow using top level env.             |     |     |     |
 | [no-top-level-permissions](./no-top-level-permissions) | Disallow using top level permissions.     |     |     |     |
+| [prefer-file-extension](./prefer-file-extension)       | Enforce action file extension.            | ✅  |     |     |
 | [prefer-step-uses-style](./prefer-step-uses-style)     | Enforce the style of job step uses.       |     |     |     |
 | [require-action-name](./require-action-name)           | Require action name to be set.            | ✅  |     |     |
 | [require-job-name](./require-job-name)                 | Require job name to be set.               |     |     |     |

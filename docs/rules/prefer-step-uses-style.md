@@ -44,7 +44,7 @@ jobs:
 
 ## :wrench: Options
 
-Default casing is set to `release`.
+Default style is set to `release`.
 
 ```ts
 type AllowedStyle = 'release' | 'commit' | 'branch'
@@ -57,7 +57,13 @@ type JobIdCasingOptions = [
         [key in AllowedStyle]?: boolean
       } & {
         ignores?: string[]
+        /**
+         * @default false
+         */
         allowRepository?: boolean
+        /**
+         * @default false
+         */
         allowDocker?: boolean
       })
   ),

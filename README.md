@@ -59,6 +59,7 @@ export default [
 | [no-invalid-key](https://eslint-plugin-github-action.ntnyq.com/rules/no-invalid-key.html)                     | Disallow using invalid key.               | ✅  |     |     |
 | [no-top-level-env](https://eslint-plugin-github-action.ntnyq.com/rules/no-top-level-env.html)                 | Disallow using top level env.             |     |     |     |
 | [no-top-level-permissions](https://eslint-plugin-github-action.ntnyq.com/rules/no-top-level-permissions.html) | Disallow using top level permissions.     |     |     |     |
+| [prefer-file-extension](https://eslint-plugin-github-action.ntnyq.com/rules/prefer-file-extension.html)       | Enforce action file extension.            | ✅  |     |     |
 | [prefer-step-uses-style](https://eslint-plugin-github-action.ntnyq.com/rules/prefer-step-uses-style.html)     | Enforce the style of job step uses.       |     |     |     |
 | [require-action-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-name.html)           | Require action name to be set.            | ✅  |     |     |
 | [require-job-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-job-name.html)                 | Require job name to be set.               |     |     |     |
