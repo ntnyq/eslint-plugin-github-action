@@ -3,8 +3,7 @@ import { plugin } from '..'
 import type { Linter } from 'eslint'
 import type { RulesWithPluginName } from '../dts'
 
-export interface RecommendedOptions
-  extends Pick<Linter.Config, 'name' | 'files' | 'ignores' | 'languageOptions'> {
+export interface RecommendedOptions extends Linter.Config {
   /**
    * Overrides rules.
    */
@@ -19,6 +18,9 @@ export interface RecommendedOptions
  */
 export function createRecommendedConfig(options: RecommendedOptions = {}) {
   const config: Linter.Config = {
+    ...options,
+
+    // Overrides
     name: options.name || 'github-action/recommended',
     files: options.files || ['**/.github/workflows/*.y?(a)ml'],
     ignores: options.ignores || ['!**/.github/workflows/*.y?(a)ml'],
@@ -27,6 +29,8 @@ export function createRecommendedConfig(options: RecommendedOptions = {}) {
       parser: yamlParser,
     },
     plugins: {
+      ...(options.plugins || {}),
+
       /* v8 ignore start */
       get 'github-action'() {
         return plugin
@@ -34,6 +38,8 @@ export function createRecommendedConfig(options: RecommendedOptions = {}) {
       /* v8 ignore stop */
     },
     rules: {
+      'github-action/no-invalid-key': 'error',
+      'github-action/prefer-file-extension': 'error',
       'github-action/require-action-name': 'error',
 
       ...(options.overridesRules || {}),

@@ -5,6 +5,7 @@ import noExternalJob from './no-external-job'
 import noInvalidKey from './no-invalid-key'
 import noTopLevelEnv from './no-top-level-env'
 import noTopLevelPermissions from './no-top-level-permissions'
+import preferFileExtension from './prefer-file-extension'
 import preferStepUsesStyle from './prefer-step-uses-style'
 import requireActionName from './require-action-name'
 import requireJobName from './require-job-name'
@@ -18,6 +19,7 @@ export const rules = {
   'no-invalid-key': noInvalidKey,
   'no-top-level-env': noTopLevelEnv,
   'no-top-level-permissions': noTopLevelPermissions,
+  'prefer-file-extension': preferFileExtension,
   'prefer-step-uses-style': preferStepUsesStyle,
   'require-action-name': requireActionName,
   'require-job-name': requireJobName,

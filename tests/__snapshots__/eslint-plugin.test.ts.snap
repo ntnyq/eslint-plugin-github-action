@@ -20,6 +20,17 @@ exports[`should lint without error > .github/workflows/no-name-yaml.yaml 1`] = `
 [
   {
     "column": 1,
+    "endColumn": 1,
+    "endLine": 5,
+    "line": 1,
+    "message": "Expected extension \`yml\`, but got \`yaml\`.",
+    "messageId": "unexpected",
+    "nodeType": "Program",
+    "ruleId": "github-action/prefer-file-extension",
+    "severity": 2,
+  },
+  {
+    "column": 1,
     "endColumn": 13,
     "endLine": 4,
     "line": 1,
@@ -48,6 +59,20 @@ exports[`should lint without error > .github/workflows/no-name-yml.yml 1`] = `
 ]
 `;
 
-exports[`should lint without error > .github/workflows/with-name-yaml.yaml 1`] = `[]`;
+exports[`should lint without error > .github/workflows/with-name-yaml.yaml 1`] = `
+[
+  {
+    "column": 1,
+    "endColumn": 1,
+    "endLine": 7,
+    "line": 1,
+    "message": "Expected extension \`yml\`, but got \`yaml\`.",
+    "messageId": "unexpected",
+    "nodeType": "Program",
+    "ruleId": "github-action/prefer-file-extension",
+    "severity": 2,
+  },
+]
+`;
 
 exports[`should lint without error > .github/workflows/with-name-yml.yml 1`] = `[]`;

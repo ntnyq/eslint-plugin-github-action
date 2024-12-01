@@ -14,7 +14,7 @@ import {
   isYAMLScalar,
   isYAMLSequence,
 } from '../../src/utils/ast'
-import type { YAMLToken } from '../../src/types/yaml'
+import { YAML_NODES } from '../fixtures/ast/nodes'
 
 describe('isYAMLScalar', () => {
   it('should return false for null', () => {
@@ -89,37 +89,7 @@ describe('isClosingBraceToken', () => {
 })
 
 describe('isTokenOnSameLine', () => {
-  const tokenSource: YAMLToken = {
-    type: 'String',
-    value: 'FooBar',
-    loc: {
-      start: {
-        line: 0,
-        column: 0,
-      },
-      end: {
-        line: 0,
-        column: 0,
-      },
-    },
-    range: [0, 0],
-  }
-  const tokenTarget: YAMLToken = {
-    type: 'String',
-    value: 'FooBar',
-    loc: {
-      start: {
-        line: 0,
-        column: 0,
-      },
-      end: {
-        line: 0,
-        column: 0,
-      },
-    },
-    range: [0, 0],
-  }
   it('should return false for null', () => {
-    expect(isTokenOnSameLine(tokenSource, tokenTarget)).toBeTruthy()
+    expect(isTokenOnSameLine(YAML_NODES.invalid, YAML_NODES.invalid)).toBeTruthy()
   })
 })
