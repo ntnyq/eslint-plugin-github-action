@@ -1,6 +1,5 @@
 import { createESLintRule, isYAMLMapping, isYAMLScalar } from '../utils'
 import { getNodeJobsMapping } from '../utils/action'
-import type { ASTNode } from '../types'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'no-external-job'
@@ -36,7 +35,7 @@ export default createESLintRule<Options, MessageIds>({
 
             if (usesPair) {
               context.report({
-                node: node as unknown as ASTNode,
+                node,
                 loc: usesPair.loc,
                 messageId: 'disallowExternalJob',
               })

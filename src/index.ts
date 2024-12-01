@@ -1,7 +1,7 @@
 import { configs } from './configs'
 import { meta } from './meta'
 import { rules } from './rules'
-import type { ESLint } from 'eslint'
+import type { ESLint, Rule } from 'eslint'
 
 /**
  * eslint-plugin-github-action
@@ -11,7 +11,8 @@ import type { ESLint } from 'eslint'
  */
 export const plugin = {
   meta,
-  rules,
+  // FIXME: type not match
+  rules: rules as unknown as Record<string, Rule.RuleModule>,
   configs,
 } satisfies ESLint.Plugin
 

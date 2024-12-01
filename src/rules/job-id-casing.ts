@@ -1,7 +1,6 @@
 import { isNonEmptyString, isString } from '@ntnyq/utils'
 import { CASING, createESLintRule, getExactConverter, isYAMLScalar } from '../utils'
 import { getNodeJobsMapping } from '../utils/action'
-import type { ASTNode } from '../types'
 import type { YAMLAst } from '../types/yaml'
 import type { CasingKind } from '../utils'
 
@@ -139,7 +138,7 @@ export default createESLintRule<Options, MessageIds>({
 
             if (!isJobIdValid(id)) {
               context.report({
-                node: node as unknown as ASTNode,
+                node,
                 messageId: 'jobIdNotMatch',
                 loc: job.key.loc,
                 data: {

@@ -1,5 +1,4 @@
 import { createESLintRule, isYAMLMapping, isYAMLScalar } from '../utils'
-import type { ASTNode } from '../types'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'max-jobs-per-action'
@@ -46,7 +45,7 @@ export default createESLintRule<Options, MessageIds>({
 
         if (count > limit) {
           context.report({
-            node: node as unknown as ASTNode,
+            node,
             messageId: 'toManyJobs',
             data: {
               count,

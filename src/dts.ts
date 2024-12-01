@@ -1,7 +1,7 @@
 import type { Linter } from 'eslint'
-import type { plugin } from '.'
+import type { rules } from './rules'
 
-type RuleDefinitions = (typeof plugin)['rules']
+type RuleDefinitions = typeof rules
 
 export type RuleOptions = {
   [K in keyof RuleDefinitions]: RuleDefinitions[K]['defaultOptions']

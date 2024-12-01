@@ -1,5 +1,4 @@
 import { createESLintRule, isYAMLScalar } from '../utils'
-import type { ASTNode } from '../types'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'no-top-level-permissions'
@@ -29,7 +28,7 @@ export default createESLintRule<Options, MessageIds>({
 
         if (nodePermissions) {
           context.report({
-            node: node as unknown as ASTNode,
+            node,
             loc: nodePermissions.loc,
             messageId: 'disallowTopLevelPermissions',
           })

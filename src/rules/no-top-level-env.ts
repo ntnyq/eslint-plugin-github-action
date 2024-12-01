@@ -1,5 +1,4 @@
 import { createESLintRule, isYAMLScalar } from '../utils'
-import type { ASTNode } from '../types'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'no-top-level-env'
@@ -27,7 +26,7 @@ export default createESLintRule<Options, MessageIds>({
 
         if (nodeEnv) {
           context.report({
-            node: node as unknown as ASTNode,
+            node,
             loc: nodeEnv.loc,
             messageId: 'disallowTopLevelEnv',
           })

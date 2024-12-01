@@ -1,6 +1,5 @@
 import { isNonEmptyString } from '@ntnyq/utils'
 import { CASING, createESLintRule, getExactConverter, isYAMLScalar } from '../utils'
-import type { ASTNode } from '../types'
 import type { YAMLAst } from '../types/yaml'
 import type { CasingKind } from '../utils'
 
@@ -43,7 +42,7 @@ export default createESLintRule<Options, MessageIds>({
   },
   defaultOptions: [defaultOptions],
   create(context) {
-    const optionCase = context.options?.[0]
+    const optionCase = context.options?.[0] || defaultOptions
     /* v8 ignore next guard by json-schema */
     const caseType = allowedCaseOptions.includes(optionCase) ? optionCase : defaultOptions
 
@@ -63,7 +62,7 @@ export default createESLintRule<Options, MessageIds>({
 
           if (result.changed) {
             context.report({
-              node: node as unknown as ASTNode,
+              node,
               messageId: 'actionNameNotMatch',
               loc: namePair.value.loc,
               data: {

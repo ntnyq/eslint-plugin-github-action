@@ -22,9 +22,9 @@ importers:
       '@ntnyq/utils':
         specifier: ^0.3.1
         version: 0.3.1(patch_hash=v2tnm37idlgtrlldodblasabjy)
-      '@typescript-eslint/utils':
-        specifier: ^8.16.0
-        version: 8.16.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
+      '@types/json-schema':
+        specifier: ^7.0.15
+        version: 7.0.15
       yaml-eslint-parser:
         specifier: 'catalog:'
         version: 1.2.3
@@ -74,12 +74,12 @@ importers:
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(jiti@1.21.6)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
+      tsx:
+        specifier: ^4.19.2
+        version: 4.19.2
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
-      typescript-eslint:
-        specifier: ^8.16.0
-        version: 8.16.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
       vitest:
         specifier: ^2.1.6
         version: 2.1.6(@types/node@22.10.1)

@@ -1,7 +1,6 @@
 import { isNonEmptyString } from '@ntnyq/utils'
 import { createESLintRule, isYAMLMapping, isYAMLScalar } from '../utils'
 import { getNodeJobsMapping, getNodeStepsSequence } from '../utils/action'
-import type { ASTNode } from '../types'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'require-job-step-name'
@@ -43,7 +42,8 @@ export default createESLintRule<Options, MessageIds>({
                   // step name is not non-empty string
                   if (!isYAMLScalar(namePair.value) || !isNonEmptyString(namePair.value.value)) {
                     context.report({
-                      node: namePair.value as unknown as ASTNode,
+                      // TODO: remove non-null assertion
+                      node: namePair.value!,
                       loc: namePair.loc,
                       messageId: 'requireJobStepName',
                     })
@@ -51,7 +51,7 @@ export default createESLintRule<Options, MessageIds>({
                 } else {
                   // step has no name
                   context.report({
-                    node: node as unknown as ASTNode,
+                    node,
                     loc: step.loc,
                     messageId: 'requireJobStepName',
                   })

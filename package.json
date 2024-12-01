@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "@ntnyq/utils": "^0.3.1",
-    "@typescript-eslint/utils": "^8.16.0",
+    "@types/json-schema": "^7.0.15",
     "yaml-eslint-parser": "catalog:"
   },
   "devDependencies": {
@@ -78,8 +78,8 @@
     "prettier": "^3.4.1",
     "tinyglobby": "^0.2.10",
     "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.2",
-    "typescript-eslint": "^8.16.0",
     "vitest": "^2.1.6"
   },
   "engines": {

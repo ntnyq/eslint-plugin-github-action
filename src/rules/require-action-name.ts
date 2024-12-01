@@ -1,6 +1,5 @@
 import { isNonEmptyString } from '@ntnyq/utils'
 import { createESLintRule, isYAMLScalar } from '../utils'
-import type { ASTNode } from '../types'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'require-action-name'
@@ -28,7 +27,7 @@ export default createESLintRule<Options, MessageIds>({
 
         // Empty file
         context.report({
-          node: node as unknown as ASTNode,
+          node,
           messageId: 'requireActionName',
         })
       },
@@ -44,7 +43,7 @@ export default createESLintRule<Options, MessageIds>({
 
         if (!hasName) {
           context.report({
-            node: node as unknown as ASTNode,
+            node,
             messageId: 'requireActionName',
           })
         }
