@@ -56,6 +56,7 @@ export default [
 | [job-id-casing](https://eslint-plugin-github-action.ntnyq.com/rules/job-id-casing.html)                       | Enforce naming convention to job id.      |     |     |     |
 | [max-jobs-per-action](https://eslint-plugin-github-action.ntnyq.com/rules/max-jobs-per-action.html)           | Enforce maximum jobs per action file.     |     |     |     |
 | [no-external-job](https://eslint-plugin-github-action.ntnyq.com/rules/no-external-job.html)                   | Disallow using external job.              |     |     |     |
+| [no-invalid-key](https://eslint-plugin-github-action.ntnyq.com/rules/no-invalid-key.html)                     | Disallow using invalid key.               | ✅  |     |     |
 | [no-top-level-env](https://eslint-plugin-github-action.ntnyq.com/rules/no-top-level-env.html)                 | Disallow using top level env.             |     |     |     |
 | [no-top-level-permissions](https://eslint-plugin-github-action.ntnyq.com/rules/no-top-level-permissions.html) | Disallow using top level permissions.     |     |     |     |
 | [prefer-step-uses-style](https://eslint-plugin-github-action.ntnyq.com/rules/prefer-step-uses-style.html)     | Enforce the style of job step uses.       |     |     |     |

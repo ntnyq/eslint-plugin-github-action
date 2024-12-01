@@ -15,6 +15,7 @@ sidebarDepth: 0
 | [job-id-casing](./job-id-casing)                       | Enforce naming convention to job id.      |     |     |     |
 | [max-jobs-per-action](./max-jobs-per-action)           | Enforce maximum jobs per action file.     |     |     |     |
 | [no-external-job](./no-external-job)                   | Disallow using external job.              |     |     |     |
+| [no-invalid-key](./no-invalid-key)                     | Disallow using invalid key.               | ✅  |     |     |
 | [no-top-level-env](./no-top-level-env)                 | Disallow using top level env.             |     |     |     |
 | [no-top-level-permissions](./no-top-level-permissions) | Disallow using top level permissions.     |     |     |     |
 | [prefer-step-uses-style](./prefer-step-uses-style)     | Enforce the style of job step uses.       |     |     |     |

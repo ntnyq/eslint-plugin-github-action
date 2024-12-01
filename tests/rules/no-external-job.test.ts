@@ -27,7 +27,7 @@ run({
   ],
   invalid: [
     {
-      filename: 'external-job',
+      filename: 'external-job.yml',
       code: $`
         name: Release
         

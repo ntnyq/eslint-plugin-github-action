@@ -2,6 +2,7 @@ import actionNameCasing from './action-name-casing'
 import jobIdCasing from './job-id-casing'
 import maxJobsPerAction from './max-jobs-per-action'
 import noExternalJob from './no-external-job'
+import noInvalidKey from './no-invalid-key'
 import noTopLevelEnv from './no-top-level-env'
 import noTopLevelPermissions from './no-top-level-permissions'
 import preferStepUsesStyle from './prefer-step-uses-style'
@@ -14,6 +15,7 @@ export const rules = {
   'job-id-casing': jobIdCasing,
   'max-jobs-per-action': maxJobsPerAction,
   'no-external-job': noExternalJob,
+  'no-invalid-key': noInvalidKey,
   'no-top-level-env': noTopLevelEnv,
   'no-top-level-permissions': noTopLevelPermissions,
   'prefer-step-uses-style': preferStepUsesStyle,

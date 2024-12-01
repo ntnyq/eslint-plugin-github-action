@@ -2,6 +2,7 @@
  * @file utils for GitHub action
  */
 
+import { isNonEmptyString } from '@ntnyq/utils'
 import { isYAMLMapping, isYAMLScalar, isYAMLSequence } from './ast'
 import type { YAMLAst } from '../types/yaml'
 
@@ -42,4 +43,16 @@ export function getNodeStepsSequence(node: YAMLAst.YAMLPair) {
   if (!isYAMLSequence(stepsPair.value)) return
 
   return stepsPair.value
+}
+
+/**
+ * Get `key` value of YAMLPair.
+ *
+ * @param pair - YAMLPair
+ * @returns - `key` value of YAMLPair or `undefined`
+ */
+export function getPairKeyValue(pair: YAMLAst.YAMLPair) {
+  if (!isYAMLScalar(pair.key)) return
+  if (!isNonEmptyString(pair.key.value)) return
+  return pair.key.value
 }
