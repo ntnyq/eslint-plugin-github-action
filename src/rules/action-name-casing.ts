@@ -42,7 +42,9 @@ export default createESLintRule<Options, MessageIds>({
   },
   defaultOptions: [defaultOptions],
   create(context) {
+    /* v8 ignore next guard by json-schema */
     const optionCase = context.options?.[0] || defaultOptions
+
     /* v8 ignore next guard by json-schema */
     const caseType = allowedCaseOptions.includes(optionCase) ? optionCase : defaultOptions
 

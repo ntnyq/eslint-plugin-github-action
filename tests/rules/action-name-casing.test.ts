@@ -44,7 +44,7 @@ run({
   ],
   invalid: [
     {
-      filename: 'kebab-case',
+      filename: 'kebab-case.yml',
       code: $`
         name: unit-test
       `,

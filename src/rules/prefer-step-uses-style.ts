@@ -105,7 +105,7 @@ export default createESLintRule<Options, MessageIds>({
     ],
     messages: {
       invalidStyle: 'Invalid style for job step uses.',
-      disallowStyle: 'Disallow style {{style}} for job step uses.',
+      disallowStyle: 'Disallow style `{{style}}` for job step uses.',
       disallowRepository: 'Disallow using same repository action.',
       disallowDocker: 'Disallow using docker action.',
     },
