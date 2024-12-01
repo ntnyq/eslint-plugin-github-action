@@ -1,12 +1,12 @@
 import { globSync } from 'tinyglobby'
 import { version } from '../../../package.json'
 import { resolve } from '../../../scripts/utils'
-import { appTitle } from '../meta'
+import { packageName } from '../meta'
 import type { DefaultTheme } from 'vitepress'
 
 const VERSIONS: DefaultTheme.NavItemWithLink[] = [
   { text: `v${version} (current)`, link: '/' },
-  { text: `Release Notes`, link: `https://github.com/ntnyq/${appTitle}/releases` },
+  { text: `Release Notes`, link: `https://github.com/ntnyq/${packageName}/releases` },
 ]
 
 function ruleToSidebarItem(ruleId: string): DefaultTheme.SidebarItem {
@@ -33,14 +33,20 @@ export function getThemeConfig() {
       },
     },
 
+    logo: {
+      light: '/logo-light.svg',
+      dark: '/logo-dark.svg',
+    },
+
     editLink: {
       text: 'Suggest changes to this page',
-      pattern: `https://github.com/ntnyq/${appTitle}/edit/main/docs/:path`,
+      pattern: `https://github.com/ntnyq/${packageName}/edit/main/docs/:path`,
     },
 
     socialLinks: [
-      { icon: 'x', link: `https://twitter.com/ntnyq` },
-      { icon: 'github', link: `https://github.com/ntnyq/${appTitle}` },
+      { icon: 'x', link: 'https://twitter.com/ntnyq' },
+      { icon: 'npm', link: `https://www.npmjs.com/package/${packageName}` },
+      { icon: 'github', link: `https://github.com/ntnyq/${packageName}` },
     ],
 
     nav: [
