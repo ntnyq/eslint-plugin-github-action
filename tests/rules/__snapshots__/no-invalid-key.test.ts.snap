@@ -1,0 +1,485 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`no-invalid-key > invalid > Invalid #0: workflow: CI
+
+dispatch: inputs
+
+push: branch
+
+test:
+  contents: read
+
+check:
+  SERVER: production
+
+matrix: [20.x, 22.x] 1`] = `
+[
+  {
+    "column": 1,
+    "endColumn": 9,
+    "endLine": 1,
+    "line": 1,
+    "message": "invalid top-level key \`workflow\`.",
+    "messageId": "invalidTopLevelKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 1,
+    "endColumn": 9,
+    "endLine": 3,
+    "line": 3,
+    "message": "invalid top-level key \`dispatch\`.",
+    "messageId": "invalidTopLevelKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 1,
+    "endColumn": 5,
+    "endLine": 5,
+    "line": 5,
+    "message": "invalid top-level key \`push\`.",
+    "messageId": "invalidTopLevelKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 1,
+    "endColumn": 5,
+    "endLine": 7,
+    "line": 7,
+    "message": "invalid top-level key \`test\`.",
+    "messageId": "invalidTopLevelKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 1,
+    "endColumn": 6,
+    "endLine": 10,
+    "line": 10,
+    "message": "invalid top-level key \`check\`.",
+    "messageId": "invalidTopLevelKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 1,
+    "endColumn": 7,
+    "endLine": 13,
+    "line": 13,
+    "message": "invalid top-level key \`matrix\`.",
+    "messageId": "invalidTopLevelKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`no-invalid-key > invalid > Invalid #1: name: CI
+
+jobs:
+  test:
+    workflow: CI
+
+    dispatch: inputs
+
+    push: branch
+
+    test:
+      contents: read
+
+    check:
+      SERVER: production
+
+    matrix: [20.x, 22.x] 1`] = `
+[
+  {
+    "column": 5,
+    "endColumn": 13,
+    "endLine": 5,
+    "line": 5,
+    "message": "invalid job key \`workflow\`.",
+    "messageId": "invalidJobKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 5,
+    "endColumn": 13,
+    "endLine": 7,
+    "line": 7,
+    "message": "invalid job key \`dispatch\`.",
+    "messageId": "invalidJobKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 5,
+    "endColumn": 9,
+    "endLine": 9,
+    "line": 9,
+    "message": "invalid job key \`push\`.",
+    "messageId": "invalidJobKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 5,
+    "endColumn": 9,
+    "endLine": 11,
+    "line": 11,
+    "message": "invalid job key \`test\`.",
+    "messageId": "invalidJobKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 5,
+    "endColumn": 10,
+    "endLine": 14,
+    "line": 14,
+    "message": "invalid job key \`check\`.",
+    "messageId": "invalidJobKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 5,
+    "endColumn": 11,
+    "endLine": 17,
+    "line": 17,
+    "message": "invalid job key \`matrix\`.",
+    "messageId": "invalidJobKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`no-invalid-key > invalid > Invalid #2: name: CI
+
+jobs:
+  test:
+    steps:
+      - workflow: CI
+
+        dispatch: inputs
+
+        push: branch
+
+        test:
+          contents: read
+
+        check:
+          SERVER: production
+
+        matrix: [20.x, 22.x] 1`] = `
+[
+  {
+    "column": 9,
+    "endColumn": 17,
+    "endLine": 6,
+    "line": 6,
+    "message": "invalid step key \`workflow\`.",
+    "messageId": "invalidStepKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 9,
+    "endColumn": 17,
+    "endLine": 8,
+    "line": 8,
+    "message": "invalid step key \`dispatch\`.",
+    "messageId": "invalidStepKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 9,
+    "endColumn": 13,
+    "endLine": 10,
+    "line": 10,
+    "message": "invalid step key \`push\`.",
+    "messageId": "invalidStepKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 9,
+    "endColumn": 13,
+    "endLine": 12,
+    "line": 12,
+    "message": "invalid step key \`test\`.",
+    "messageId": "invalidStepKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 9,
+    "endColumn": 14,
+    "endLine": 15,
+    "line": 15,
+    "message": "invalid step key \`check\`.",
+    "messageId": "invalidStepKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 9,
+    "endColumn": 15,
+    "endLine": 18,
+    "line": 18,
+    "message": "invalid step key \`matrix\`.",
+    "messageId": "invalidStepKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`no-invalid-key > invalid > Invalid #3: name: CI
+
+jobs:
+  test:
+    strategy:
+      workflow: CI
+
+      dispatch: inputs
+
+      push: branch
+
+      test:
+        contents: read
+
+      check:
+        SERVER: production 1`] = `
+[
+  {
+    "column": 7,
+    "endColumn": 15,
+    "endLine": 6,
+    "line": 6,
+    "message": "invalid strategy key \`workflow\`.",
+    "messageId": "invalidStrategyKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 7,
+    "endColumn": 15,
+    "endLine": 8,
+    "line": 8,
+    "message": "invalid strategy key \`dispatch\`.",
+    "messageId": "invalidStrategyKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 7,
+    "endColumn": 11,
+    "endLine": 10,
+    "line": 10,
+    "message": "invalid strategy key \`push\`.",
+    "messageId": "invalidStrategyKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 7,
+    "endColumn": 11,
+    "endLine": 12,
+    "line": 12,
+    "message": "invalid strategy key \`test\`.",
+    "messageId": "invalidStrategyKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 7,
+    "endColumn": 12,
+    "endLine": 15,
+    "line": 15,
+    "message": "invalid strategy key \`check\`.",
+    "messageId": "invalidStrategyKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`no-invalid-key > invalid > Invalid #4: name: CI
+
+jobs:
+  test:
+    container:
+      workflow: CI
+
+      dispatch: inputs
+
+      push: branch
+
+      test:
+        contents: read
+
+      check:
+        SERVER: production 1`] = `
+[
+  {
+    "column": 7,
+    "endColumn": 15,
+    "endLine": 6,
+    "line": 6,
+    "message": "invalid container key \`workflow\`.",
+    "messageId": "invalidContainerKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 7,
+    "endColumn": 15,
+    "endLine": 8,
+    "line": 8,
+    "message": "invalid container key \`dispatch\`.",
+    "messageId": "invalidContainerKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 7,
+    "endColumn": 11,
+    "endLine": 10,
+    "line": 10,
+    "message": "invalid container key \`push\`.",
+    "messageId": "invalidContainerKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 7,
+    "endColumn": 11,
+    "endLine": 12,
+    "line": 12,
+    "message": "invalid container key \`test\`.",
+    "messageId": "invalidContainerKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 7,
+    "endColumn": 12,
+    "endLine": 15,
+    "line": 15,
+    "message": "invalid container key \`check\`.",
+    "messageId": "invalidContainerKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`no-invalid-key > invalid > Invalid #5: name: CI
+
+jobs:
+  serve:
+    services:
+      nginx:
+        workflow: CI
+
+        dispatch: inputs
+
+        push: branch
+
+        test:
+          contents: read
+
+        check:
+          SERVER: production 1`] = `
+[
+  {
+    "column": 9,
+    "endColumn": 17,
+    "endLine": 7,
+    "line": 7,
+    "message": "invalid service key \`workflow\`.",
+    "messageId": "invalidServiceKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 9,
+    "endColumn": 17,
+    "endLine": 9,
+    "line": 9,
+    "message": "invalid service key \`dispatch\`.",
+    "messageId": "invalidServiceKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 9,
+    "endColumn": 13,
+    "endLine": 11,
+    "line": 11,
+    "message": "invalid service key \`push\`.",
+    "messageId": "invalidServiceKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 9,
+    "endColumn": 13,
+    "endLine": 13,
+    "line": 13,
+    "message": "invalid service key \`test\`.",
+    "messageId": "invalidServiceKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 9,
+    "endColumn": 14,
+    "endLine": 16,
+    "line": 16,
+    "message": "invalid service key \`check\`.",
+    "messageId": "invalidServiceKey",
+    "nodeType": "YAMLMapping",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+]
+`;

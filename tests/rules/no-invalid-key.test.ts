@@ -7,7 +7,7 @@ run({
   rule,
   valid: [
     {
-      filename: 'valid-top-keys.yml',
+      filename: 'top-level-keys.yml',
       code: $`
         name: CI
         
@@ -41,10 +41,128 @@ run({
                 run: npm test
       `,
     },
+    {
+      filename: 'job-keys.yml',
+      code: $`
+        name: CI
+        
+        jobs:
+          test:
+            name: Unit Test
+        
+            permissions:
+              contents: read
+        
+            needs: [lint]
+        
+            if: github.repository == 'ntnyq/eslint-plugin-github-action'
+        
+            runs-on: ubuntu-latest
+        
+            environment:
+              name: Test
+        
+            concurrency:
+              group: test
+              cancel-in-progress: true
+        
+            outputs:
+              test: true
+        
+            env:
+              SERVER: production
+        
+            defaults:
+              run:
+                shell: bash
+        
+            steps:
+              - run: npm run test
+      `,
+    },
+    {
+      filename: 'step-keys.yml',
+      code: $`
+        name: CI
+        
+        jobs:
+          test:
+            steps:
+              - id: test
+                if: github.repository == 'ntnyq/eslint-plugin-github-action'
+                name: Checkout
+                uses: actions/checkout@v4
+                run: npm run test
+                working-directory: ./src
+                shell: bash
+                with:
+                  fetch-depth: 1
+                env:
+                  SERVER: production
+                continue-on-error: true
+                timeout-minutes: 10
+      `,
+    },
+    {
+      filename: 'strategy-keys.yml',
+      code: $`
+        name: CI
+        
+        jobs:
+          test:
+            strategy:
+              fail-fast: true
+              matrix:
+                node-version: [14.x, 16.x]
+                os: [ubuntu-latest, windows-latest, macos-latest]
+              max-parallel: 3
+      `,
+    },
+    {
+      filename: 'container-keys.yml',
+      code: $`
+        name: CI
+        
+        jobs:
+          test:
+            container:
+              image: ghcr.io/owner/image
+              credentials:
+                name: ntnyq
+              env:
+                SERVER: production
+              ports:
+                - 8080:8080
+              volumes:
+                - /var/run/docker.sock:/var/run/docker.sock
+              options: --privileged
+      `,
+    },
+    {
+      filename: 'service-keys.yml',
+      code: $`
+        name: CI
+        
+        jobs:
+          serve:
+            services:
+              nginx:
+                image: ghcr.io/owner/image
+                credentials:
+                  name: ntnyq
+                env:
+                  SERVER: production
+                ports:
+                  - 8080:8080
+                volumes:
+                  - /var/run/docker.sock:/var/run/docker.sock
+                options: --privileged
+      `,
+    },
   ],
   invalid: [
     {
-      filename: 'invalid-top-keys.yml',
+      filename: 'top-level-keys.yml',
       code: $`
         workflow: CI
         
@@ -52,85 +170,140 @@ run({
         
         push: branch
         
-        needs:
+        test:
           contents: read
         
-        if:
+        check:
           SERVER: production
         
         matrix: [20.x, 22.x]
       `,
       errors(errors) {
-        expect(errors).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 1,
-              "endColumn": 9,
-              "endLine": 1,
-              "line": 1,
-              "message": "invalid top-level key \`workflow\`.",
-              "messageId": "invalidTopLevel",
-              "nodeType": "YAMLMapping",
-              "ruleId": "no-invalid-key",
-              "severity": 2,
-            },
-            {
-              "column": 1,
-              "endColumn": 9,
-              "endLine": 3,
-              "line": 3,
-              "message": "invalid top-level key \`dispatch\`.",
-              "messageId": "invalidTopLevel",
-              "nodeType": "YAMLMapping",
-              "ruleId": "no-invalid-key",
-              "severity": 2,
-            },
-            {
-              "column": 1,
-              "endColumn": 5,
-              "endLine": 5,
-              "line": 5,
-              "message": "invalid top-level key \`push\`.",
-              "messageId": "invalidTopLevel",
-              "nodeType": "YAMLMapping",
-              "ruleId": "no-invalid-key",
-              "severity": 2,
-            },
-            {
-              "column": 1,
-              "endColumn": 6,
-              "endLine": 7,
-              "line": 7,
-              "message": "invalid top-level key \`needs\`.",
-              "messageId": "invalidTopLevel",
-              "nodeType": "YAMLMapping",
-              "ruleId": "no-invalid-key",
-              "severity": 2,
-            },
-            {
-              "column": 1,
-              "endColumn": 3,
-              "endLine": 10,
-              "line": 10,
-              "message": "invalid top-level key \`if\`.",
-              "messageId": "invalidTopLevel",
-              "nodeType": "YAMLMapping",
-              "ruleId": "no-invalid-key",
-              "severity": 2,
-            },
-            {
-              "column": 1,
-              "endColumn": 7,
-              "endLine": 13,
-              "line": 13,
-              "message": "invalid top-level key \`matrix\`.",
-              "messageId": "invalidTopLevel",
-              "nodeType": "YAMLMapping",
-              "ruleId": "no-invalid-key",
-              "severity": 2,
-            },
-          ]
-        `)
+        expect(errors).toMatchSnapshot()
+      },
+    },
+    {
+      filename: 'job-keys.yml',
+      code: $`
+        name: CI
+        
+        jobs:
+          test:
+            workflow: CI
+        
+            dispatch: inputs
+        
+            push: branch
+        
+            test:
+              contents: read
+        
+            check:
+              SERVER: production
+        
+            matrix: [20.x, 22.x]
+      `,
+      errors(errors) {
+        expect(errors).toMatchSnapshot()
+      },
+    },
+    {
+      filename: 'step-keys.yml',
+      code: $`
+        name: CI
+        
+        jobs:
+          test:
+            steps:
+              - workflow: CI
+        
+                dispatch: inputs
+        
+                push: branch
+        
+                test:
+                  contents: read
+        
+                check:
+                  SERVER: production
+        
+                matrix: [20.x, 22.x]
+      `,
+      errors(errors) {
+        expect(errors).toMatchSnapshot()
+      },
+    },
+    {
+      filename: 'strategy-keys.yml',
+      code: $`
+        name: CI
+        
+        jobs:
+          test:
+            strategy:
+              workflow: CI
+        
+              dispatch: inputs
+        
+              push: branch
+        
+              test:
+                contents: read
+        
+              check:
+                SERVER: production
+      `,
+      errors(errors) {
+        expect(errors).toMatchSnapshot()
+      },
+    },
+    {
+      filename: 'container-keys.yml',
+      code: $`
+        name: CI
+        
+        jobs:
+          test:
+            container:
+              workflow: CI
+        
+              dispatch: inputs
+        
+              push: branch
+        
+              test:
+                contents: read
+        
+              check:
+                SERVER: production
+      `,
+      errors(errors) {
+        expect(errors).toMatchSnapshot()
+      },
+    },
+    {
+      filename: 'service-keys.yml',
+      code: $`
+        name: CI
+        
+        jobs:
+          serve:
+            services:
+              nginx:
+                workflow: CI
+        
+                dispatch: inputs
+        
+                push: branch
+        
+                test:
+                  contents: read
+        
+                check:
+                  SERVER: production
+      `,
+      errors(errors) {
+        expect(errors).toMatchSnapshot()
       },
     },
   ],

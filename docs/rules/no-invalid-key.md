@@ -73,6 +73,15 @@ matrix: [20.x, 22.x]
 
 :::
 
+### Checked fields
+
+- top-level
+- `jobs.<job_id>`
+- `jobs.<job_id>.strategy`
+- `jobs.<job_id>.container`
+- `jobs.<job_id>.steps[*]`
+- `jobs.<job_id>.services.<service_id>`
+
 ## :wrench: Options
 
 Nothing.
