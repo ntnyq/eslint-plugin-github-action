@@ -11,6 +11,12 @@ export interface RecommendedOptions
   overridesRules?: RulesWithPluginName
 }
 
+/**
+ * Create recommended config in flat style.
+ *
+ * @param options - Create recommended config {@link RecommendedOptions}.
+ * @returns flat recommended config.
+ */
 export function createRecommendedConfig(options: RecommendedOptions = {}) {
   const config: Linter.Config = {
     name: options.name || 'github-action/recommended',

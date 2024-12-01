@@ -54,7 +54,7 @@ export default defineConfig({
 
     codeTransformers: [
       transformerRenderWhitespace({
-        position: 'boundary',
+        position: 'all',
       }),
       transformerTwoslash({
         explicitTrigger: /\btwoslash\b/,

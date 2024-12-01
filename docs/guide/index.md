@@ -44,7 +44,8 @@ Override/add specific rules configurations.
 
 _See also: [http://eslint.org/docs/user-guide/configuring](http://eslint.org/docs/user-guide/configuring)_.
 
-```js [eslint.config.mjs]
+```ts [eslint.config.mjs] twoslash
+// @noErrors
 import { createRecommendedConfig } from 'eslint-plugin-github-action'
 
 /**
@@ -53,7 +54,16 @@ import { createRecommendedConfig } from 'eslint-plugin-github-action'
 export default [
   // Create a single config based on the recommended config
   createRecommendedConfig({
-    // Overrides built-in recommended rules
+    // config name
+    name: 'github-action',
+
+    // files to include
+    files: ['.github/workflows/*.y?(a)ml'],
+
+    // files to exclude
+    ignores: ['!**/.github/workflows/*.y?(a)ml'],
+
+    // overrides built-in recommended rules
     overridesRules: {
       'github-action/action-name-casing': ['error', 'kebab-case'],
     },
