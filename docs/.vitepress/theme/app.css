@@ -64,6 +64,14 @@
   --vp-c-danger-soft: var(--vp-c-red-soft);
 }
 
+/* overrides vitepress theme */
+@media (min-width: 960px) {
+  #app .VPSidebar,
+  #app .VPSidebar .curtain {
+    background-color: var(--vp-nav-bg-color);
+  }
+}
+
 /* dark/light radial transition */
 ::view-transition-old(root),
 ::view-transition-new(root) {
