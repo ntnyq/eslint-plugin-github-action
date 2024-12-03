@@ -21,5 +21,6 @@ sidebarDepth: 0
 | [prefer-file-extension](./prefer-file-extension)       | Enforce action file extension.            | ✅  |     |     |
 | [prefer-step-uses-style](./prefer-step-uses-style)     | Enforce the style of job step uses.       |     |     |     |
 | [require-action-name](./require-action-name)           | Require action name to be set.            | ✅  |     |     |
+| [require-action-run-name](./require-action-run-name)   | Require action run name to be set.        |     |     |     |
 | [require-job-name](./require-job-name)                 | Require job name to be set.               |     |     |     |
 | [require-job-step-name](./require-job-step-name)       | Require job step name to be set.          |     |     |     |

@@ -8,6 +8,7 @@ import noTopLevelPermissions from './no-top-level-permissions'
 import preferFileExtension from './prefer-file-extension'
 import preferStepUsesStyle from './prefer-step-uses-style'
 import requireActionName from './require-action-name'
+import requireActionRunName from './require-action-run-name'
 import requireJobName from './require-job-name'
 import requireJobStepName from './require-job-step-name'
 
@@ -22,6 +23,7 @@ export const rules = {
   'prefer-file-extension': preferFileExtension,
   'prefer-step-uses-style': preferStepUsesStyle,
   'require-action-name': requireActionName,
+  'require-action-run-name': requireActionRunName,
   'require-job-name': requireJobName,
   'require-job-step-name': requireJobStepName,
 }
