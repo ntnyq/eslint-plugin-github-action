@@ -1,67 +1,78 @@
 import type { YAMLAst } from './yaml'
 
 export interface SourceCode {
-  text: string
   ast: YAMLAst.YAMLProgram
-  lines: string[]
   hasBOM: boolean
-  parserServices?: {
-    isYAML?: true
-    parseError?: any
-  }
+  lines: string[]
+  text: string
+  getAllComments(): YAMLAst.Comment[]
+  getIndexFromLoc(loc: YAMLAst.Position): number
+
+  getLines(): string[]
+
+  getLocFromIndex(index: number): YAMLAst.Position
+
+  getNodeByRangeIndex(index: number): YAMLAst.YAMLNode | null
+
+  getText(node?: YAMLNodeOrToken, beforeCount?: number, afterCount?: number): string
+
+  isSpaceBetweenTokens(first: YAMLToken, second: YAMLToken): boolean
+
   visitorKeys: {
     [nodeType: string]: string[]
   }
 
-  getText(node?: YAMLNodeOrToken, beforeCount?: number, afterCount?: number): string
-
-  getLines(): string[]
-
-  getAllComments(): YAMLAst.Comment[]
+  parserServices?: {
+    isYAML?: true
+    parseError?: any
+  }
 
   getComments(node: YAMLNodeOrToken): {
     leading: YAMLAst.Comment[]
     trailing: YAMLAst.Comment[]
   }
 
-  getNodeByRangeIndex(index: number): null | YAMLAst.YAMLNode
-
-  isSpaceBetweenTokens(first: YAMLToken, second: YAMLToken): boolean
-
-  getLocFromIndex(index: number): YAMLAst.Position
-
-  getIndexFromLoc(loc: YAMLAst.Position): number
-
   // Inherited methods from TokenStore
   // ---------------------------------
 
-  getTokenByRangeStart(offset: number, options?: { includeComments?: boolean }): null | YAMLToken
+  commentsExistBetween(left: YAMLNodeOrToken, right: YAMLNodeOrToken): boolean
+
+  getCommentsAfter(nodeOrToken: YAMLNodeOrToken): YAMLAst.Comment[]
+  getCommentsBefore(nodeOrToken: YAMLNodeOrToken): YAMLAst.Comment[]
+
+  getCommentsInside(node: YAMLAst.YAMLNode): YAMLAst.Comment[]
 
   getFirstToken(node: YAMLAst.YAMLNode): YAMLAst.Token
-  getFirstToken(node: YAMLAst.YAMLNode, options?: CursorWithSkipOptions): null | YAMLToken
+  getFirstToken(node: YAMLAst.YAMLNode, options?: CursorWithSkipOptions): YAMLToken | null
 
   getFirstTokens(node: YAMLAst.YAMLNode, options?: CursorWithCountOptions): YAMLToken[]
 
   getLastToken(node: YAMLAst.YAMLNode): YAMLAst.Token
-  getLastToken(node: YAMLAst.YAMLNode, options?: CursorWithSkipOptions): null | YAMLToken
+  getLastToken(node: YAMLAst.YAMLNode, options?: CursorWithSkipOptions): YAMLToken | null
 
   getLastTokens(node: YAMLAst.YAMLNode, options?: CursorWithCountOptions): YAMLToken[]
 
-  getTokenBefore(node: YAMLNodeOrToken): null | YAMLAst.Token
-  getTokenBefore(node: YAMLNodeOrToken, options?: CursorWithSkipOptions): null | YAMLToken
+  getTokenAfter(node: YAMLNodeOrToken): YAMLAst.Token | null
+  getTokenAfter(node: YAMLNodeOrToken, options?: CursorWithSkipOptions): YAMLToken | null
 
-  getTokensBefore(node: YAMLNodeOrToken, options?: CursorWithCountOptions): YAMLToken[]
+  getTokenBefore(node: YAMLNodeOrToken): YAMLAst.Token | null
 
-  getTokenAfter(node: YAMLNodeOrToken): null | YAMLAst.Token
-  getTokenAfter(node: YAMLNodeOrToken, options?: CursorWithSkipOptions): null | YAMLToken
+  getTokenBefore(node: YAMLNodeOrToken, options?: CursorWithSkipOptions): YAMLToken | null
+
+  getTokenByRangeStart(offset: number, options?: { includeComments?: boolean }): YAMLToken | null
+
+  getTokens(node: YAMLAst.YAMLNode, beforeCount?: number, afterCount?: number): YAMLToken[]
+
+  getTokens(node: YAMLAst.YAMLNode, options: CursorWithCountOptions | FilterPredicate): YAMLToken[]
 
   getTokensAfter(node: YAMLNodeOrToken, options?: CursorWithCountOptions): YAMLToken[]
 
+  getTokensBefore(node: YAMLNodeOrToken, options?: CursorWithCountOptions): YAMLToken[]
   getFirstTokenBetween(
     left: YAMLNodeOrToken,
     right: YAMLNodeOrToken,
     options?: CursorWithSkipOptions,
-  ): null | YAMLToken
+  ): YAMLToken | null
 
   getFirstTokensBetween(
     left: YAMLNodeOrToken,
@@ -73,7 +84,7 @@ export interface SourceCode {
     left: YAMLNodeOrToken,
     right: YAMLNodeOrToken,
     options?: CursorWithSkipOptions,
-  ): null | YAMLToken
+  ): YAMLToken | null
 
   getLastTokensBetween(
     left: YAMLNodeOrToken,
@@ -84,37 +95,26 @@ export interface SourceCode {
   getTokensBetween(
     left: YAMLNodeOrToken,
     right: YAMLNodeOrToken,
-    padding?: CursorWithCountOptions | FilterPredicate | number,
+    padding?: number | CursorWithCountOptions | FilterPredicate,
   ): YAMLToken[]
-
-  getTokens(node: YAMLAst.YAMLNode, beforeCount?: number, afterCount?: number): YAMLToken[]
-  getTokens(node: YAMLAst.YAMLNode, options: CursorWithCountOptions | FilterPredicate): YAMLToken[]
-
-  commentsExistBetween(left: YAMLNodeOrToken, right: YAMLNodeOrToken): boolean
-
-  getCommentsBefore(nodeOrToken: YAMLNodeOrToken): YAMLAst.Comment[]
-
-  getCommentsAfter(nodeOrToken: YAMLNodeOrToken): YAMLAst.Comment[]
-
-  getCommentsInside(node: YAMLAst.YAMLNode): YAMLAst.Comment[]
 }
 type CursorWithCountOptions =
+  | number
+  | FilterPredicate
   | {
       count?: number
       filter?: FilterPredicate
       includeComments?: boolean
     }
-  | FilterPredicate
-  | number
 
 type CursorWithSkipOptions =
+  | number
+  | FilterPredicate
   | {
       filter?: FilterPredicate
       includeComments?: boolean
       skip?: number
     }
-  | FilterPredicate
-  | number
 
 type FilterPredicate = (tokenOrComment: YAMLToken) => boolean
 

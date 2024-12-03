@@ -12,9 +12,9 @@ export type ReportDescriptor<TMessageIds extends string> =
     (ReportDescriptorLocOnly | ReportDescriptorNodeOptionalLoc)
 
 export type ReportDescriptorBase<TMessageIds extends string> = {
+  readonly messageId: TMessageIds
   readonly data?: ReportDescriptorMessageData
   readonly fix?: Rule.ReportFixer
-  readonly messageId: TMessageIds
 }
 
 export type ReportDescriptorLocOnly = {
@@ -23,8 +23,8 @@ export type ReportDescriptorLocOnly = {
 
 export type ReportDescriptorMessageData = Readonly<Record<string, unknown>>
 export type ReportDescriptorNodeOptionalLoc = {
-  readonly loc?: Readonly<YAMLAst.Position> | Readonly<YAMLAst.SourceLocation>
   readonly node: YAMLAst.YAMLNode
+  readonly loc?: Readonly<YAMLAst.Position> | Readonly<YAMLAst.SourceLocation>
 }
 
 export interface ReportDescriptorWithSuggestion<TMessageIds extends string>
@@ -34,50 +34,50 @@ export interface ReportDescriptorWithSuggestion<TMessageIds extends string>
 export interface RuleContext<TMessageIds extends string, TOptions extends readonly unknown[] = []> {
   id: string
   options: TOptions
-  settings: { [name: string]: any; yml?: YMLSettings }
   parserPath: string
-  parserServices?: {
-    isYAML?: true
-    parseError?: any
-  }
+  settings: { yml?: YMLSettings; [name: string]: any }
   getAncestors(): YAMLAst.YAMLNode[]
   getFilename(): string
   getSourceCode(): SourceCode
   report(descriptor: ReportDescriptor<TMessageIds>): void
+  parserServices?: {
+    isYAML?: true
+    parseError?: any
+  }
 }
 export interface RuleCreateAndOptions<
   TOptions extends readonly unknown[],
   TMessageIds extends string,
 > {
+  defaultOptions: Readonly<TOptions>
   create: (
     context: Readonly<RuleContext<TMessageIds, TOptions>>,
     optionsWithDefault: Readonly<TOptions>,
   ) => RuleListener
-  defaultOptions: Readonly<TOptions>
 }
 export interface RuleListener {
-  YAMLDocument?: (node: YAMLAst.YAMLDocument) => void
-  'YAMLDocument:exit'?: (node: YAMLAst.YAMLDocument) => void
-  YAMLDirective?: (node: YAMLAst.YAMLDirective) => void
-  'YAMLDirective:exit'?: (node: YAMLAst.YAMLDirective) => void
+  Program?: (node: YAMLAst.YAMLProgram) => void
+  'Program:exit'?: (node: YAMLAst.YAMLProgram) => void
+  YAMLAlias?: (node: YAMLAst.YAMLAlias) => void
+  'YAMLAlias:exit'?: (node: YAMLAst.YAMLAlias) => void
   YAMLAnchor?: (node: YAMLAst.YAMLAnchor) => void
   'YAMLAnchor:exit'?: (node: YAMLAst.YAMLAnchor) => void
-  YAMLTag?: (node: YAMLAst.YAMLTag) => void
-  'YAMLTag:exit'?: (node: YAMLAst.YAMLTag) => void
+  YAMLDirective?: (node: YAMLAst.YAMLDirective) => void
+  'YAMLDirective:exit'?: (node: YAMLAst.YAMLDirective) => void
+  YAMLDocument?: (node: YAMLAst.YAMLDocument) => void
+  'YAMLDocument:exit'?: (node: YAMLAst.YAMLDocument) => void
   YAMLMapping?: (node: YAMLAst.YAMLMapping) => void
   'YAMLMapping:exit'?: (node: YAMLAst.YAMLMapping) => void
   YAMLPair?: (node: YAMLAst.YAMLPair) => void
   'YAMLPair:exit'?: (node: YAMLAst.YAMLPair) => void
-  YAMLSequence?: (node: YAMLAst.YAMLSequence) => void
-  'YAMLSequence:exit'?: (node: YAMLAst.YAMLSequence) => void
   YAMLScalar?: (node: YAMLAst.YAMLScalar) => void
   'YAMLScalar:exit'?: (node: YAMLAst.YAMLScalar) => void
-  YAMLAlias?: (node: YAMLAst.YAMLAlias) => void
-  'YAMLAlias:exit'?: (node: YAMLAst.YAMLAlias) => void
+  YAMLSequence?: (node: YAMLAst.YAMLSequence) => void
+  'YAMLSequence:exit'?: (node: YAMLAst.YAMLSequence) => void
+  YAMLTag?: (node: YAMLAst.YAMLTag) => void
+  'YAMLTag:exit'?: (node: YAMLAst.YAMLTag) => void
   YAMLWithMeta?: (node: YAMLAst.YAMLWithMeta) => void
   'YAMLWithMeta:exit'?: (node: YAMLAst.YAMLWithMeta) => void
-  Program?: (node: YAMLAst.YAMLProgram) => void
-  'Program:exit'?: (node: YAMLAst.YAMLProgram) => void
   [key: string]: ((node: never) => void) | undefined
 }
 
@@ -87,8 +87,8 @@ export interface RuleModule<
   TDocs = unknown,
 > {
   defaultOptions: TOptions
-  create(context: RuleContext<TMessageIds, TOptions>): RuleListener
   meta?: RuleMetaData<TMessageIds, TDocs, TOptions>
+  create(context: RuleContext<TMessageIds, TOptions>): RuleListener
 }
 
 type YMLSettings = { indent?: number }
@@ -108,22 +108,22 @@ export interface RuleMetaData<
   TDocs = unknown,
   TOptions extends readonly unknown[] = [],
 > {
+  messages: Record<TMessageIds, string>
+  schema: JSONSchema4 | readonly JSONSchema4[]
+  type: 'layout' | 'problem' | 'suggestion'
+  defaultOptions?: TOptions
   deprecated?: boolean
   docs?: RuleMetaDataDocs & TDocs
   fixable?: 'code' | 'whitespace'
   hasSuggestions?: boolean
-  messages: Record<TMessageIds, string>
   replacedBy?: readonly string[]
-  schema: JSONSchema4 | readonly JSONSchema4[]
-  type: 'layout' | 'problem' | 'suggestion'
-  defaultOptions?: TOptions
 }
 
 export interface RuleMetaDataDocs {
   description: string
-  url?: string
   category?: string
   recommended?: boolean
+  url?: string
 }
 export interface RuleWithMeta<
   TOptions extends readonly unknown[],
