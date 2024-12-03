@@ -11,4 +11,4 @@ export function run(options: TestCasesOptions & RuleTesterInitOptions) {
   })
 }
 
-export { unindent as $ } from 'eslint-vitest-rule-tester'
+export { unindent as $, unindent } from 'eslint-vitest-rule-tester'
