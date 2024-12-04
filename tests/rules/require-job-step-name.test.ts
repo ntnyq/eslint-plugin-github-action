@@ -110,7 +110,7 @@ run({
               "line": 7,
               "message": "Require job step name to be set.",
               "messageId": "requireJobStepName",
-              "nodeType": null,
+              "nodeType": "YAMLPair",
               "ruleId": "require-job-step-name",
               "severity": 2,
             },
@@ -134,10 +134,10 @@ run({
         expect(errors).toMatchInlineSnapshot(`
           [
             {
-              "column": 9,
+              "column": 11,
               "endColumn": 17,
               "endLine": 8,
-              "line": 7,
+              "line": 8,
               "message": "Require job step name to be set.",
               "messageId": "requireJobStepName",
               "nodeType": "YAMLSequence",

@@ -1,6 +1,5 @@
 import { isNonEmptyString, isString } from '@ntnyq/utils'
-import { createESLintRule, isYAMLMapping, isYAMLScalar } from '../utils'
-import { getNodeJobsMapping, getNodeStepsSequence } from '../utils/action'
+import { createESLintRule, isYAMLScalar } from '../utils'
 import type { YAMLAst } from '../types/yaml'
 
 const UsesStyle = {
@@ -143,79 +142,54 @@ export default createESLintRule<Options, MessageIds>({
     }
 
     return {
-      'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
-        const jobsMapping = getNodeJobsMapping(node)
+      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=steps] > YAMLSequence > YAMLMapping > YAMLPair[key.value=uses]':
+        (node: YAMLAst.YAMLPair) => {
+          // step uses is not non-empty string
+          if (!isYAMLScalar(node.value) || !isNonEmptyString(node.value.value)) {
+            context.report({
+              node: node.value || node,
+              messageId: 'invalidStyle',
+              loc: node.value?.loc || node.loc,
+            })
+          } else {
+            const usesValue = node.value.value
 
-        if (!jobsMapping) return
-
-        for (const job of jobsMapping.pairs) {
-          const stepSequence = getNodeStepsSequence(job)
-
-          if (!stepSequence) {
-            continue
-          }
-
-          for (const step of stepSequence.entries) {
-            if (!isYAMLMapping(step)) {
-              continue
+            if (ignores.some(regex => regex.test(usesValue))) {
+              return
             }
 
-            const usesPair = step.pairs.find(
-              pair => isYAMLScalar(pair.key) && pair.key.value === 'uses',
-            )
+            const { style, isRepository, isDocker } = parseJobStepUses(usesValue)
 
-            if (!usesPair) {
-              continue
-            }
-
-            // step uses is not non-empty string
-            if (!isYAMLScalar(usesPair.value) || !isNonEmptyString(usesPair.value.value)) {
-              context.report({
-                node: usesPair,
-                messageId: 'invalidStyle',
-                loc: usesPair.loc,
-              })
+            if (isRepository) {
+              if (!allowRepository) {
+                context.report({
+                  node: node.value,
+                  messageId: 'disallowRepository',
+                  loc: node.value.loc,
+                })
+              }
+            } else if (isDocker) {
+              if (!allowDocker) {
+                context.report({
+                  node: node.value,
+                  messageId: 'disallowDocker',
+                  loc: node.value.loc,
+                })
+              }
             } else {
-              const usesValue = usesPair.value.value
-
-              if (ignores.some(regex => regex.test(usesValue))) {
-                continue
-              }
-
-              const { style, isRepository, isDocker } = parseJobStepUses(usesValue)
-
-              if (isRepository) {
-                if (!allowRepository) {
-                  context.report({
-                    node: usesPair,
-                    messageId: 'disallowRepository',
-                    loc: usesPair.loc,
-                  })
-                }
-              } else if (isDocker) {
-                if (!allowDocker) {
-                  context.report({
-                    node: usesPair,
-                    messageId: 'disallowDocker',
-                    loc: usesPair.loc,
-                  })
-                }
-              } else {
-                if (!usesStyles.includes(style)) {
-                  context.report({
-                    node: usesPair,
-                    messageId: 'disallowStyle',
-                    loc: usesPair.loc,
-                    data: {
-                      style,
-                    },
-                  })
-                }
+              if (!usesStyles.includes(style)) {
+                context.report({
+                  node: node.value,
+                  messageId: 'disallowStyle',
+                  loc: node.value.loc,
+                  data: {
+                    style,
+                  },
+                })
               }
             }
           }
-        }
-      },
+        },
     }
   },
 })

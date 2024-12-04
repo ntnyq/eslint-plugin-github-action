@@ -1,6 +1,5 @@
 import { isNonEmptyString } from '@ntnyq/utils'
-import { createESLintRule, isYAMLMapping, isYAMLScalar } from '../utils'
-import { getNodeJobsMapping, getNodeStepsSequence } from '../utils/action'
+import { createESLintRule, isYAMLScalar } from '../utils'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'require-job-step-name'
@@ -23,44 +22,30 @@ export default createESLintRule<Options, MessageIds>({
   defaultOptions: [],
   create(context) {
     return {
-      'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
-        const jobsMapping = getNodeJobsMapping(node)
+      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=steps] > YAMLSequence > YAMLMapping':
+        (node: YAMLAst.YAMLMapping) => {
+          const namePair = node.pairs.find(
+            pair => isYAMLScalar(pair.key) && pair.key.value === 'name',
+          )
 
-        if (!jobsMapping) return
-
-        for (const job of jobsMapping.pairs) {
-          const stepSequence = getNodeStepsSequence(job)
-
-          if (stepSequence) {
-            for (const step of stepSequence.entries) {
-              if (isYAMLMapping(step)) {
-                const namePair = step.pairs.find(
-                  pair => isYAMLScalar(pair.key) && pair.key.value === 'name',
-                )
-
-                if (namePair) {
-                  // step name is not non-empty string
-                  if (!isYAMLScalar(namePair.value) || !isNonEmptyString(namePair.value.value)) {
-                    context.report({
-                      // TODO: remove non-null assertion
-                      node: namePair.value!,
-                      loc: namePair.loc,
-                      messageId: 'requireJobStepName',
-                    })
-                  }
-                } else {
-                  // step has no name
-                  context.report({
-                    node,
-                    loc: step.loc,
-                    messageId: 'requireJobStepName',
-                  })
-                }
-              }
+          if (namePair) {
+            // step name is not non-empty string
+            if (!isYAMLScalar(namePair.value) || !isNonEmptyString(namePair.value.value)) {
+              context.report({
+                node: namePair.value ?? namePair,
+                loc: namePair.value?.loc || namePair.loc,
+                messageId: 'requireJobStepName',
+              })
             }
+          } else {
+            // step has no name
+            context.report({
+              node,
+              loc: node.loc,
+              messageId: 'requireJobStepName',
+            })
           }
-        }
-      },
+        },
     }
   },
 })

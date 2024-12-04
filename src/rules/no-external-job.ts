@@ -1,5 +1,4 @@
-import { createESLintRule, isYAMLMapping, isYAMLScalar } from '../utils'
-import { getNodeJobsMapping } from '../utils/action'
+import { createESLintRule } from '../utils'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'no-external-job'
@@ -22,27 +21,14 @@ export default createESLintRule<Options, MessageIds>({
   defaultOptions: [],
   create(context) {
     return {
-      'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
-        const jobsMapping = getNodeJobsMapping(node)
-
-        if (!jobsMapping) return
-
-        for (const job of jobsMapping.pairs) {
-          if (isYAMLMapping(job.value)) {
-            const usesPair = job.value.pairs.find(
-              pair => isYAMLScalar(pair.key) && pair.key.value === 'uses',
-            )
-
-            if (usesPair) {
-              context.report({
-                node,
-                loc: usesPair.loc,
-                messageId: 'disallowExternalJob',
-              })
-            }
-          }
-        }
-      },
+      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=uses]':
+        (node: YAMLAst.YAMLPair) => {
+          context.report({
+            node,
+            loc: node.loc,
+            messageId: 'disallowExternalJob',
+          })
+        },
     }
   },
 })

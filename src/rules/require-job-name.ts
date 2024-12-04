@@ -1,6 +1,5 @@
 import { isNonEmptyString } from '@ntnyq/utils'
 import { createESLintRule, isYAMLMapping, isYAMLScalar } from '../utils'
-import { getNodeJobsMapping } from '../utils/action'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'require-job-name'
@@ -23,43 +22,38 @@ export default createESLintRule<Options, MessageIds>({
   defaultOptions: [],
   create(context) {
     return {
-      'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
-        const jobsMapping = getNodeJobsMapping(node)
+      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair': (
+        node: YAMLAst.YAMLPair,
+      ) => {
+        if (isYAMLMapping(node.value)) {
+          const namePair = node.value.pairs.find(
+            pair => isYAMLScalar(pair.key) && pair.key.value === 'name',
+          )
 
-        if (!jobsMapping) return
-
-        for (const job of jobsMapping.pairs) {
-          if (isYAMLMapping(job.value)) {
-            const namePair = job.value.pairs.find(
-              pair => isYAMLScalar(pair.key) && pair.key.value === 'name',
-            )
-
-            if (namePair) {
-              // job name is not non-empty string
-              if (!isYAMLScalar(namePair.value) || !isNonEmptyString(namePair.value.value)) {
-                context.report({
-                  // TODO: remove non-null assertion
-                  node: namePair.value!,
-                  loc: namePair.loc,
-                  messageId: 'requireJobName',
-                })
-              }
-            } else {
-              // job has no name
+          if (namePair) {
+            // job name is not non-empty string
+            if (!isYAMLScalar(namePair.value) || !isNonEmptyString(namePair.value.value)) {
               context.report({
-                node,
-                loc: job.loc,
+                node: namePair.value || namePair,
+                loc: namePair.value?.loc || namePair.loc,
                 messageId: 'requireJobName',
               })
             }
           } else {
-            // job value is not a mapping
+            // job has no name
             context.report({
-              node,
-              loc: job.loc,
+              node: node.value,
+              loc: node.loc,
               messageId: 'requireJobName',
             })
           }
+        } else {
+          // job value is not a mapping
+          context.report({
+            node: node.value || node,
+            loc: node.value?.loc || node.loc,
+            messageId: 'requireJobName',
+          })
         }
       },
     }

@@ -109,13 +109,13 @@ run({
         expect(errors).toMatchInlineSnapshot(`
           [
             {
-              "column": 9,
+              "column": 15,
               "endColumn": 27,
               "endLine": 6,
               "line": 6,
               "message": "Invalid style for job step uses.",
               "messageId": "invalidStyle",
-              "nodeType": "YAMLPair",
+              "nodeType": "YAMLSequence",
               "ruleId": "prefer-step-uses-style",
               "severity": 2,
             },
@@ -138,24 +138,24 @@ run({
         expect(errors).toMatchInlineSnapshot(`
           [
             {
-              "column": 9,
+              "column": 15,
               "endColumn": 36,
               "endLine": 6,
               "line": 6,
               "message": "Disallow style \`branch\` for job step uses.",
               "messageId": "disallowStyle",
-              "nodeType": "YAMLPair",
+              "nodeType": "YAMLScalar",
               "ruleId": "prefer-step-uses-style",
               "severity": 2,
             },
             {
-              "column": 9,
+              "column": 15,
               "endColumn": 72,
               "endLine": 7,
               "line": 7,
               "message": "Disallow style \`commit\` for job step uses.",
               "messageId": "disallowStyle",
-              "nodeType": "YAMLPair",
+              "nodeType": "YAMLScalar",
               "ruleId": "prefer-step-uses-style",
               "severity": 2,
             },
@@ -178,24 +178,24 @@ run({
         expect(errors).toMatchInlineSnapshot(`
           [
             {
-              "column": 9,
+              "column": 15,
               "endColumn": 51,
               "endLine": 6,
               "line": 6,
               "message": "Disallow using same repository action.",
               "messageId": "disallowRepository",
-              "nodeType": "YAMLPair",
+              "nodeType": "YAMLScalar",
               "ruleId": "prefer-step-uses-style",
               "severity": 2,
             },
             {
-              "column": 9,
+              "column": 15,
               "endColumn": 34,
               "endLine": 7,
               "line": 7,
               "message": "Disallow using docker action.",
               "messageId": "disallowDocker",
-              "nodeType": "YAMLPair",
+              "nodeType": "YAMLScalar",
               "ruleId": "prefer-step-uses-style",
               "severity": 2,
             },

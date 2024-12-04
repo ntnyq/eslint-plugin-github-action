@@ -1,4 +1,4 @@
-import { createESLintRule, isYAMLScalar } from '../utils'
+import { createESLintRule } from '../utils'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'no-top-level-env'
@@ -21,16 +21,14 @@ export default createESLintRule<Options, MessageIds>({
   defaultOptions: [],
   create(context) {
     return {
-      'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
-        const nodeEnv = node.pairs.find(v => isYAMLScalar(v.key) && v.key.value === 'env')
-
-        if (nodeEnv) {
-          context.report({
-            node,
-            loc: nodeEnv.loc,
-            messageId: 'disallowTopLevelEnv',
-          })
-        }
+      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=env]': (
+        node: YAMLAst.YAMLPair,
+      ) => {
+        context.report({
+          node,
+          loc: node.loc,
+          messageId: 'disallowTopLevelEnv',
+        })
       },
     }
   },

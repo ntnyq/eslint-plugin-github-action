@@ -44,6 +44,64 @@ const document: YAMLAst.YAMLDocument = {
   ...locAndRange,
 }
 
+/**
+ * Comment
+ */
+const blockComment: YAMLAst.Comment = {
+  type: 'Block',
+  value: '',
+  ...locAndRange,
+}
+const lineComment: YAMLAst.Comment = {
+  type: 'Line',
+  value: '',
+  ...locAndRange,
+}
+
+/**
+ * Punctuation
+ */
+const question: YAMLAst.Token = {
+  type: 'Punctuator',
+  value: '?',
+  ...locAndRange,
+}
+const hyphen: YAMLAst.Token = {
+  type: 'Punctuator',
+  value: '-',
+  ...locAndRange,
+}
+const comma: YAMLAst.Token = {
+  type: 'Punctuator',
+  value: ',',
+  ...locAndRange,
+}
+const colon: YAMLAst.Token = {
+  type: 'Punctuator',
+  value: ':',
+  ...locAndRange,
+}
+const openingBracket: YAMLAst.Token = {
+  type: 'Punctuator',
+  value: '[',
+  ...locAndRange,
+}
+const closingBracket: YAMLAst.Token = {
+  type: 'Punctuator',
+  value: ']',
+  ...locAndRange,
+}
+const openingBrace: YAMLAst.Token = {
+  type: 'Punctuator',
+  value: '{',
+  ...locAndRange,
+}
+const closingBrace: YAMLAst.Token = {
+  type: 'Punctuator',
+  value: '}',
+  ...locAndRange,
+}
+
 const mapping: YAMLAst.YAMLMapping = {
   type: 'YAMLMapping',
   style: 'block',
@@ -100,6 +158,18 @@ export const YAML_NODES = {
   invalid,
 
   locAndRange,
+
+  blockComment,
+  lineComment,
+
+  question,
+  hyphen,
+  comma,
+  colon,
+  openingBracket,
+  closingBracket,
+  openingBrace,
+  closingBrace,
 
   program,
   document,

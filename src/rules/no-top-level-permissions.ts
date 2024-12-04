@@ -1,4 +1,4 @@
-import { createESLintRule, isYAMLScalar } from '../utils'
+import { createESLintRule } from '../utils'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'no-top-level-permissions'
@@ -21,18 +21,14 @@ export default createESLintRule<Options, MessageIds>({
   defaultOptions: [],
   create(context) {
     return {
-      'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
-        const nodePermissions = node.pairs.find(
-          v => isYAMLScalar(v.key) && v.key.value === 'permissions',
-        )
-
-        if (nodePermissions) {
-          context.report({
-            node,
-            loc: nodePermissions.loc,
-            messageId: 'disallowTopLevelPermissions',
-          })
-        }
+      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=permissions]': (
+        node: YAMLAst.YAMLPair,
+      ) => {
+        context.report({
+          node,
+          loc: node.loc,
+          messageId: 'disallowTopLevelPermissions',
+        })
       },
     }
   },

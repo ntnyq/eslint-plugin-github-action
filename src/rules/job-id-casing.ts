@@ -1,6 +1,5 @@
 import { isNonEmptyString, isString } from '@ntnyq/utils'
 import { CASING, createESLintRule, getExactConverter, isYAMLScalar } from '../utils'
-import { getNodeJobsMapping } from '../utils/action'
 import type { YAMLAst } from '../types/yaml'
 import type { CasingKind } from '../utils'
 
@@ -127,26 +126,22 @@ export default createESLintRule<Options, MessageIds>({
     }
 
     return {
-      'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
-        const jobsMapping = getNodeJobsMapping(node)
+      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair': (
+        node: YAMLAst.YAMLPair,
+      ) => {
+        if (isYAMLScalar(node.key) && isNonEmptyString(node.key.value)) {
+          const id = node.key.value
 
-        if (!jobsMapping) return
-
-        for (const job of jobsMapping.pairs) {
-          if (isYAMLScalar(job.key) && isNonEmptyString(job.key.value)) {
-            const id = job.key.value
-
-            if (!isJobIdValid(id)) {
-              context.report({
-                node,
-                messageId: 'jobIdNotMatch',
-                loc: job.key.loc,
-                data: {
-                  id,
-                  caseTypes: caseTypes.join(', '),
-                },
-              })
-            }
+          if (!isJobIdValid(id)) {
+            context.report({
+              node: node.key,
+              messageId: 'jobIdNotMatch',
+              loc: node.key.loc,
+              data: {
+                id,
+                caseTypes: caseTypes.join(', '),
+              },
+            })
           }
         }
       },

@@ -86,10 +86,10 @@ run({
         expect(errors).toMatchInlineSnapshot(`
           [
             {
-              "column": 1,
+              "column": 3,
               "endColumn": 34,
               "endLine": 19,
-              "line": 1,
+              "line": 4,
               "message": "There are 4 jobs, maximum allowed is 3.",
               "messageId": "toManyJobs",
               "nodeType": "YAMLMapping",

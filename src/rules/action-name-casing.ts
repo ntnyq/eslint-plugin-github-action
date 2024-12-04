@@ -49,24 +49,21 @@ export default createESLintRule<Options, MessageIds>({
     const caseType = allowedCaseOptions.includes(optionCase) ? optionCase : defaultOptions
 
     return {
-      'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
-        const namePair = node.pairs.find(v => isYAMLScalar(v.key) && v.key.value === 'name')
-
-        // action has no name
-        if (!namePair) return
-
+      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=name]': (
+        node: YAMLAst.YAMLPair,
+      ) => {
         // name is a non-empty string
-        if (isYAMLScalar(namePair.value) && isNonEmptyString(namePair.value.value)) {
-          const name = namePair.value.value
-          const range = namePair.value.range
+        if (isYAMLScalar(node.value) && isNonEmptyString(node.value.value)) {
+          const name = node.value.value
+          const range = node.value.range
 
           const result = getExactConverter(caseType)(name)
 
           if (result.changed) {
             context.report({
-              node,
+              node: node.value,
               messageId: 'actionNameNotMatch',
-              loc: namePair.value.loc,
+              loc: node.value.loc,
               data: {
                 name,
                 caseType,

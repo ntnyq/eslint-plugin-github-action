@@ -1,4 +1,4 @@
-import { createESLintRule, isYAMLMapping, isYAMLScalar } from '../utils'
+import { createESLintRule } from '../utils'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'max-jobs-per-action'
@@ -30,18 +30,13 @@ export default createESLintRule<Options, MessageIds>({
   create(context) {
     const optionLimit = context.options?.[0]
     /* v8 ignore next guard by json-schema */
-    const limit = optionLimit <= 0 ? defaultOptions : optionLimit
+    const limit = optionLimit >= 1 ? optionLimit : defaultOptions
+
     return {
-      'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
-        const jobsPair = node.pairs.find(v => isYAMLScalar(v.key) && v.key.value === 'jobs')
-
-        // action has no jobs
-        if (!jobsPair) return
-
-        // jobs is not a mapping
-        if (!isYAMLMapping(jobsPair.value)) return
-
-        const count = jobsPair.value.pairs.length
+      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping': (
+        node: YAMLAst.YAMLMapping,
+      ) => {
+        const count = node.pairs.length
 
         if (count > limit) {
           context.report({

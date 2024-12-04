@@ -46,7 +46,7 @@ run({
               "line": 3,
               "message": "Disallow using top level env.",
               "messageId": "disallowTopLevelEnv",
-              "nodeType": "YAMLMapping",
+              "nodeType": "YAMLPair",
               "ruleId": "no-top-level-env",
               "severity": 2,
             },

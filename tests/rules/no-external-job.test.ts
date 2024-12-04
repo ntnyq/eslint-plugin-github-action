@@ -45,7 +45,7 @@ run({
               "line": 5,
               "message": "Disallow using external job.",
               "messageId": "disallowExternalJob",
-              "nodeType": "YAMLMapping",
+              "nodeType": "YAMLPair",
               "ruleId": "no-external-job",
               "severity": 2,
             },
