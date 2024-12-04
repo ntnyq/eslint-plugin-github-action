@@ -110,6 +110,14 @@ const mapping: YAMLAst.YAMLMapping = {
   ...locAndRange,
 }
 
+const sequence: YAMLAst.YAMLSequence = {
+  type: 'YAMLSequence',
+  style: 'block',
+  entries: [],
+  parent: document,
+  ...locAndRange,
+}
+
 export const content: YAMLAst.YAMLContent = {
   type: 'YAMLScalar',
   style: 'plain',
@@ -174,6 +182,7 @@ export const YAML_NODES = {
   program,
   document,
   mapping,
+  sequence,
   content,
 
   blockLiteralScalar,

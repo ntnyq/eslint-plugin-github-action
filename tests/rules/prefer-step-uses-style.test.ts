@@ -96,6 +96,34 @@ run({
   ],
   invalid: [
     {
+      filename: 'empty-step-uses.yml',
+      code: $`
+        name: Release
+        
+        jobs:
+          test:
+            steps:
+              - uses:
+      `,
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 9,
+              "endColumn": 14,
+              "endLine": 6,
+              "line": 6,
+              "message": "Invalid style for job step uses.",
+              "messageId": "invalidStyle",
+              "nodeType": "YAMLPair",
+              "ruleId": "prefer-step-uses-style",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
+    },
+    {
       filename: 'invalid-step-uses.yml',
       code: $`
         name: Release

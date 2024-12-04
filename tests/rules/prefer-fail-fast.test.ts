@@ -30,6 +30,16 @@ run({
                 version: [6, 7, 8]
       `,
     },
+    {
+      filename: 'fail-fast-false.yml',
+      code: $`
+        jobs:
+          test:
+            runs-on: ubuntu-latest
+            strategy:
+              fail-fast: [foobar]
+      `,
+    },
   ],
   invalid: [
     {

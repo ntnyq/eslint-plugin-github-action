@@ -32,6 +32,10 @@ describe('isYAMLSequence', () => {
   it('should return false for null', () => {
     expect(isYAMLSequence(null)).toBeFalsy()
   })
+
+  it('should return true for sequence', () => {
+    expect(isYAMLSequence(YAML_NODES.sequence)).toBeTruthy()
+  })
 })
 
 describe('isYAMLComment', () => {
