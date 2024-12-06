@@ -47,27 +47,21 @@ export default createESLintRule<Options, MessageIds>({
             properties: {
               'kebab-case': {
                 type: 'boolean',
-                default: true,
               },
               camelCase: {
                 type: 'boolean',
-                default: false,
               },
               PascalCase: {
                 type: 'boolean',
-                default: false,
               },
               snake_case: {
                 type: 'boolean',
-                default: false,
               },
               'Train-Case': {
                 type: 'boolean',
-                default: false,
               },
               SCREAMING_SNAKE_CASE: {
                 type: 'boolean',
-                default: false,
               },
               ignores: {
                 type: 'array',

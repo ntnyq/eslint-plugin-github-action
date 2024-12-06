@@ -51,11 +51,9 @@ export default createESLintRule<Options, MessageIds>({
               extension: {
                 type: 'string',
                 enum: allowedExtensionOptions,
-                default: defaultOptions,
               },
               caseSensitive: {
                 type: 'boolean',
-                default: true,
               },
             },
             additionalProperties: false,

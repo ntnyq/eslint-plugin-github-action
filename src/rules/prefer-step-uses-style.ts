@@ -69,23 +69,18 @@ export default createESLintRule<Options, MessageIds>({
             properties: {
               commit: {
                 type: 'boolean',
-                default: true,
               },
               release: {
                 type: 'boolean',
-                default: true,
               },
               branch: {
                 type: 'boolean',
-                default: true,
               },
               allowRepository: {
                 type: 'boolean',
-                default: false,
               },
               allowDocker: {
                 type: 'boolean',
-                default: false,
               },
               ignores: {
                 type: 'array',

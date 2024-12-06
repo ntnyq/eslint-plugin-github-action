@@ -87,7 +87,8 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@ntnyq/utils@0.4.0": "patches/@ntnyq__utils@0.4.0.patch"
+      "@ntnyq/utils@0.4.0": "patches/@ntnyq__utils@0.4.0.patch",
+      "eslint-vitest-rule-tester": "patches/eslint-vitest-rule-tester.patch"
     },
     "overrides": {
       "@ntnyq/utils": "^0.4.0"
