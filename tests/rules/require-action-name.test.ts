@@ -93,5 +93,32 @@ run({
         `)
       },
     },
+    {
+      filename: 'non-string-name.yml',
+      code: $`
+        name: [helloWorld]
+        on:
+          push:
+            branches:
+              - main
+      `,
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 7,
+              "endColumn": 19,
+              "endLine": 1,
+              "line": 1,
+              "message": "Action name must be a non-empty string.",
+              "messageId": "invalidName",
+              "nodeType": "YAMLSequence",
+              "ruleId": "require-action-name",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
+    },
   ],
 })
