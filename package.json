@@ -2,7 +2,7 @@
   "name": "eslint-plugin-github-action",
   "type": "module",
   "version": "0.0.11",
-  "packageManager": "pnpm@9.14.4",
+  "packageManager": "pnpm@9.15.0",
   "description": "Rules for consistent, readable and valid GitHub action files.",
   "keywords": [
     "eslint",
@@ -58,12 +58,12 @@
     "eslint": "^9.5.0"
   },
   "dependencies": {
-    "@ntnyq/utils": "^0.4.0",
+    "@ntnyq/utils": "^0.4.1",
     "@types/json-schema": "^7.0.15",
     "yaml-eslint-parser": "catalog:"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^3.8.1",
+    "@ntnyq/eslint-config": "^3.9.0",
     "@ntnyq/prettier-config": "^1.22.0",
     "@types/node": "^22.10.1",
     "@vitest/coverage-v8": "^2.1.8",
@@ -87,11 +87,8 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@ntnyq/utils@0.4.0": "patches/@ntnyq__utils@0.4.0.patch",
-      "eslint-vitest-rule-tester": "patches/eslint-vitest-rule-tester.patch"
-    },
-    "overrides": {
-      "@ntnyq/utils": "^0.4.0"
+      "eslint-vitest-rule-tester": "patches/eslint-vitest-rule-tester.patch",
+      "@ntnyq/utils": "patches/@ntnyq__utils.patch"
     }
   },
   "nano-staged": {

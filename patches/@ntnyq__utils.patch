@@ -1,5 +1,5 @@
 diff --git a/dist/index.cjs b/dist/index.cjs
-index e6d5c1a8a48b4b344485a042c76bdf37c2cb8151..f971417af0071e2739bc55151a634e44572fc0b8 100644
+index fe08a46803a2e3ef62b0a447c5204095bdac5856..1f64e8b7739253238579c8f5d302104575e48813 100644
 --- a/dist/index.cjs
 +++ b/dist/index.cjs
 @@ -607,7 +607,7 @@ function trainCase(str, opts) {
@@ -12,7 +12,7 @@ index e6d5c1a8a48b4b344485a042c76bdf37c2cb8151..f971417af0071e2739bc55151a634e44
    ).join(" ");
  }
 diff --git a/dist/index.js b/dist/index.js
-index 38666c248b145e14ea55ccf9de6b8831a6b4d1f3..a464ee59118791660099c232c07746551fcccf6d 100644
+index 2e53d0e55b9c028eea628e49af55cbf81e74ed1c..9ccd875b04a0e049716e0f79fe24890d3727a733 100644
 --- a/dist/index.js
 +++ b/dist/index.js
 @@ -509,7 +509,7 @@ function trainCase(str, opts) {
