@@ -3,7 +3,7 @@ import { createESLintRule, isYAMLMapping, isYAMLScalar } from '../utils'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'require-job-name'
-export type MessageIds = 'requireJobName'
+export type MessageIds = 'noName' | 'invalidName'
 export type Options = []
 
 export default createESLintRule<Options, MessageIds>({
@@ -12,11 +12,12 @@ export default createESLintRule<Options, MessageIds>({
     type: 'suggestion',
     docs: {
       recommended: false,
-      description: 'require job name to be set.',
+      description: 'require a string job name.',
     },
     schema: [],
     messages: {
-      requireJobName: 'Require job name to be set.',
+      noName: 'Require job name to be set.',
+      invalidName: 'Job name must be a non-empty string.',
     },
   },
   defaultOptions: [],
@@ -25,34 +26,32 @@ export default createESLintRule<Options, MessageIds>({
       'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair': (
         node: YAMLAst.YAMLPair,
       ) => {
-        if (isYAMLMapping(node.value)) {
-          const namePair = node.value.pairs.find(
-            pair => isYAMLScalar(pair.key) && pair.key.value === 'name',
-          )
+        if (!isYAMLMapping(node.value)) {
+          return context.report({
+            node: node.value ?? node,
+            loc: node.value?.loc ?? node.loc,
+            messageId: 'noName',
+          })
+        }
 
-          if (namePair) {
-            // job name is not non-empty string
-            if (!isYAMLScalar(namePair.value) || !isNonEmptyString(namePair.value.value)) {
-              context.report({
-                node: namePair.value || namePair,
-                loc: namePair.value?.loc || namePair.loc,
-                messageId: 'requireJobName',
-              })
-            }
-          } else {
-            // job has no name
-            context.report({
-              node: node.value,
-              loc: node.loc,
-              messageId: 'requireJobName',
-            })
-          }
-        } else {
-          // job value is not a mapping
-          context.report({
-            node: node.value || node,
-            loc: node.value?.loc || node.loc,
-            messageId: 'requireJobName',
+        const namePair = node.value.pairs.find(
+          pair => isYAMLScalar(pair.key) && pair.key.value === 'name',
+        )
+
+        if (!namePair) {
+          return context.report({
+            node,
+            loc: node.loc,
+            messageId: 'noName',
+          })
+        }
+
+        // job name is not non-empty string
+        if (!isYAMLScalar(namePair.value) || !isNonEmptyString(namePair.value.value)) {
+          return context.report({
+            node: namePair.value || namePair,
+            loc: namePair.value?.loc || namePair.loc,
+            messageId: 'invalidName',
           })
         }
       },

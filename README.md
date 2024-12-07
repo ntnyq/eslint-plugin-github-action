@@ -62,10 +62,10 @@ export default [
 | [prefer-fail-fast](https://eslint-plugin-github-action.ntnyq.com/rules/prefer-fail-fast.html)                 | Disallow setting fail-fast to false.      |     |     |     |
 | [prefer-file-extension](https://eslint-plugin-github-action.ntnyq.com/rules/prefer-file-extension.html)       | Enforce action file extension.            | ✅  |     |     |
 | [prefer-step-uses-style](https://eslint-plugin-github-action.ntnyq.com/rules/prefer-step-uses-style.html)     | Enforce the style of job step uses.       |     |     |     |
-| [require-action-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-name.html)           | Require action name to be set.            | ✅  |     |     |
-| [require-action-run-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-run-name.html)   | Require action run-name to be set.        |     |     |     |
-| [require-job-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-job-name.html)                 | Require job name to be set.               |     |     |     |
-| [require-job-step-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-job-step-name.html)       | Require job step name to be set.          |     |     |     |
+| [require-action-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-name.html)           | Require a string action name.             | ✅  |     |     |
+| [require-action-run-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-run-name.html)   | Require a string action run-name.         |     |     |     |
+| [require-job-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-job-name.html)                 | Require a string job name.                |     |     |     |
+| [require-job-step-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-job-step-name.html)       | Require a string job step name.           |     |     |     |
 
 ## Links
 

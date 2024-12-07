@@ -2,7 +2,7 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: github-action/require-action-name
-description: Require action name to be set.
+description: Require a string action name.
 since: v0.0.0
 ---
 
@@ -10,11 +10,11 @@ since: v0.0.0
 
 - 💼 This rule is enabled in the ✅ `recommended` config.
 
-> Require action name to be set.
+> Require a string action name.
 
 ## :book: Rule Details
 
-This rule reports when action has no name.
+This rule reports when action has no name or not a string.
 
 ::: correct
 

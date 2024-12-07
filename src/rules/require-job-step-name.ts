@@ -3,7 +3,7 @@ import { createESLintRule, isYAMLScalar } from '../utils'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'require-job-step-name'
-export type MessageIds = 'requireJobStepName'
+export type MessageIds = 'noName' | 'invalidName'
 export type Options = []
 
 export default createESLintRule<Options, MessageIds>({
@@ -12,11 +12,12 @@ export default createESLintRule<Options, MessageIds>({
     type: 'suggestion',
     docs: {
       recommended: false,
-      description: 'require job step name to be set.',
+      description: 'require a string job step name.',
     },
     schema: [],
     messages: {
-      requireJobStepName: 'Require job step name to be set.',
+      noName: 'Require job step name to be set.',
+      invalidName: 'Job step name must be a non-empty string.',
     },
   },
   defaultOptions: [],
@@ -28,21 +29,19 @@ export default createESLintRule<Options, MessageIds>({
             pair => isYAMLScalar(pair.key) && pair.key.value === 'name',
           )
 
-          if (namePair) {
-            // step name is not non-empty string
-            if (!isYAMLScalar(namePair.value) || !isNonEmptyString(namePair.value.value)) {
-              context.report({
-                node: namePair.value ?? namePair,
-                loc: namePair.value?.loc || namePair.loc,
-                messageId: 'requireJobStepName',
-              })
-            }
-          } else {
-            // step has no name
-            context.report({
+          if (!namePair) {
+            return context.report({
               node,
               loc: node.loc,
-              messageId: 'requireJobStepName',
+              messageId: 'noName',
+            })
+          }
+
+          if (!isYAMLScalar(namePair.value) || !isNonEmptyString(namePair.value.value)) {
+            return context.report({
+              node: namePair.value ?? namePair,
+              loc: namePair.value?.loc || namePair.loc,
+              messageId: 'invalidName',
             })
           }
         },

@@ -2,17 +2,17 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: github-action/require-action-run-name
-description: Require action name to be set.
+description: Require a string action run-name.
 since: v0.0.9
 ---
 
 # github-action/require-action-run-name
 
-> Require action run-name to be set.
+> Require a string action run-name.
 
 ## :book: Rule Details
 
-This rule reports when action has no run-name.
+This rule reports when action has no run-name or not a string.
 
 ::: correct
 

@@ -2,17 +2,17 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: github-action/require-job-name
-description: Require job name to be set.
+description: Require a string job name.
 since: v0.0.6
 ---
 
 # github-action/require-job-name
 
-> Require job name to be set.
+> Require a string job name.
 
 ## :book: Rule Details
 
-This rule reports when action jobs has no name.
+This rule reports when action jobs has no name or not a string.
 
 ::: correct
 

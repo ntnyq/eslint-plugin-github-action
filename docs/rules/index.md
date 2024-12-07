@@ -21,7 +21,7 @@ sidebarDepth: 0
 | [prefer-fail-fast](./prefer-fail-fast)                 | Disallow setting fail-fast to false.      |     |     |     |
 | [prefer-file-extension](./prefer-file-extension)       | Enforce action file extension.            | ✅  |     |     |
 | [prefer-step-uses-style](./prefer-step-uses-style)     | Enforce the style of job step uses.       |     |     |     |
-| [require-action-name](./require-action-name)           | Require action name to be set.            | ✅  |     |     |
-| [require-action-run-name](./require-action-run-name)   | Require action run name to be set.        |     |     |     |
-| [require-job-name](./require-job-name)                 | Require job name to be set.               |     |     |     |
-| [require-job-step-name](./require-job-step-name)       | Require job step name to be set.          |     |     |     |
+| [require-action-name](./require-action-name)           | Require a string action name.             | ✅  |     |     |
+| [require-action-run-name](./require-action-run-name)   | Require a string action run-name.         |     |     |     |
+| [require-job-name](./require-job-name)                 | Require a string job name.                |     |     |     |
+| [require-job-step-name](./require-job-step-name)       | Require a string job step name.           |     |     |     |

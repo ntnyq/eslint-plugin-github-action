@@ -3,7 +3,7 @@ import { createESLintRule, isYAMLScalar } from '../utils'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'require-action-run-name'
-export type MessageIds = 'requireActionRunName'
+export type MessageIds = 'noName' | 'invalidName'
 export type Options = []
 
 export default createESLintRule<Options, MessageIds>({
@@ -12,11 +12,12 @@ export default createESLintRule<Options, MessageIds>({
     type: 'suggestion',
     docs: {
       recommended: false,
-      description: 'require action run-name to be set.',
+      description: 'require a string action run-name.',
     },
     schema: [],
     messages: {
-      requireActionRunName: 'Require action run-name to be set.',
+      noName: 'Require action run-name to be set.',
+      invalidName: 'Action run-name must be a non-empty string.',
     },
   },
   defaultOptions: [],
@@ -28,23 +29,27 @@ export default createESLintRule<Options, MessageIds>({
         // Empty file
         context.report({
           node,
-          messageId: 'requireActionRunName',
+          messageId: 'noName',
         })
       },
 
       'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
-        const hasRunName = node.pairs.some(v => {
-          if (isYAMLScalar(v.key) && isYAMLScalar(v.value)) {
-            return v.key.value === 'run-name' && isNonEmptyString(v.value.value)
-          } else {
-            return false
-          }
-        })
+        const namePair = node.pairs.find(
+          pair => isYAMLScalar(pair.key) && pair.key.value === 'run-name',
+        )
 
-        if (!hasRunName) {
-          context.report({
+        if (!namePair) {
+          return context.report({
             node,
-            messageId: 'requireActionRunName',
+            messageId: 'noName',
+          })
+        }
+
+        if (!isYAMLScalar(namePair.value) || !isNonEmptyString(namePair.value.value)) {
+          return context.report({
+            node: namePair.value ?? namePair,
+            loc: namePair.value?.loc ?? namePair.loc,
+            messageId: 'invalidName',
           })
         }
       },
