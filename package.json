@@ -65,10 +65,10 @@
   "devDependencies": {
     "@ntnyq/eslint-config": "^3.9.1",
     "@ntnyq/prettier-config": "^1.22.0",
-    "@types/node": "^22.10.1",
+    "@types/node": "^22.10.2",
     "@vitest/coverage-v8": "^2.1.8",
-    "bumpp": "^9.9.0",
-    "eslint": "^9.16.0",
+    "bumpp": "^9.9.1",
+    "eslint": "^9.17.0",
     "eslint-plugin-eslint-plugin": "^6.3.2",
     "eslint-plugin-github-action": "workspace:*",
     "eslint-vitest-rule-tester": "^0.7.1",
