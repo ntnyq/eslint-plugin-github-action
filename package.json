@@ -63,7 +63,7 @@
     "yaml-eslint-parser": "catalog:"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^3.9.1",
+    "@ntnyq/eslint-config": "^3.9.2",
     "@ntnyq/prettier-config": "^1.22.0",
     "@types/node": "^22.10.2",
     "@vitest/coverage-v8": "^2.1.8",
