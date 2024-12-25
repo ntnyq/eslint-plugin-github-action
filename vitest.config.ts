@@ -7,17 +7,17 @@ export default defineConfig({
     __PKG_VERSION__: JSON.stringify(pkg.version),
   },
   test: {
+    reporters: ['dot'],
     coverage: {
       include: ['**/src/**/*.ts'],
       reporter: ['lcov', 'text'],
       thresholds: {
-        branches: 85,
+        branches: 95,
         functions: 95,
         lines: 95,
         perFile: false,
         statements: 95,
       },
     },
-    reporters: ['dot'],
   },
 })

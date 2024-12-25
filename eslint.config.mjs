@@ -15,6 +15,7 @@ export default defineESLintConfig(
     rules: {
       ...pluginESLintPlugin.configs['flat/all'].rules,
       // injected by `createRule`
+      'eslint-plugin/require-meta-default-options': 'off',
       'eslint-plugin/require-meta-docs-url': 'off',
     },
   },
