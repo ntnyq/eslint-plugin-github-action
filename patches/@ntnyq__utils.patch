@@ -1,8 +1,8 @@
 diff --git a/dist/index.cjs b/dist/index.cjs
-index fe08a46803a2e3ef62b0a447c5204095bdac5856..1f64e8b7739253238579c8f5d302104575e48813 100644
+index d6f75ca9109ba37f9ee934fa0ef8da6beaf09517..3b38929e8e0a77577c18911b200675a5db0e5ab5 100644
 --- a/dist/index.cjs
 +++ b/dist/index.cjs
-@@ -607,7 +607,7 @@ function trainCase(str, opts) {
+@@ -639,7 +639,7 @@ function trainCase(str, opts) {
  }
  var titleCaseExceptions = /^(a|an|and|as|at|but|by|for|if|in|is|nor|of|on|or|the|to|with)$/i;
  function titleCase(str, opts) {
@@ -12,10 +12,10 @@ index fe08a46803a2e3ef62b0a447c5204095bdac5856..1f64e8b7739253238579c8f5d3021045
    ).join(" ");
  }
 diff --git a/dist/index.js b/dist/index.js
-index 2e53d0e55b9c028eea628e49af55cbf81e74ed1c..9ccd875b04a0e049716e0f79fe24890d3727a733 100644
+index 06a29770f38217c8062f0202426252eeb0d6f26e..540b323012ab5ca3b1990c3e53b4beda2a538004 100644
 --- a/dist/index.js
 +++ b/dist/index.js
-@@ -509,7 +509,7 @@ function trainCase(str, opts) {
+@@ -531,7 +531,7 @@ function trainCase(str, opts) {
  }
  var titleCaseExceptions = /^(a|an|and|as|at|but|by|for|if|in|is|nor|of|on|or|the|to|with)$/i;
  function titleCase(str, opts) {
