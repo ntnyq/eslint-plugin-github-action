@@ -54,8 +54,8 @@ importers:
         specifier: workspace:*
         version: 'link:'
       eslint-vitest-rule-tester:
-        specifier: ^0.7.1
-        version: 0.7.1(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.3)(vitest@3.0.0-beta.4(@types/node@22.10.5)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
+        specifier: ^1.0.0
+        version: 1.0.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.3)(vitest@3.0.0-beta.4(@types/node@22.10.5)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -215,6 +215,9 @@ packages:
 
   '@antfu/utils@0.7.10':
     resolution: {integrity: sha512-+562v9k4aI80m1+VuMHehNJWLOFjBnXn3tdOitzD0il5b7smkSBal4+a3oKiQTbrwMmN/TBUMDvbdoWDehgOww==}
+
+  '@antfu/utils@8.0.0':
+    resolution: {integrity: sha512-3NfBIlWj8ffBHdNiedaiea1xIy0NIZZaqQwTbmwXa4sGekD5UarRU3NfXScpuC5aw99KCvErew3PHxGJeHqeAg==}
 
   '@babel/code-frame@7.26.2':
     resolution: {integrity: sha512-RJlIHRueQgwWitWgF8OdFYGZX328Ax5BCemNGlqHfplnRT9ESi8JkFlvaVYbS+UubVY6dpv87Fs2u5M29iNFVQ==}
@@ -1961,8 +1964,8 @@ packages:
     resolution: {integrity: sha512-UyLnSehNt62FFhSwjZlHmeokpRK59rcz29j+F1/aDgbkbRTk7wIc9XzdoasMUbRNKDM0qQt/+BJ4BrpFeABemw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  eslint-vitest-rule-tester@0.7.1:
-    resolution: {integrity: sha512-OiIOpJq6dQdjvWrC6LCEv1SMBDtGg4kNHYThy7nG4Yr9dSXsnlyU3DTUWI4a4LbDePpohxCopNcCyfS6oCi3rA==}
+  eslint-vitest-rule-tester@1.0.0:
+    resolution: {integrity: sha512-THj/CMBRPuarm5H847TUEIgwYzEL9NUV4MZTClkva37JW7eO0n5LCUqTG/xunKC16IjP6huHMRJnNXQ7rUj9ng==}
     peerDependencies:
       eslint: ^9.0.0
       vitest: ^1.0.0 || ^2.0.0
@@ -3615,6 +3618,8 @@ snapshots:
       tinyexec: 0.3.2
 
   '@antfu/utils@0.7.10': {}
+
+  '@antfu/utils@8.0.0': {}
 
   '@babel/code-frame@7.26.2':
     dependencies:
@@ -5471,9 +5476,9 @@ snapshots:
 
   eslint-visitor-keys@4.2.0: {}
 
-  eslint-vitest-rule-tester@0.7.1(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.3)(vitest@3.0.0-beta.4(@types/node@22.10.5)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)):
+  eslint-vitest-rule-tester@1.0.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.3)(vitest@3.0.0-beta.4(@types/node@22.10.5)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)):
     dependencies:
-      '@antfu/utils': 0.7.10
+      '@antfu/utils': 8.0.0
       '@types/eslint': 9.6.1
       '@typescript-eslint/utils': 8.19.1(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.3)
       eslint: 9.17.0(jiti@2.4.2)
