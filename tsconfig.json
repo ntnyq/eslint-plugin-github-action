@@ -22,8 +22,8 @@
     "./typings/**/*.d.ts",
     "./scripts/**/*.ts",
     "./tests/**/*.ts",
-    "*.config.ts",
-    "eslint.config.mjs"
+    "./*.config.ts",
+    "./*.config.mjs"
   ],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["**/node_modules/**", "**/dist/**"]
 }

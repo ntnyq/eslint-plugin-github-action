@@ -13,15 +13,15 @@
 
 ## Install
 
-```bash
+```shell
 npm install eslint-plugin-github-action -D
 ```
 
-```bash
+```shell
 yarn add eslint-plugin-github-action -D
 ```
 
-```bash
+```shell
 pnpm add eslint-plugin-github-action -D
 ```
 

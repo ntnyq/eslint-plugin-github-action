@@ -8,9 +8,9 @@ since: v0.0.8
 
 # github-action/prefer-file-extension
 
-- 💼 This rule is enabled in the ✅ `recommended` config.
-
 > Enforce action file extension.
+
+- 💼 This rule is enabled in the ✅ `recommended` config.
 
 ## :book: Rule Details
 

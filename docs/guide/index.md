@@ -4,15 +4,15 @@
 
 ::: code-group
 
-```bash [npm]
+```shell [npm]
 npm i eslint-plugin-github-action -D
 ```
 
-```bash [yarn]
+```shell [yarn]
 yarn add eslint-plugin-github-action -D
 ```
 
-```bash [pnpm]
+```shell [pnpm]
 pnpm add eslint-plugin-github-action -D
 ```
 
@@ -46,14 +46,14 @@ _See also: [http://eslint.org/docs/user-guide/configuring](http://eslint.org/doc
 
 ```ts [eslint.config.mjs] twoslash
 // @noErrors
-import { createRecommendedConfig } from 'eslint-plugin-github-action'
+import { createConfig } from 'eslint-plugin-github-action'
 
 /**
  * @type {import('eslint').Linter.Config[]}
  */
 export default [
   // Create a single config based on the recommended config
-  createRecommendedConfig({
+  createConfig({
     // config name
     name: 'github-action',
 
@@ -63,23 +63,17 @@ export default [
     // files to exclude
     ignores: ['!**/.github/workflows/*.y?(a)ml'],
 
-    // overrides built-in recommended rules
-    overridesRules: {
+    // rules to enable
+    rules: {
       'github-action/action-name-casing': ['error', 'kebab-case'],
     },
   }),
 ]
 ```
 
-## Options of `createRecommendedConfig`
+## Options of `createConfig`
 
-### name
-
-The name of the config.
-
-- Type: `string`
-- Required: `false`
-- Default: `github-action/recommended`
+All fields of ESLint `Linter.Config` are supported, but bellow fields have default value:
 
 ### files
 
@@ -97,10 +91,18 @@ The files to be ignored. negated patterns for force lint.
 - Required: `false`
 - Default: `['!**/.github/workflows/*.y?(a)ml']`
 
-### overridesRules
+### languageOptions.parser
 
-Override rules in the `recommended` preset.
+The parser to use, this is set by default and can't be overridden.
 
-- Type: `Record<string, Linter.RuleEntry>`
+- Type: `Linter.Parser`
 - Required: `false`
-- Default: `undefined`
+- Default: [yaml-eslint-parser](https://github.com/ota-meshi/yaml-eslint-parser)
+
+### plugins
+
+The plugins to use.
+
+- Type: `Record<string, ESLint.Plugin>`
+- Required: `false`
+- Default: key `github-action` set to this plugin

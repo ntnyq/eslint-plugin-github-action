@@ -8,9 +8,9 @@ since: v0.0.8
 
 # github-action/no-invalid-key
 
-- 💼 This rule is enabled in the ✅ `recommended` config.
-
 > Disallow using invalid key.
+
+- 💼 This rule is enabled in the ✅ `recommended` config.
 
 ## :book: Rule Details
 

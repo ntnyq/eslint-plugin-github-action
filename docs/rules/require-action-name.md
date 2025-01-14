@@ -8,9 +8,9 @@ since: v0.0.0
 
 # github-action/require-action-name
 
-- 💼 This rule is enabled in the ✅ `recommended` config.
-
 > Require a string action name.
+
+- 💼 This rule is enabled in the ✅ `recommended` config.
 
 ## :book: Rule Details
 
