@@ -60,6 +60,7 @@
   "dependencies": {
     "@ntnyq/utils": "^0.4.5",
     "@types/json-schema": "^7.0.15",
+    "change-case": "^5.4.4",
     "yaml-eslint-parser": "catalog:"
   },
   "devDependencies": {
@@ -88,10 +89,7 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"
-    ],
-    "patchedDependencies": {
-      "@ntnyq/utils": "patches/@ntnyq__utils.patch"
-    }
+    ]
   },
   "nano-staged": {
     "*.{js,ts,mjs,cjs,vue,svg,json,md,yml,yaml}": "eslint --fix",

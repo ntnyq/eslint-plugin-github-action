@@ -168,6 +168,9 @@ run({
       code: $`
         name: UNIT_TEST
       `,
+      output: $`
+        name: Unit Test
+      `,
       errors(errors) {
         expect(errors).toMatchInlineSnapshot(`
           [
@@ -180,10 +183,44 @@ run({
                   6,
                   15,
                 ],
-                "text": "UNIT TEST",
+                "text": "Unit Test",
               },
               "line": 1,
               "message": "Action name 'UNIT_TEST' is not in Title Case.",
+              "messageId": "actionNameNotMatch",
+              "nodeType": "YAMLScalar",
+              "ruleId": "action-name-casing",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
+    },
+    {
+      filename: 'options-kebab-case.yml',
+      code: $`
+        name: Unit Test
+      `,
+      output: $`
+        name: unit-test
+      `,
+      options: ['kebab-case'],
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 7,
+              "endColumn": 16,
+              "endLine": 1,
+              "fix": {
+                "range": [
+                  6,
+                  15,
+                ],
+                "text": "unit-test",
+              },
+              "line": 1,
+              "message": "Action name 'Unit Test' is not in kebab-case.",
               "messageId": "actionNameNotMatch",
               "nodeType": "YAMLScalar",
               "ruleId": "action-name-casing",
