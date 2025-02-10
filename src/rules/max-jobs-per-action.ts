@@ -1,4 +1,4 @@
-import { createESLintRule } from '../utils'
+import { createESLintRule, resolveOptions } from '../utils'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'max-jobs-per-action'
@@ -28,7 +28,8 @@ export default createESLintRule<Options, MessageIds>({
   },
   defaultOptions: [defaultOptions],
   create(context) {
-    const optionLimit = context.options?.[0]
+    const optionLimit = resolveOptions(context.options, defaultOptions)
+
     /* v8 ignore next guard by json-schema */
     const limit = optionLimit >= 1 ? optionLimit : defaultOptions
 

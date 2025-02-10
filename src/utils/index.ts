@@ -1,4 +1,5 @@
 export * from './ast'
 export * from './merge'
 export * from './casing'
-export * from './create-rule'
+export * from './createRule'
+export * from './resolveOptions'

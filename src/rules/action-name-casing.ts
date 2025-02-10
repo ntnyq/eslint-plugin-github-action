@@ -4,6 +4,7 @@ import {
   createESLintRule,
   getExactConverter,
   isYAMLScalar,
+  resolveOptions,
 } from '../utils'
 import type { YAMLAst } from '../types/yaml'
 import type { CasingKind } from '../utils'
@@ -47,13 +48,13 @@ export default createESLintRule<Options, MessageIds>({
   },
   defaultOptions: [defaultOptions],
   create(context) {
-    /* v8 ignore next guard by json-schema */
-    const optionCase = context.options?.[0] || defaultOptions
+    const optionCase = resolveOptions(context.options, defaultOptions)
 
-    /* v8 ignore next guard by json-schema */
+    /* v8 ignore start guard by json-schema */
     const caseType = allowedCaseOptions.includes(optionCase)
       ? optionCase
       : defaultOptions
+    /* v8 ignore end guard by json-schema */
 
     return {
       'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=name]': (

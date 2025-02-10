@@ -1,5 +1,5 @@
 import { isNonEmptyString, isString } from '@ntnyq/utils'
-import { createESLintRule, isYAMLScalar } from '../utils'
+import { createESLintRule, isYAMLScalar, resolveOptions } from '../utils'
 import type { YAMLAst } from '../types/yaml'
 
 const UsesStyle = {
@@ -110,8 +110,7 @@ export default createESLintRule<Options, MessageIds>({
   },
   defaultOptions: [defaultOptions],
   create(context) {
-    /* v8 ignore next guard by json-schema */
-    const rawOptions = context.options?.[0] ?? defaultOptions
+    const rawOptions = resolveOptions(context.options, defaultOptions)
 
     const usesStyles: AllowedUsesStyle[] = []
     const ignores = isString(rawOptions)
@@ -124,10 +123,11 @@ export default createESLintRule<Options, MessageIds>({
 
     if (isString(rawOptions)) {
       // Enum options
-      /* v8 ignore next guard by json-schema */
+      /* v8 ignore start guard by json-schema */
       usesStyles.push(
         allowedStyleOptions.includes(rawOptions) ? rawOptions : defaultOptions,
       )
+      /* v8 ignore end guard by json-schema */
     } else {
       // Object options
       usesStyles.push(

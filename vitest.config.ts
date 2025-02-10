@@ -9,14 +9,11 @@ export default defineConfig({
   test: {
     reporters: ['dot'],
     coverage: {
+      all: false,
       include: ['**/src/**/*.ts'],
       reporter: ['lcov', 'text'],
       thresholds: {
-        branches: 95,
-        functions: 95,
-        lines: 95,
-        perFile: false,
-        statements: 95,
+        100: true,
       },
     },
   },

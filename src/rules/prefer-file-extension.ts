@@ -4,7 +4,7 @@
  */
 
 import { isString } from '@ntnyq/utils'
-import { createESLintRule } from '../utils'
+import { createESLintRule, resolveOptions } from '../utils'
 import type { YAMLAst } from '../types/yaml'
 
 const actionExtension = {
@@ -70,8 +70,8 @@ export default createESLintRule<Options, MessageIds>({
   },
   defaultOptions: [defaultOptions],
   create(context) {
-    /* v8 ignore next guard by json-schema */
-    const rawOptions = context.options?.[0] ?? defaultOptions
+    const rawOptions = resolveOptions(context.options, defaultOptions)
+
     const extension = isString(rawOptions)
       ? rawOptions
       : (rawOptions.extension ?? defaultOptions)

@@ -4,6 +4,7 @@ import {
   createESLintRule,
   getExactConverter,
   isYAMLScalar,
+  resolveOptions,
 } from '../utils'
 import type { YAMLAst } from '../types/yaml'
 import type { CasingKind } from '../utils'
@@ -89,9 +90,7 @@ export default createESLintRule<Options, MessageIds>({
   },
   defaultOptions: [defaultOptions],
   create(context) {
-    // If options[0] is undefined, use defaultOptions
-    /* v8 ignore next guard by json-schema */
-    const rawOptions = context.options?.[0] ?? defaultOptions
+    const rawOptions = resolveOptions(context.options, defaultOptions)
 
     const caseTypes: AllowedCasing[] = []
     const ignores = isString(rawOptions)
@@ -100,10 +99,11 @@ export default createESLintRule<Options, MessageIds>({
 
     if (isString(rawOptions)) {
       // Enum options
-      /* v8 ignore next guard by json-schema */
+      /* v8 ignore start guard by json-schema */
       caseTypes.push(
         allowedCaseOptions.includes(rawOptions) ? rawOptions : defaultOptions,
       )
+      /* v8 ignore end guard by json-schema */
     } else {
       // Object options
       caseTypes.push(
