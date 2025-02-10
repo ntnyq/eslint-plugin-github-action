@@ -26,7 +26,7 @@ describe('getExactConverter', () => {
         },
         {
           "changed": true,
-          "value": "title Case",
+          "value": "titleCase",
         },
         {
           "changed": true,
@@ -34,7 +34,7 @@ describe('getExactConverter', () => {
         },
         {
           "changed": true,
-          "value": "sCREAMINGSNAKECASE",
+          "value": "screamingSnakeCase",
         },
       ]
     `)
@@ -62,7 +62,7 @@ describe('getExactConverter', () => {
         },
         {
           "changed": true,
-          "value": "title -case",
+          "value": "title-case",
         },
         {
           "changed": true,
@@ -97,8 +97,8 @@ describe('getExactConverter', () => {
           "value": "SnakeCase",
         },
         {
-          "changed": false,
-          "value": "Title Case",
+          "changed": true,
+          "value": "TitleCase",
         },
         {
           "changed": true,
@@ -106,7 +106,7 @@ describe('getExactConverter', () => {
         },
         {
           "changed": true,
-          "value": "SCREAMINGSNAKECASE",
+          "value": "ScreamingSnakeCase",
         },
       ]
     `)
@@ -134,7 +134,7 @@ describe('getExactConverter', () => {
         },
         {
           "changed": true,
-          "value": "title _case",
+          "value": "title_case",
         },
         {
           "changed": true,
@@ -178,7 +178,7 @@ describe('getExactConverter', () => {
         },
         {
           "changed": true,
-          "value": "SCREAMING SNAKE CASE",
+          "value": "Screaming Snake Case",
         },
       ]
     `)
@@ -206,7 +206,7 @@ describe('getExactConverter', () => {
         },
         {
           "changed": true,
-          "value": "Title -Case",
+          "value": "Title-Case",
         },
         {
           "changed": false,
@@ -214,7 +214,7 @@ describe('getExactConverter', () => {
         },
         {
           "changed": true,
-          "value": "SCREAMING-SNAKE-CASE",
+          "value": "Screaming-Snake-Case",
         },
       ]
     `)
@@ -242,7 +242,7 @@ describe('getExactConverter', () => {
         },
         {
           "changed": true,
-          "value": "TITLE _CASE",
+          "value": "TITLE_CASE",
         },
         {
           "changed": true,

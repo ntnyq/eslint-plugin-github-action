@@ -10,21 +10,19 @@ catalogs:
       specifier: ^1.2.3
       version: 1.2.3
 
-patchedDependencies:
-  '@ntnyq/utils':
-    hash: 36bb34bb952b35a3e8bbd5455717501f2f91c932b8ae0eeca66bd4ce9ce12d94
-    path: patches/@ntnyq__utils.patch
-
 importers:
 
   .:
     dependencies:
       '@ntnyq/utils':
         specifier: ^0.4.5
-        version: 0.4.5(patch_hash=36bb34bb952b35a3e8bbd5455717501f2f91c932b8ae0eeca66bd4ce9ce12d94)
+        version: 0.4.5
       '@types/json-schema':
         specifier: ^7.0.15
         version: 7.0.15
+      change-case:
+        specifier: ^5.4.4
+        version: 5.4.4
       yaml-eslint-parser:
         specifier: 'catalog:'
         version: 1.2.3
@@ -121,7 +119,7 @@ importers:
         version: 6.1.0(@types/node@22.13.1)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
       vitepress:
         specifier: ^1.6.3
-        version: 1.6.3(@algolia/client-search@5.20.1)(@types/node@22.13.1)(postcss@8.5.1)(search-insights@2.17.3)(typescript@5.7.3)
+        version: 1.6.3(@algolia/client-search@5.20.1)(@types/node@22.13.1)(change-case@5.4.4)(postcss@8.5.1)(search-insights@2.17.3)(typescript@5.7.3)
       vitepress-plugin-group-icons:
         specifier: ^1.3.5
         version: 1.3.5
@@ -1509,6 +1507,9 @@ packages:
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
+
+  change-case@5.4.4:
+    resolution: {integrity: sha512-HRQyTk2/YPEkt9TnUPbOpr64Uw3KOicFWPVBb+xiHvd6eBx/qPr9xqfBFDT8P2vWsvvz4jbEkfDe71W3VyNu2w==}
 
   character-entities-html4@2.1.0:
     resolution: {integrity: sha512-1v7fgQRj6hnSwFpq1Eu0ynr/CDEw0rXo2B61qXrLNdHZmPKgb7fqS1a2JwF0rISo9q77jDI8VMEHoApn8qDoZA==}
@@ -4102,7 +4103,7 @@ snapshots:
 
   '@ntnyq/prettier-config@2.0.0-beta.2': {}
 
-  '@ntnyq/utils@0.4.5(patch_hash=36bb34bb952b35a3e8bbd5455717501f2f91c932b8ae0eeca66bd4ce9ce12d94)':
+  '@ntnyq/utils@0.4.5':
     dependencies:
       scule: 1.3.0
 
@@ -4718,12 +4719,13 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@vueuse/integrations@12.5.0(focus-trap@7.6.4)(typescript@5.7.3)':
+  '@vueuse/integrations@12.5.0(change-case@5.4.4)(focus-trap@7.6.4)(typescript@5.7.3)':
     dependencies:
       '@vueuse/core': 12.5.0(typescript@5.7.3)
       '@vueuse/shared': 12.5.0(typescript@5.7.3)
       vue: 3.5.13(typescript@5.7.3)
     optionalDependencies:
+      change-case: 5.4.4
       focus-trap: 7.6.4
     transitivePeerDependencies:
       - typescript
@@ -4880,6 +4882,8 @@ snapshots:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
+
+  change-case@5.4.4: {}
 
   character-entities-html4@2.1.0: {}
 
@@ -5253,7 +5257,7 @@ snapshots:
 
   eslint-plugin-github-action@0.0.13(eslint@9.20.0(jiti@2.4.2)):
     dependencies:
-      '@ntnyq/utils': 0.4.5(patch_hash=36bb34bb952b35a3e8bbd5455717501f2f91c932b8ae0eeca66bd4ce9ce12d94)
+      '@ntnyq/utils': 0.4.5
       '@types/json-schema': 7.0.15
       eslint: 9.20.0(jiti@2.4.2)
       yaml-eslint-parser: 1.2.3
@@ -7013,7 +7017,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vitepress@1.6.3(@algolia/client-search@5.20.1)(@types/node@22.13.1)(postcss@8.5.1)(search-insights@2.17.3)(typescript@5.7.3):
+  vitepress@1.6.3(@algolia/client-search@5.20.1)(@types/node@22.13.1)(change-case@5.4.4)(postcss@8.5.1)(search-insights@2.17.3)(typescript@5.7.3):
     dependencies:
       '@docsearch/css': 3.8.2
       '@docsearch/js': 3.8.2(@algolia/client-search@5.20.1)(search-insights@2.17.3)
@@ -7026,7 +7030,7 @@ snapshots:
       '@vue/devtools-api': 7.7.1
       '@vue/shared': 3.5.13
       '@vueuse/core': 12.5.0(typescript@5.7.3)
-      '@vueuse/integrations': 12.5.0(focus-trap@7.6.4)(typescript@5.7.3)
+      '@vueuse/integrations': 12.5.0(change-case@5.4.4)(focus-trap@7.6.4)(typescript@5.7.3)
       focus-trap: 7.6.4
       mark.js: 8.11.1
       minisearch: 7.1.1

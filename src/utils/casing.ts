@@ -7,9 +7,9 @@ import {
   kebabCase,
   pascalCase,
   snakeCase,
-  titleCase,
+  capitalCase as titleCase,
   trainCase,
-} from '@ntnyq/utils'
+} from 'change-case'
 
 export const CASING = {
   camelCase: 'camelCase',
