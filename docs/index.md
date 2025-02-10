@@ -15,8 +15,6 @@ hero:
       link: /guide/
 ---
 
-[eslint-plugin-github-action](https://www.npmjs.com/package/eslint-plugin-github-action) is an ESLint plugin that provide rules for consistent, readable and valid GitHub action files.
-
 <div id="package_status">
 
 [![CI](https://github.com/ntnyq/eslint-plugin-github-action/workflows/CI/badge.svg)](https://github.com/ntnyq/eslint-plugin-github-action/actions)
