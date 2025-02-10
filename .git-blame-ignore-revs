@@ -1,0 +1,9 @@
+# git-blame ignored revisions
+# To configure, run
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+# Requires Git > 2.23
+# See https://git-scm.com/docs/git-blame#Documentation/git-blame.txt---ignore-revs-fileltfilegt
+
+
+# chore: bump prettier-config to v2
+697c9b0a833ce2cfe7870cbe322dd98ec930f0f5
