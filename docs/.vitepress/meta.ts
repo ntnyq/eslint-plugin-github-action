@@ -12,4 +12,5 @@ export const packageName = 'eslint-plugin-github-action'
  */
 export const appTitle = packageName
 export const appUrl = `https://${packageName}.ntnyq.com`
-export const appDescription = 'Rules for consistent, readable and valid GitHub action files.'
+export const appDescription =
+  'Rules for consistent, readable and valid GitHub action files.'

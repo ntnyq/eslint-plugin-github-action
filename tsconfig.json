@@ -19,7 +19,6 @@
     "./docs/.vitepress/**/*.ts",
     "./docs/.vitepress/**/*.vue",
     "./docs/**/*.d.ts",
-    "./typings/**/*.d.ts",
     "./scripts/**/*.ts",
     "./tests/**/*.ts",
     "./*.config.ts",

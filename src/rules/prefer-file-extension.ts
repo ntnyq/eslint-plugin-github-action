@@ -24,7 +24,10 @@ export type Options = [
     },
 ]
 
-const allowedExtensionOptions: AvailableExtension[] = [actionExtension.yml, actionExtension.yaml]
+const allowedExtensionOptions: AvailableExtension[] = [
+  actionExtension.yml,
+  actionExtension.yaml,
+]
 const defaultOptions: Options[0] = actionExtension.yml
 
 export default createESLintRule<Options, MessageIds>({
@@ -69,7 +72,9 @@ export default createESLintRule<Options, MessageIds>({
   create(context) {
     /* v8 ignore next guard by json-schema */
     const rawOptions = context.options?.[0] ?? defaultOptions
-    const extension = isString(rawOptions) ? rawOptions : (rawOptions.extension ?? defaultOptions)
+    const extension = isString(rawOptions)
+      ? rawOptions
+      : (rawOptions.extension ?? defaultOptions)
     const caseSensitive = isString(rawOptions) ? true : rawOptions.caseSensitive
 
     return {
@@ -80,7 +85,10 @@ export default createESLintRule<Options, MessageIds>({
         // No extension
         if (!filename.includes('.') || !fileExtension) return
 
-        if ((caseSensitive ? fileExtension : fileExtension.toLowerCase()) === extension) {
+        if (
+          (caseSensitive ? fileExtension : fileExtension.toLowerCase())
+          === extension
+        ) {
           return
         }
 

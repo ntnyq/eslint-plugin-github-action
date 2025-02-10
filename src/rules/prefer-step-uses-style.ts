@@ -11,7 +11,11 @@ const UsesStyle = {
 type AllowedUsesStyle = keyof typeof UsesStyle
 
 export const RULE_NAME = 'prefer-step-uses-style'
-export type MessageIds = 'invalidStyle' | 'disallowRepository' | 'disallowDocker' | 'disallowStyle'
+export type MessageIds =
+  | 'invalidStyle'
+  | 'disallowRepository'
+  | 'disallowDocker'
+  | 'disallowStyle'
 export type Options = [
   | AllowedUsesStyle
   | ({ [key in AllowedUsesStyle]?: boolean } & {
@@ -113,13 +117,17 @@ export default createESLintRule<Options, MessageIds>({
     const ignores = isString(rawOptions)
       ? []
       : (rawOptions.ignores || []).map(ignore => new RegExp(ignore))
-    const allowRepository = isString(rawOptions) ? false : rawOptions.allowRepository
+    const allowRepository = isString(rawOptions)
+      ? false
+      : rawOptions.allowRepository
     const allowDocker = isString(rawOptions) ? false : rawOptions.allowDocker
 
     if (isString(rawOptions)) {
       // Enum options
       /* v8 ignore next guard by json-schema */
-      usesStyles.push(allowedStyleOptions.includes(rawOptions) ? rawOptions : defaultOptions)
+      usesStyles.push(
+        allowedStyleOptions.includes(rawOptions) ? rawOptions : defaultOptions,
+      )
     } else {
       // Object options
       usesStyles.push(
@@ -140,7 +148,10 @@ export default createESLintRule<Options, MessageIds>({
       'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=steps] > YAMLSequence > YAMLMapping > YAMLPair[key.value=uses]':
         (node: YAMLAst.YAMLPair) => {
           // step uses is not non-empty string
-          if (!isYAMLScalar(node.value) || !isNonEmptyString(node.value.value)) {
+          if (
+            !isYAMLScalar(node.value)
+            || !isNonEmptyString(node.value.value)
+          ) {
             context.report({
               node: node.value || node,
               messageId: 'invalidStyle',
@@ -153,7 +164,8 @@ export default createESLintRule<Options, MessageIds>({
               return
             }
 
-            const { style, isRepository, isDocker } = parseJobStepUses(usesValue)
+            const { style, isRepository, isDocker } =
+              parseJobStepUses(usesValue)
 
             if (isRepository) {
               if (!allowRepository) {

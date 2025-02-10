@@ -37,7 +37,10 @@ export default createESLintRule<Options, MessageIds>({
             })
           }
 
-          if (!isYAMLScalar(namePair.value) || !isNonEmptyString(namePair.value.value)) {
+          if (
+            !isYAMLScalar(namePair.value)
+            || !isNonEmptyString(namePair.value.value)
+          ) {
             return context.report({
               node: namePair.value ?? namePair,
               loc: namePair.value?.loc || namePair.loc,

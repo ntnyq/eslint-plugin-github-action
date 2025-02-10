@@ -1,5 +1,10 @@
 import { isNonEmptyString, isString } from '@ntnyq/utils'
-import { CASING, createESLintRule, getExactConverter, isYAMLScalar } from '../utils'
+import {
+  CASING,
+  createESLintRule,
+  getExactConverter,
+  isYAMLScalar,
+} from '../utils'
 import type { YAMLAst } from '../types/yaml'
 import type { CasingKind } from '../utils'
 
@@ -96,12 +101,16 @@ export default createESLintRule<Options, MessageIds>({
     if (isString(rawOptions)) {
       // Enum options
       /* v8 ignore next guard by json-schema */
-      caseTypes.push(allowedCaseOptions.includes(rawOptions) ? rawOptions : defaultOptions)
+      caseTypes.push(
+        allowedCaseOptions.includes(rawOptions) ? rawOptions : defaultOptions,
+      )
     } else {
       // Object options
       caseTypes.push(
         ...Object.keys(rawOptions)
-          .filter((key): key is AllowedCasing => allowedCaseOptions.includes(key as AllowedCasing))
+          .filter((key): key is AllowedCasing =>
+            allowedCaseOptions.includes(key as AllowedCasing),
+          )
           .filter(key => rawOptions[key]),
       )
 
@@ -120,25 +129,24 @@ export default createESLintRule<Options, MessageIds>({
     }
 
     return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair': (
-        node: YAMLAst.YAMLPair,
-      ) => {
-        if (isYAMLScalar(node.key) && isNonEmptyString(node.key.value)) {
-          const id = node.key.value
+      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair':
+        (node: YAMLAst.YAMLPair) => {
+          if (isYAMLScalar(node.key) && isNonEmptyString(node.key.value)) {
+            const id = node.key.value
 
-          if (!isJobIdValid(id)) {
-            context.report({
-              node: node.key,
-              messageId: 'jobIdNotMatch',
-              loc: node.key.loc,
-              data: {
-                id,
-                caseTypes: caseTypes.join(', '),
-              },
-            })
+            if (!isJobIdValid(id)) {
+              context.report({
+                node: node.key,
+                messageId: 'jobIdNotMatch',
+                loc: node.key.loc,
+                data: {
+                  id,
+                  caseTypes: caseTypes.join(', '),
+                },
+              })
+            }
           }
-        }
-      },
+        },
     }
   },
 })

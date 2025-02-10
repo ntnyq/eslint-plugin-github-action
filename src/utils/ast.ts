@@ -45,7 +45,9 @@ export function isYAMLSequence(
  * @param token - The value to check.
  * @returns Whether the given value is a YAMLComment.
  */
-export function isYAMLComment(token: YAMLToken | YAMLComment | null): token is YAMLComment {
+export function isYAMLComment(
+  token: YAMLToken | YAMLComment | null,
+): token is YAMLComment {
   return token?.type === 'Block' || token?.type === 'Line'
 }
 
@@ -100,7 +102,9 @@ export function isComma(token: YAMLToken | null): token is YAMLToken {
  * @param token - The token to check.
  * @returns `true` if the token is an opening square bracket token.
  */
-export function isOpeningBracketToken(token: YAMLToken | null): token is YAMLToken {
+export function isOpeningBracketToken(
+  token: YAMLToken | null,
+): token is YAMLToken {
   return token?.value === '[' && token?.type === 'Punctuator'
 }
 
@@ -109,7 +113,9 @@ export function isOpeningBracketToken(token: YAMLToken | null): token is YAMLTok
  * @param token - The token to check.
  * @returns `true` if the token is a closing square bracket token.
  */
-export function isClosingBracketToken(token: YAMLToken | null): token is YAMLToken {
+export function isClosingBracketToken(
+  token: YAMLToken | null,
+): token is YAMLToken {
   return token?.value === ']' && token?.type === 'Punctuator'
 }
 
@@ -118,7 +124,9 @@ export function isClosingBracketToken(token: YAMLToken | null): token is YAMLTok
  * @param token - The token to check.
  * @returns `true` if the token is an opening brace token.
  */
-export function isOpeningBraceToken(token: YAMLToken | null): token is YAMLToken {
+export function isOpeningBraceToken(
+  token: YAMLToken | null,
+): token is YAMLToken {
   return token?.value === '{' && token?.type === 'Punctuator'
 }
 
@@ -127,6 +135,8 @@ export function isOpeningBraceToken(token: YAMLToken | null): token is YAMLToken
  * @param token - The token to check.
  * @returns `true` if the token is a closing brace token.
  */
-export function isClosingBraceToken(token: YAMLToken | null): token is YAMLToken {
+export function isClosingBraceToken(
+  token: YAMLToken | null,
+): token is YAMLToken {
   return token?.value === '}' && token?.type === 'Punctuator'
 }

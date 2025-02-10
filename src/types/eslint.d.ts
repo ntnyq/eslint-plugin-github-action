@@ -7,9 +7,20 @@ import type { JSONSchema4 } from 'json-schema'
 import type { SourceCode } from './source-code'
 import type { YAMLAst } from './yaml'
 
+/**
+ * Rule meta related
+ */
+export interface NamedCreateRuleMeta<
+  TMessageIds extends string,
+  TDocs = unknown,
+  TOptions extends readonly unknown[] = [],
+> extends Omit<RuleMetaData<TMessageIds, TDocs, TOptions>, 'docs'> {
+  docs: RuleMetaDataDocs & TDocs
+}
+
 export type ReportDescriptor<TMessageIds extends string> =
-  ReportDescriptorWithSuggestion<TMessageIds> &
-    (ReportDescriptorLocOnly | ReportDescriptorNodeOptionalLoc)
+  ReportDescriptorWithSuggestion<TMessageIds>
+    & (ReportDescriptorLocOnly | ReportDescriptorNodeOptionalLoc)
 
 export type ReportDescriptorBase<TMessageIds extends string> = {
   readonly messageId: TMessageIds
@@ -20,18 +31,20 @@ export type ReportDescriptorBase<TMessageIds extends string> = {
 export type ReportDescriptorLocOnly = {
   loc: Readonly<YAMLAst.Position> | Readonly<YAMLAst.SourceLocation>
 }
-
 export type ReportDescriptorMessageData = Readonly<Record<string, unknown>>
+
 export type ReportDescriptorNodeOptionalLoc = {
   readonly node: YAMLAst.YAMLNode
   readonly loc?: Readonly<YAMLAst.Position> | Readonly<YAMLAst.SourceLocation>
 }
-
 export interface ReportDescriptorWithSuggestion<TMessageIds extends string>
   extends ReportDescriptorBase<TMessageIds> {
   readonly suggest?: readonly Rule.SuggestionReportDescriptor[]
 }
-export interface RuleContext<TMessageIds extends string, TOptions extends readonly unknown[] = []> {
+export interface RuleContext<
+  TMessageIds extends string,
+  TOptions extends readonly unknown[] = [],
+> {
   id: string
   options: TOptions
   parserPath: string
@@ -55,6 +68,7 @@ export interface RuleCreateAndOptions<
     optionsWithDefault: Readonly<TOptions>,
   ) => RuleListener
 }
+
 export interface RuleListener {
   Program?: (node: YAMLAst.YAMLProgram) => void
   'Program:exit'?: (node: YAMLAst.YAMLProgram) => void
@@ -81,28 +95,6 @@ export interface RuleListener {
   [key: string]: ((node: never) => void) | undefined
 }
 
-export interface RuleModule<
-  TMessageIds extends string,
-  TOptions extends readonly unknown[] = [],
-  TDocs = unknown,
-> {
-  defaultOptions: TOptions
-  meta?: RuleMetaData<TMessageIds, TDocs, TOptions>
-  create(context: RuleContext<TMessageIds, TOptions>): RuleListener
-}
-
-type YMLSettings = { indent?: number }
-
-/**
- * Rule meta related
- */
-export interface NamedCreateRuleMeta<
-  TMessageIds extends string,
-  TDocs = unknown,
-  TOptions extends readonly unknown[] = [],
-> extends Omit<RuleMetaData<TMessageIds, TDocs, TOptions>, 'docs'> {
-  docs: RuleMetaDataDocs & TDocs
-}
 export interface RuleMetaData<
   TMessageIds extends string,
   TDocs = unknown,
@@ -125,6 +117,16 @@ export interface RuleMetaDataDocs {
   recommended?: boolean
   url?: string
 }
+export interface RuleModule<
+  TMessageIds extends string,
+  TOptions extends readonly unknown[] = [],
+  TDocs = unknown,
+> {
+  defaultOptions: TOptions
+  meta?: RuleMetaData<TMessageIds, TDocs, TOptions>
+  create(context: RuleContext<TMessageIds, TOptions>): RuleListener
+}
+
 export interface RuleWithMeta<
   TOptions extends readonly unknown[],
   TMessageIds extends string,
@@ -140,3 +142,4 @@ export interface RuleWithMetaAndName<
   meta: NamedCreateRuleMeta<TMessageIds, TDocs, TOptions>
   name: string
 }
+type YMLSettings = { indent?: number }

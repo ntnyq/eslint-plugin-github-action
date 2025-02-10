@@ -23,38 +23,40 @@ export default createESLintRule<Options, MessageIds>({
   defaultOptions: [],
   create(context) {
     return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair': (
-        node: YAMLAst.YAMLPair,
-      ) => {
-        if (!isYAMLMapping(node.value)) {
-          return context.report({
-            node: node.value ?? node,
-            loc: node.value?.loc ?? node.loc,
-            messageId: 'noName',
-          })
-        }
+      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair':
+        (node: YAMLAst.YAMLPair) => {
+          if (!isYAMLMapping(node.value)) {
+            return context.report({
+              node: node.value ?? node,
+              loc: node.value?.loc ?? node.loc,
+              messageId: 'noName',
+            })
+          }
 
-        const namePair = node.value.pairs.find(
-          pair => isYAMLScalar(pair.key) && pair.key.value === 'name',
-        )
+          const namePair = node.value.pairs.find(
+            pair => isYAMLScalar(pair.key) && pair.key.value === 'name',
+          )
 
-        if (!namePair) {
-          return context.report({
-            node,
-            loc: node.loc,
-            messageId: 'noName',
-          })
-        }
+          if (!namePair) {
+            return context.report({
+              node,
+              loc: node.loc,
+              messageId: 'noName',
+            })
+          }
 
-        // job name is not non-empty string
-        if (!isYAMLScalar(namePair.value) || !isNonEmptyString(namePair.value.value)) {
-          return context.report({
-            node: namePair.value || namePair,
-            loc: namePair.value?.loc || namePair.loc,
-            messageId: 'invalidName',
-          })
-        }
-      },
+          // job name is not non-empty string
+          if (
+            !isYAMLScalar(namePair.value)
+            || !isNonEmptyString(namePair.value.value)
+          ) {
+            return context.report({
+              node: namePair.value || namePair,
+              loc: namePair.value?.loc || namePair.loc,
+              messageId: 'invalidName',
+            })
+          }
+        },
     }
   },
 })

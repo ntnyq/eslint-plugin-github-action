@@ -33,22 +33,21 @@ export default createESLintRule<Options, MessageIds>({
     const limit = optionLimit >= 1 ? optionLimit : defaultOptions
 
     return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping': (
-        node: YAMLAst.YAMLMapping,
-      ) => {
-        const count = node.pairs.length
+      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping':
+        (node: YAMLAst.YAMLMapping) => {
+          const count = node.pairs.length
 
-        if (count > limit) {
-          context.report({
-            node,
-            messageId: 'toManyJobs',
-            data: {
-              count,
-              limit,
-            },
-          })
-        }
-      },
+          if (count > limit) {
+            context.report({
+              node,
+              messageId: 'toManyJobs',
+              data: {
+                count,
+                limit,
+              },
+            })
+          }
+        },
     }
   },
 })

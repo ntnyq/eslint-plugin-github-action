@@ -131,6 +131,8 @@ describe('isClosingBraceToken', () => {
 
 describe('isTokenOnSameLine', () => {
   it('should return false for null', () => {
-    expect(isTokenOnSameLine(YAML_NODES.invalid, YAML_NODES.invalid)).toBeTruthy()
+    expect(
+      isTokenOnSameLine(YAML_NODES.invalid, YAML_NODES.invalid),
+    ).toBeTruthy()
   })
 })

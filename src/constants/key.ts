@@ -49,7 +49,14 @@ export const validStepKeys = [
   'timeout-minutes',
 ]
 
-export const validServiceKeys = ['image', 'credentials', 'env', 'ports', 'volumes', 'options']
+export const validServiceKeys = [
+  'image',
+  'credentials',
+  'env',
+  'ports',
+  'volumes',
+  'options',
+]
 
 export const validContainerKeys = [...validServiceKeys]
 

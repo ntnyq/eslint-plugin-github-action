@@ -125,9 +125,9 @@ function validateMappingKeys({
 
     if (
       // key.value is not a string
-      !pairKeyValue ||
+      !pairKeyValue
       // key.value is valid
-      validKeys.includes(pairKeyValue)
+      || validKeys.includes(pairKeyValue)
     ) {
       continue
     }

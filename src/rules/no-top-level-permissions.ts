@@ -21,15 +21,14 @@ export default createESLintRule<Options, MessageIds>({
   defaultOptions: [],
   create(context) {
     return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=permissions]': (
-        node: YAMLAst.YAMLPair,
-      ) => {
-        context.report({
-          node,
-          loc: node.loc,
-          messageId: 'disallowTopLevelPermissions',
-        })
-      },
+      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=permissions]':
+        (node: YAMLAst.YAMLPair) => {
+          context.report({
+            node,
+            loc: node.loc,
+            messageId: 'disallowTopLevelPermissions',
+          })
+        },
     }
   },
 })

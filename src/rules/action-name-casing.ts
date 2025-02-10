@@ -1,5 +1,10 @@
 import { isNonEmptyString } from '@ntnyq/utils'
-import { CASING, createESLintRule, getExactConverter, isYAMLScalar } from '../utils'
+import {
+  CASING,
+  createESLintRule,
+  getExactConverter,
+  isYAMLScalar,
+} from '../utils'
 import type { YAMLAst } from '../types/yaml'
 import type { CasingKind } from '../utils'
 
@@ -46,7 +51,9 @@ export default createESLintRule<Options, MessageIds>({
     const optionCase = context.options?.[0] || defaultOptions
 
     /* v8 ignore next guard by json-schema */
-    const caseType = allowedCaseOptions.includes(optionCase) ? optionCase : defaultOptions
+    const caseType = allowedCaseOptions.includes(optionCase)
+      ? optionCase
+      : defaultOptions
 
     return {
       'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=name]': (

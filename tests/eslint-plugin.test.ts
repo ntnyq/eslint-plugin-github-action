@@ -7,7 +7,10 @@ import { resolve } from '../scripts/utils'
 const TEST_CWD = resolve('tests/fixtures/eslint-plugin')
 
 it('should lint without error', async () => {
-  const files = await glob('.github/workflows/*.{yml,yaml}', { cwd: TEST_CWD, onlyFiles: true })
+  const files = await glob('.github/workflows/*.{yml,yaml}', {
+    cwd: TEST_CWD,
+    onlyFiles: true,
+  })
   const eslint = new ESLint({
     overrideConfigFile: true,
     overrideConfig: [...configs.recommended],
