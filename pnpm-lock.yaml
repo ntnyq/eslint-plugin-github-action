@@ -12,7 +12,7 @@ catalogs:
 
 patchedDependencies:
   '@ntnyq/utils':
-    hash: savxicpgz6c3jsy644migwsdsu
+    hash: 36bb34bb952b35a3e8bbd5455717501f2f91c932b8ae0eeca66bd4ce9ce12d94
     path: patches/@ntnyq__utils.patch
 
 importers:
@@ -21,7 +21,7 @@ importers:
     dependencies:
       '@ntnyq/utils':
         specifier: ^0.4.5
-        version: 0.4.5(patch_hash=savxicpgz6c3jsy644migwsdsu)
+        version: 0.4.5(patch_hash=36bb34bb952b35a3e8bbd5455717501f2f91c932b8ae0eeca66bd4ce9ce12d94)
       '@types/json-schema':
         specifier: ^7.0.15
         version: 7.0.15
@@ -4214,7 +4214,7 @@ snapshots:
 
   '@ntnyq/prettier-config@1.22.1': {}
 
-  '@ntnyq/utils@0.4.5(patch_hash=savxicpgz6c3jsy644migwsdsu)':
+  '@ntnyq/utils@0.4.5(patch_hash=36bb34bb952b35a3e8bbd5455717501f2f91c932b8ae0eeca66bd4ce9ce12d94)':
     dependencies:
       scule: 1.3.0
 
@@ -5408,7 +5408,7 @@ snapshots:
 
   eslint-plugin-github-action@0.0.13(eslint@9.20.0(jiti@2.4.2)):
     dependencies:
-      '@ntnyq/utils': 0.4.5(patch_hash=savxicpgz6c3jsy644migwsdsu)
+      '@ntnyq/utils': 0.4.5(patch_hash=36bb34bb952b35a3e8bbd5455717501f2f91c932b8ae0eeca66bd4ce9ce12d94)
       '@types/json-schema': 7.0.15
       eslint: 9.20.0(jiti@2.4.2)
       yaml-eslint-parser: 1.2.3
