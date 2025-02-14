@@ -15,12 +15,13 @@
   },
   "include": [
     "./src/**/*.ts",
+    "./tests/**/*.ts",
+    "./scripts/**/*.ts",
     "./docs/**/*/ts",
+    "./docs/**/*.d.ts",
+    "./docs/*.config.ts",
     "./docs/.vitepress/**/*.ts",
     "./docs/.vitepress/**/*.vue",
-    "./docs/**/*.d.ts",
-    "./scripts/**/*.ts",
-    "./tests/**/*.ts",
     "./*.config.ts",
     "./*.config.mjs"
   ],

@@ -10,6 +10,15 @@ import { head } from './config/head'
 import { getThemeConfig } from './config/theme'
 import { appDescription, appTitle } from './meta'
 
+/**
+ * @see https://www.npmjs.com/package/@types/markdown-it?activeTab=code
+ */
+interface MarkdownItToken {
+  nesting: 1 | 0 | -1
+  type: string
+  info: string
+}
+
 export default defineConfig({
   title: appTitle,
   description: appDescription,
@@ -24,7 +33,7 @@ export default defineConfig({
       md.use(groupIconMdPlugin)
 
       MarkdownItContainer(md, 'correct', {
-        render(tokens: any[], idx: number) {
+        render(tokens: MarkdownItToken[], idx: number) {
           if (tokens[idx].nesting === 1) {
             const next = tokens[idx + 1]
             if (next.type === 'fence') {
@@ -38,7 +47,7 @@ export default defineConfig({
       })
 
       MarkdownItContainer(md, 'incorrect', {
-        render(tokens: any[], idx: number) {
+        render(tokens: MarkdownItToken[], idx: number) {
           if (tokens[idx].nesting === 1) {
             const next = tokens[idx + 1]
             if (next.type === 'fence') {

@@ -10,6 +10,9 @@ export default defineESLintConfig({
       'eslint-plugin/require-meta-default-options': 'off',
     },
   },
+  test: {
+    vitest: false,
+  },
   yml: {
     overrides: {
       'yml/no-empty-document': 'off',

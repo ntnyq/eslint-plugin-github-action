@@ -2,7 +2,7 @@
   "name": "eslint-plugin-github-action",
   "type": "module",
   "version": "0.0.14",
-  "packageManager": "pnpm@10.2.1",
+  "packageManager": "pnpm@10.4.1",
   "description": "Rules for consistent, readable and valid GitHub action files.",
   "keywords": [
     "eslint",
@@ -58,26 +58,26 @@
     "eslint": "^9.5.0"
   },
   "dependencies": {
-    "@ntnyq/utils": "^0.4.5",
+    "@ntnyq/utils": "^0.5.2",
     "@types/json-schema": "^7.0.15",
-    "change-case": "^5.4.4",
+    "uncase": "^0.0.4",
     "yaml-eslint-parser": "catalog:"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^4.0.0-beta.2",
-    "@ntnyq/prettier-config": "^2.0.0-beta.2",
-    "@types/node": "^22.13.1",
+    "@ntnyq/eslint-config": "^4.0.0-beta.7",
+    "@ntnyq/prettier-config": "^2.0.0",
+    "@types/node": "^22.13.4",
     "@vitest/coverage-v8": "^3.0.5",
-    "bumpp": "^10.0.2",
-    "eslint": "^9.20.0",
+    "bumpp": "^10.0.3",
+    "eslint": "^9.20.1",
     "eslint-plugin-eslint-plugin": "^6.4.0",
     "eslint-plugin-github-action": "workspace:*",
     "eslint-vitest-rule-tester": "^1.1.0",
     "husky": "^9.1.7",
     "nano-staged": "^0.8.0",
     "npm-run-all2": "^7.0.2",
-    "prettier": "^3.5.0",
-    "tinyglobby": "^0.2.10",
+    "prettier": "^3.5.1",
+    "tinyglobby": "^0.2.11",
     "tsup": "^8.3.6",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
@@ -90,6 +90,15 @@
     "onlyBuiltDependencies": [
       "esbuild"
     ]
+  },
+  "resolutions": {
+    "@shikijs/core": "^3.0.0",
+    "@shikijs/markdown-it": "^3.0.0",
+    "@shikijs/rehype": "^3.0.0",
+    "@shikijs/transformers": "^3.0.0",
+    "@shikijs/types": "^3.0.0",
+    "esbuild": "^0.25.0",
+    "shiki": "^3.0.0"
   },
   "nano-staged": {
     "*.{js,ts,mjs,cjs,vue,svg,json,md,yml,yaml}": "eslint --fix",

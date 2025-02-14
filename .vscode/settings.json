@@ -1,15 +1,17 @@
 {
-  "prettier.enable": true,
   "eslint.enable": true,
+  "prettier.enable": true,
   "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.configPath": "./prettier.config.mjs",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "never"
+    "source.organizeImports": "never",
+    "source.sortImports": "never"
   },
   "eslint.validate": [
     "vue",
     "yaml",
-    "html",
     "toml",
     "json",
     "jsonc",
@@ -27,6 +29,7 @@
     "iconify",
     "lcov",
     "pnpm",
+    "shiki",
     "shikijs",
     "tses",
     "tsup",

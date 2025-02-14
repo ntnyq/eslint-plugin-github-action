@@ -9,7 +9,7 @@ import {
   snakeCase,
   capitalCase as titleCase,
   trainCase,
-} from 'change-case'
+} from 'uncase'
 
 export const CASING = {
   camelCase: 'camelCase',

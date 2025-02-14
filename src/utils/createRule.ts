@@ -11,8 +11,6 @@ import type {
   RuleWithMetaAndName,
 } from '../types/eslint'
 
-const docsUrl = 'https://eslint-plugin-github-action.ntnyq.com/rules/'
-
 export interface PluginDocs {
   recommended?: boolean
 }
@@ -52,7 +50,9 @@ function createRule<
         },
       ) as unknown as TOptions
       return create(context, optionsWithDefault)
-    }) as any,
+    }) as unknown as (
+      context: RuleContext<TMessageIds, TOptions>,
+    ) => RuleListener,
     defaultOptions,
     meta: {
       ...meta,
@@ -95,5 +95,6 @@ export const createESLintRule: <
 }: Readonly<
   RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>
 >) => RuleModule<TMessageIds, TOptions> = RuleCreator(
-  ruleName => `${docsUrl}${ruleName}.html`,
+  ruleName =>
+    `https://eslint-plugin-github-action.ntnyq.com/rules/${ruleName}.html`,
 )
