@@ -46,7 +46,7 @@ importers:
         specifier: ^22.13.4
         version: 22.13.4
       '@vitest/coverage-v8':
-        specifier: ^3.0.5
+        specifier: ^3.0.6
         version: 3.0.6(vitest@3.0.6(@types/debug@4.1.12)(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
       bumpp:
         specifier: ^10.0.3
@@ -88,7 +88,7 @@ importers:
         specifier: ^5.7.3
         version: 5.7.3
       vitest:
-        specifier: ^3.0.5
+        specifier: ^3.0.6
         version: 3.0.6(@types/debug@4.1.12)(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
 
   docs:
