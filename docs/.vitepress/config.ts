@@ -5,7 +5,6 @@ import MarkdownItContainer from 'markdown-it-container'
 import { createTwoslasher } from 'twoslash-eslint'
 import { defineConfig } from 'vitepress'
 import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
-import * as parserYaml from 'yaml-eslint-parser'
 import { head } from './config/head'
 import { getThemeConfig } from './config/theme'
 import { appDescription, appTitle } from './meta'
@@ -76,17 +75,7 @@ export default defineConfig({
             // Remove trailing newline and presentational `⏎` characters
             return code.replace(/⏎(?=\n)/gu, '').replace(/⏎$/gu, '\n')
           },
-          eslintConfig: [
-            {
-              files: ['**'],
-              plugins: {
-                'github-action': pluginGitHubAction,
-              },
-              languageOptions: {
-                parser: parserYaml,
-              },
-            },
-          ],
+          eslintConfig: [...pluginGitHubAction.configs.recommended],
         }),
       }),
     ],

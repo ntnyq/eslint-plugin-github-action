@@ -58,13 +58,13 @@
     "eslint": "^9.5.0"
   },
   "dependencies": {
-    "@ntnyq/utils": "^0.5.2",
+    "@ntnyq/utils": "^0.6.0",
     "@types/json-schema": "^7.0.15",
     "uncase": "^0.0.4",
     "yaml-eslint-parser": "catalog:"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^4.0.0-beta.7",
+    "@ntnyq/eslint-config": "^4.0.0-beta.8",
     "@ntnyq/prettier-config": "^2.0.0",
     "@types/node": "^22.13.4",
     "@vitest/coverage-v8": "^3.0.6",
@@ -79,7 +79,6 @@
     "prettier": "^3.5.1",
     "tinyglobby": "^0.2.11",
     "tsup": "^8.3.6",
-    "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "vitest": "^3.0.6"
   },

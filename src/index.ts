@@ -11,7 +11,6 @@ import type { ESLint, Rule } from 'eslint'
  */
 export const plugin = {
   meta,
-  // FIXME: type not match
   rules: rules as unknown as Record<string, Rule.RuleModule>,
   configs,
 } satisfies ESLint.Plugin
