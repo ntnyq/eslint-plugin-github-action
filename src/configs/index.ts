@@ -5,6 +5,7 @@ import type { RulesWithPluginName } from '../dts'
 
 /**
  * Create config options
+ * @deprecated
  */
 export type CreateConfigOptions = Omit<Linter.Config, 'rules'> & {
   rules?: Partial<RulesWithPluginName>
@@ -17,6 +18,7 @@ export type CreateConfigOptions = Omit<Linter.Config, 'rules'> & {
  * @returns ESLint config.
  * @deprecated
  */
+/* v8 ignore start */
 export function createConfig(options: CreateConfigOptions = {}) {
   const config: Linter.Config = {
     ...options,
@@ -24,11 +26,9 @@ export function createConfig(options: CreateConfigOptions = {}) {
     ignores: options.ignores || ['!**/.github/workflows/*.y?(a)ml'],
     plugins: {
       ...(options.plugins || {}),
-      /* v8 ignore start */
       get 'github-action'() {
         return plugin
       },
-      /* v8 ignore stop */
     },
     languageOptions: {
       ...(options.languageOptions || {}),
@@ -37,6 +37,7 @@ export function createConfig(options: CreateConfigOptions = {}) {
   }
   return config
 }
+/* v8 ignore stop */
 
 /**
  * recommended config
@@ -47,9 +48,11 @@ export const recommended: Linter.Config[] = [
     files: ['**/.github/workflows/*.y?(a)ml'],
     ignores: ['!**/.github/workflows/*.y?(a)ml'],
     plugins: {
+      /* v8 ignore start */
       get 'github-action'() {
         return plugin
       },
+      /* v8 ignore stop */
     },
     languageOptions: {
       parser: parserYAML,
