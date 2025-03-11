@@ -41,6 +41,24 @@ run({
       `,
       options: ['snake_case'],
     },
+    {
+      filename: 'empty-object-options.yml',
+      code: $`
+        name: Unit Test
+      `,
+      options: [{}],
+    },
+    {
+      filename: 'options-ignores.yml',
+      code: $`
+        name: unit_test
+      `,
+      options: [
+        {
+          ignores: ['unit_test'],
+        },
+      ],
+    },
   ],
   invalid: [
     {

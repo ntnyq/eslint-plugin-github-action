@@ -89,7 +89,7 @@ run({
       options: [{}],
     },
     {
-      filename: 'empty-object-options.yml',
+      filename: 'options-ignores.yml',
       code: $`
         jobs:
           UnitTest:
