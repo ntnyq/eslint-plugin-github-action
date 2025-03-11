@@ -23,15 +23,14 @@ pnpm add eslint-plugin-github-action -D
 Highly recommended to use `eslint.config.mjs` as config file.
 
 ```ts [eslint.config.mjs] twoslash
+// @noErrors
+import { defineConfig } from 'eslint/config'
 import pluginGitHubAction from 'eslint-plugin-github-action'
 
-/**
- * @type {import('eslint').Linter.Config[]}
- */
-export default [
+export default defineConfig([
   ...pluginGitHubAction.configs.recommended,
   // Other configs...
-]
+])
 ```
 
 ### The recommended preset
@@ -46,13 +45,11 @@ _See also: [http://eslint.org/docs/user-guide/configuring](http://eslint.org/doc
 
 ```ts [eslint.config.mjs] twoslash
 // @noErrors
+import { defineConfig } from 'eslint/config'
 import pluginGitHubAction from 'eslint-plugin-github-action'
 import * as parserYAML from 'yml-eslint-parser'
 
-/**
- * @type {import('eslint').Linter.Config[]}
- */
-export default [
+export default defineConfig([
   // Create a single config based on the recommended config
   {
     name: 'github-action',
@@ -68,5 +65,5 @@ export default [
       'github-action/action-name-casing': ['error', 'kebab-case'],
     },
   },
-]
+])
 ```

@@ -2,7 +2,7 @@
  * Mock YAML AST nodes.
  */
 
-import { YAMLAst, YAMLToken } from '../../../src/types/yaml'
+import type { YAMLAst, YAMLToken } from '../../../src/types/yaml'
 
 const locAndRange: YAMLAst.Locations = {
   loc: {

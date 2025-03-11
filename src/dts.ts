@@ -10,7 +10,3 @@ export type RuleOptions = {
 export type Rules = {
   [K in keyof RuleOptions]: Linter.RuleEntry<RuleOptions[K]>
 }
-
-export type RulesWithPluginName<Name extends string = 'github-action'> = {
-  [K in keyof RuleOptions as `${Name}/${K}`]: Linter.RuleEntry<RuleOptions[K]>
-}

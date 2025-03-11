@@ -27,15 +27,13 @@ pnpm add eslint-plugin-github-action -D
 Config in ESLint config files:
 
 ```ts
+import { defineConfig } from 'eslint/config'
 import pluginGitHubAction from 'eslint-plugin-github-action'
 
-/**
- * @type {import('eslint').Linter.Config[]}
- */
-export default [
+export default defineConfig([
   ...pluginGitHubAction.configs.recommended,
   // Other configs...
-]
+])
 ```
 
 :apple: For advanced usaged, please check [Advanced Usage](https://eslint-plugin-github-action.ntnyq.com/guide/#advanced-usage)
