@@ -3,3 +3,13 @@ packages:
   - docs
 catalog:
   yaml-eslint-parser: ^1.3.0
+overrides:
+  '@shikijs/core': ^3.2.1
+  '@shikijs/markdown-it': ^3.2.1
+  '@shikijs/rehype': ^3.2.1
+  '@shikijs/transformers': ^3.2.1
+  '@shikijs/types': ^3.2.1
+  esbuild: ^0.25.1
+  shiki: ^3.2.1
+onlyBuiltDependencies:
+  - esbuild

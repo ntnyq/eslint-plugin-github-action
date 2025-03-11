@@ -22,35 +22,29 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     }
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "unbuild",
     "coverage": "vitest --coverage",
     "deploy": "run-s build docs:build",
-    "dev": "tsup --watch src",
+    "dev": "unbuild --watch",
     "docs:build": "pnpm -C docs run build",
     "docs:dev": "pnpm -C docs run dev",
-    "lint": "eslint .",
+    "lint": "eslint",
     "prepare": "husky",
     "prepublishOnly": "pnpm run build",
-    "release": "run-s release:check release:publish",
+    "release": "run-s release:check release:version release:publish",
     "release:check": "run-s lint typecheck test",
-    "release:publish": "bumpp && pnpm publish",
+    "release:publish": "pnpm publish",
+    "release:version": "bumpp",
     "test": "vitest",
     "typecheck": "tsc --noEmit"
   },
@@ -64,7 +58,7 @@
     "yaml-eslint-parser": "catalog:"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^4.0.0",
+    "@ntnyq/eslint-config": "^4.0.1",
     "@ntnyq/prettier-config": "^2.0.0",
     "@types/node": "^22.13.10",
     "@vitest/coverage-v8": "^3.0.8",
@@ -78,29 +72,15 @@
     "npm-run-all2": "^7.0.2",
     "prettier": "^3.5.3",
     "tinyglobby": "^0.2.12",
-    "tsup": "^8.4.0",
     "typescript": "^5.8.2",
+    "unbuild": "^3.5.0",
     "vitest": "^3.0.8"
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
-  },
-  "resolutions": {
-    "@shikijs/core": "^3.1.0",
-    "@shikijs/markdown-it": "^3.1.0",
-    "@shikijs/rehype": "^3.1.0",
-    "@shikijs/transformers": "^3.1.0",
-    "@shikijs/types": "^3.1.0",
-    "esbuild": "^0.25.0",
-    "shiki": "^3.1.0"
-  },
   "nano-staged": {
-    "*.{js,ts,mjs,cjs,vue,svg,json,md,yml,yaml}": "eslint --fix",
+    "*.{js,ts,mjs,cjs,vue,svg,md,yml,yaml,json}": "eslint --fix",
     "*.{css,scss,html}": "prettier -uw"
   }
 }

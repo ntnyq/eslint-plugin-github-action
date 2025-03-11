@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "lib": ["DOM", "ESNext"],
+    "target": "ESNext",
+    "lib": ["ES2022"],
     "module": "ESNext",
     "rootDir": ".",
     "moduleResolution": "Bundler",
     "types": ["node"],
     "resolveJsonModule": true,
+    "erasableSyntaxOnly": true,
+    "libReplacement": false,
     "allowJs": true,
     "outDir": "dist",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
     "esModuleInterop": true,
     "strict": true,
     "skipLibCheck": true
@@ -22,8 +26,7 @@
     "./docs/*.config.ts",
     "./docs/.vitepress/**/*.ts",
     "./docs/.vitepress/**/*.vue",
-    "./*.config.ts",
-    "./*.config.mjs"
+    "./*.config.ts"
   ],
   "exclude": ["**/node_modules/**", "**/dist/**"]
 }
