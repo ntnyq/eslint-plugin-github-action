@@ -11,6 +11,7 @@ import requireActionName from './require-action-name'
 import requireActionRunName from './require-action-run-name'
 import requireJobName from './require-job-name'
 import requireJobStepName from './require-job-step-name'
+import validTriggerEvents from './valid-trigger-events'
 
 export const rules = {
   'action-name-casing': actionNameCasing,
@@ -26,4 +27,5 @@ export const rules = {
   'require-action-run-name': requireActionRunName,
   'require-job-name': requireJobName,
   'require-job-step-name': requireJobStepName,
+  'valid-trigger-events': validTriggerEvents,
 }

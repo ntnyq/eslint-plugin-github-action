@@ -24,6 +24,7 @@ export const recommended: Linter.Config[] = [
       'github-action/no-invalid-key': 'error',
       'github-action/prefer-file-extension': 'error',
       'github-action/require-action-name': 'error',
+      'github-action/valid-trigger-events': 'error',
     },
   },
 ]

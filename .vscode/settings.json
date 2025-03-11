@@ -27,6 +27,7 @@
     "changelogithub",
     "codecov",
     "esbuild",
+    "gollum",
     "iconify",
     "lcov",
     "pnpm",

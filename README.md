@@ -61,6 +61,7 @@ export default defineConfig([
 | [require-action-run-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-run-name.html)   | Require a string action run-name.         |     |     |     |
 | [require-job-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-job-name.html)                 | Require a string job name.                |     |     |     |
 | [require-job-step-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-job-step-name.html)       | Require a string job step name.           |     |     |     |
+| [valid-trigger-events](https://eslint-plugin-github-action.ntnyq.com/rules/valid-trigger-events.html)         | Disallow invalid trigger events.          | ✅  | 🔧  |     |
 
 ## Links
 
