@@ -11,6 +11,7 @@ import requireActionName from './require-action-name'
 import requireActionRunName from './require-action-run-name'
 import requireJobName from './require-job-name'
 import requireJobStepName from './require-job-step-name'
+import validTimeoutMinutes from './valid-timeout-minutes'
 import validTriggerEvents from './valid-trigger-events'
 
 export const rules = {
@@ -28,4 +29,5 @@ export const rules = {
   'require-job-name': requireJobName,
   'require-job-step-name': requireJobStepName,
   'valid-trigger-events': validTriggerEvents,
+  'valid-timeout-minutes': validTimeoutMinutes,
 }

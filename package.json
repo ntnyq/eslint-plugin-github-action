@@ -2,7 +2,7 @@
   "name": "eslint-plugin-github-action",
   "type": "module",
   "version": "0.0.15",
-  "packageManager": "pnpm@10.7.1",
+  "packageManager": "pnpm@10.8.0",
   "description": "Rules for consistent, readable and valid GitHub action files.",
   "keywords": [
     "eslint",
@@ -52,29 +52,29 @@
     "eslint": "^9.5.0"
   },
   "dependencies": {
-    "@ntnyq/utils": "^0.6.3",
-    "@types/json-schema": "^7.0.15",
-    "uncase": "^0.0.4",
+    "@ntnyq/utils": "catalog:",
+    "@types/json-schema": "catalog:",
+    "uncase": "catalog:",
     "yaml-eslint-parser": "catalog:"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^4.0.3",
-    "@ntnyq/prettier-config": "^2.0.0",
-    "@types/node": "^22.14.0",
-    "@vitest/coverage-v8": "^3.1.1",
-    "bumpp": "^10.1.0",
-    "eslint": "^9.24.0",
-    "eslint-plugin-eslint-plugin": "^6.4.0",
+    "@ntnyq/eslint-config": "catalog:",
+    "@ntnyq/prettier-config": "catalog:",
+    "@types/node": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "bumpp": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-eslint-plugin": "catalog:",
     "eslint-plugin-github-action": "workspace:*",
-    "eslint-vitest-rule-tester": "^2.2.0",
-    "husky": "^9.1.7",
-    "nano-staged": "^0.8.0",
-    "npm-run-all2": "^7.0.2",
-    "prettier": "^3.5.3",
-    "tinyglobby": "^0.2.12",
-    "typescript": "^5.8.3",
-    "unbuild": "^3.5.0",
-    "vitest": "^3.1.1"
+    "eslint-vitest-rule-tester": "catalog:",
+    "husky": "catalog:",
+    "nano-staged": "catalog:",
+    "npm-run-all2": "catalog:",
+    "prettier": "catalog:",
+    "tinyglobby": "catalog:",
+    "typescript": "catalog:",
+    "unbuild": "catalog:",
+    "vitest": "catalog:"
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"

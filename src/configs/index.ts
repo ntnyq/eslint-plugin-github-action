@@ -25,6 +25,7 @@ export const recommended: Linter.Config[] = [
       'github-action/prefer-file-extension': 'error',
       'github-action/require-action-name': 'error',
       'github-action/valid-trigger-events': 'error',
+      'github-action/valid-timeout-minutes': 'error',
     },
   },
 ]
