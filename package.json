@@ -2,7 +2,7 @@
   "name": "eslint-plugin-github-action",
   "type": "module",
   "version": "0.0.15",
-  "packageManager": "pnpm@10.8.1",
+  "packageManager": "pnpm@10.9.0",
   "description": "Rules for consistent, readable and valid GitHub action files.",
   "keywords": [
     "eslint",
