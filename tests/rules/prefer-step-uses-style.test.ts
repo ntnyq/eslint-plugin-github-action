@@ -1,8 +1,9 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/prefer-step-uses-style'
 import { $, run } from '../internal'
+import type { Options } from '../../src/rules/prefer-step-uses-style'
 
-run({
+run<Options>({
   name: RULE_NAME,
   rule,
   valid: [
@@ -16,7 +17,6 @@ run({
       filename: 'no-steps.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             uses: ./.github/workflows/ci.yml
@@ -26,7 +26,6 @@ run({
       filename: 'no-step-uses.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             steps:
@@ -37,7 +36,6 @@ run({
       filename: 'invalid-step.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             steps:
@@ -48,7 +46,6 @@ run({
       filename: 'release-style.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             steps:
@@ -57,12 +54,13 @@ run({
     },
     {
       filename: 'ignore.yml',
-      options: {
-        ignores: ['actions/checkout@main'],
-      },
+      options: [
+        {
+          ignores: ['actions/checkout@main'],
+        },
+      ],
       code: $`
         name: Release
-        
         jobs:
           test:
             steps:
@@ -82,7 +80,6 @@ run({
       ],
       code: $`
         name: Release
-        
         jobs:
           test:
             steps:
@@ -99,7 +96,6 @@ run({
       filename: 'empty-step-uses.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             steps:
@@ -111,8 +107,8 @@ run({
             {
               "column": 9,
               "endColumn": 14,
-              "endLine": 6,
-              "line": 6,
+              "endLine": 5,
+              "line": 5,
               "message": "Invalid style for job step uses.",
               "messageId": "invalidStyle",
               "nodeType": "YAMLPair",
@@ -127,7 +123,6 @@ run({
       filename: 'invalid-step-uses.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             steps:
@@ -139,8 +134,8 @@ run({
             {
               "column": 15,
               "endColumn": 27,
-              "endLine": 6,
-              "line": 6,
+              "endLine": 5,
+              "line": 5,
               "message": "Invalid style for job step uses.",
               "messageId": "invalidStyle",
               "nodeType": "YAMLSequence",
@@ -155,7 +150,6 @@ run({
       filename: 'not-release-style.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             steps:
@@ -168,8 +162,8 @@ run({
             {
               "column": 15,
               "endColumn": 36,
-              "endLine": 6,
-              "line": 6,
+              "endLine": 5,
+              "line": 5,
               "message": "Disallow style \`branch\` for job step uses.",
               "messageId": "disallowStyle",
               "nodeType": "YAMLScalar",
@@ -179,8 +173,8 @@ run({
             {
               "column": 15,
               "endColumn": 72,
-              "endLine": 7,
-              "line": 7,
+              "endLine": 6,
+              "line": 6,
               "message": "Disallow style \`commit\` for job step uses.",
               "messageId": "disallowStyle",
               "nodeType": "YAMLScalar",
@@ -195,7 +189,6 @@ run({
       filename: 'repository-or-docker.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             steps:
@@ -208,8 +201,8 @@ run({
             {
               "column": 15,
               "endColumn": 51,
-              "endLine": 6,
-              "line": 6,
+              "endLine": 5,
+              "line": 5,
               "message": "Disallow using same repository action.",
               "messageId": "disallowRepository",
               "nodeType": "YAMLScalar",
@@ -219,8 +212,8 @@ run({
             {
               "column": 15,
               "endColumn": 34,
-              "endLine": 7,
-              "line": 7,
+              "endLine": 6,
+              "line": 6,
               "message": "Disallow using docker action.",
               "messageId": "disallowDocker",
               "nodeType": "YAMLScalar",

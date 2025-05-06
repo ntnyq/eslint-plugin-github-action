@@ -1,8 +1,9 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/no-invalid-key'
 import { $, run } from '../internal'
+import type { Options } from '../../src/rules/no-invalid-key'
 
-run({
+run<Options>({
   name: RULE_NAME,
   rule,
   valid: [
@@ -10,26 +11,19 @@ run({
       filename: 'top-level-keys.yml',
       code: $`
         name: CI
-        
         run-name: CI
-        
         on: push
-        
         permissions:
           contents: read
           pull-requests: write
-        
         env:
           SERVER: production
-        
         defaults:
           run:
             shell: bash
-        
         concurrency:
           group: example
           cancel-in-progress: true
-        
         jobs:
           test:
             name: Test
@@ -45,37 +39,26 @@ run({
       filename: 'job-keys.yml',
       code: $`
         name: CI
-        
         jobs:
           test:
             name: Unit Test
-        
             permissions:
               contents: read
-        
             needs: [lint]
-        
             if: github.repository == 'ntnyq/eslint-plugin-github-action'
-        
             runs-on: ubuntu-latest
-        
             environment:
               name: Test
-        
             concurrency:
               group: test
               cancel-in-progress: true
-        
             outputs:
               test: true
-        
             env:
               SERVER: production
-        
             defaults:
               run:
                 shell: bash
-        
             steps:
               - run: npm run test
       `,
@@ -84,7 +67,6 @@ run({
       filename: 'step-keys.yml',
       code: $`
         name: CI
-        
         jobs:
           test:
             steps:
@@ -107,7 +89,6 @@ run({
       filename: 'strategy-keys.yml',
       code: $`
         name: CI
-        
         jobs:
           test:
             strategy:
@@ -122,7 +103,6 @@ run({
       filename: 'container-keys.yml',
       code: $`
         name: CI
-        
         jobs:
           test:
             container:
@@ -142,7 +122,6 @@ run({
       filename: 'service-keys.yml',
       code: $`
         name: CI
-        
         jobs:
           serve:
             services:
@@ -165,17 +144,12 @@ run({
       filename: 'top-level-keys.yml',
       code: $`
         workflow: CI
-        
         dispatch: inputs
-        
         push: branch
-        
         test:
           contents: read
-        
         check:
           SERVER: production
-        
         matrix: [20.x, 22.x]
       `,
       errors(errors) {
@@ -186,21 +160,15 @@ run({
       filename: 'job-keys.yml',
       code: $`
         name: CI
-        
         jobs:
           test:
             workflow: CI
-        
             dispatch: inputs
-        
             push: branch
-        
             test:
               contents: read
-        
             check:
               SERVER: production
-        
             matrix: [20.x, 22.x]
       `,
       errors(errors) {
@@ -211,22 +179,16 @@ run({
       filename: 'step-keys.yml',
       code: $`
         name: CI
-        
         jobs:
           test:
             steps:
               - workflow: CI
-        
                 dispatch: inputs
-        
                 push: branch
-        
                 test:
                   contents: read
-        
                 check:
                   SERVER: production
-        
                 matrix: [20.x, 22.x]
       `,
       errors(errors) {
@@ -237,19 +199,14 @@ run({
       filename: 'strategy-keys.yml',
       code: $`
         name: CI
-        
         jobs:
           test:
             strategy:
               workflow: CI
-        
               dispatch: inputs
-        
               push: branch
-        
               test:
                 contents: read
-        
               check:
                 SERVER: production
       `,
@@ -261,19 +218,14 @@ run({
       filename: 'container-keys.yml',
       code: $`
         name: CI
-        
         jobs:
           test:
             container:
               workflow: CI
-        
               dispatch: inputs
-        
               push: branch
-        
               test:
                 contents: read
-        
               check:
                 SERVER: production
       `,
@@ -285,20 +237,15 @@ run({
       filename: 'service-keys.yml',
       code: $`
         name: CI
-        
         jobs:
           serve:
             services:
               nginx:
                 workflow: CI
-        
                 dispatch: inputs
-        
                 push: branch
-        
                 test:
                   contents: read
-        
                 check:
                   SERVER: production
       `,

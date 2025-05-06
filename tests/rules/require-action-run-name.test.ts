@@ -1,8 +1,9 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/require-action-run-name'
 import { $, run } from '../internal'
+import type { Options } from '../../src/rules/require-action-run-name'
 
-run({
+run<Options>({
   name: RULE_NAME,
   rule,
   valid: [

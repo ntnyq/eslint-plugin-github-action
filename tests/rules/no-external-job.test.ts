@@ -1,8 +1,9 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/no-external-job'
 import { $, run } from '../internal'
+import type { Options } from '../../src/rules/no-external-job'
 
-run({
+run<Options>({
   name: RULE_NAME,
   rule,
   valid: [
@@ -10,7 +11,6 @@ run({
       filename: 'without-external-job.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             name: Test
@@ -20,7 +20,6 @@ run({
       filename: 'no-jobs.yml',
       code: $`
         name: Release
-        
         jobs:
       `,
     },
@@ -30,7 +29,6 @@ run({
       filename: 'external-job.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             uses: ./.github/workflows/ci.yml
@@ -41,8 +39,8 @@ run({
             {
               "column": 5,
               "endColumn": 37,
-              "endLine": 5,
-              "line": 5,
+              "endLine": 4,
+              "line": 4,
               "message": "Disallow using external job.",
               "messageId": "disallowExternalJob",
               "nodeType": "YAMLPair",

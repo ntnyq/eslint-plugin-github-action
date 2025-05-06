@@ -1,8 +1,9 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/max-jobs-per-action'
 import { $, run } from '../internal'
+import type { Options } from '../../src/rules/max-jobs-per-action'
 
-run({
+run<Options>({
   name: RULE_NAME,
   rule,
   valid: [
@@ -16,7 +17,6 @@ run({
       filename: '1-job.yml',
       code: $`
         name: CI
-        
         jobs:
           checkout:
             runs-on: ubuntu-latest
@@ -28,7 +28,6 @@ run({
       filename: 'jobs-is-not-mapping.yml',
       code: $`
         name: CI
-        
         jobs: helloWorld
       `,
     },
@@ -36,7 +35,6 @@ run({
       filename: 'limit-4-jobs.yml',
       code: $`
         name: CI
-        
         jobs:
           job1:
             runs-on: ubuntu-latest
@@ -63,7 +61,6 @@ run({
       filename: '4-jobs.yml',
       code: $`
         name: CI
-        
         jobs:
           job1:
             runs-on: ubuntu-latest
@@ -88,8 +85,8 @@ run({
             {
               "column": 3,
               "endColumn": 34,
-              "endLine": 19,
-              "line": 4,
+              "endLine": 18,
+              "line": 3,
               "message": "There are 4 jobs, maximum allowed is 3.",
               "messageId": "toManyJobs",
               "nodeType": "YAMLMapping",

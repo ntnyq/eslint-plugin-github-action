@@ -1,8 +1,9 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/job-id-casing'
 import { $, run } from '../internal'
+import type { Options } from '../../src/rules/job-id-casing'
 
-run({
+run<Options>({
   name: RULE_NAME,
   rule,
   valid: [

@@ -1,8 +1,9 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/no-top-level-permissions'
 import { $, run } from '../internal'
+import type { Options } from '../../src/rules/no-top-level-permissions'
 
-run({
+run<Options>({
   name: RULE_NAME,
   rule,
   valid: [

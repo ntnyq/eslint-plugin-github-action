@@ -1,8 +1,9 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/require-job-step-name'
 import { $, run } from '../internal'
+import type { Options } from '../../src/rules/require-job-step-name'
 
-run({
+run<Options>({
   name: RULE_NAME,
   rule,
   valid: [
@@ -10,7 +11,6 @@ run({
       filename: 'no-jobs.yml',
       code: $`
         name: Release
-        
         jobs:
       `,
     },
@@ -18,7 +18,6 @@ run({
       filename: 'no-job-steps.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             name: Test
@@ -28,7 +27,6 @@ run({
       filename: 'job-is-invalid.yml',
       code: $`
         name: Release
-        
         jobs:
           test: helloWorld
       `,
@@ -37,7 +35,6 @@ run({
       filename: 'job-steps-not-sequence.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             steps: helloWorld
@@ -47,7 +44,6 @@ run({
       filename: 'all-job-steps-have-name.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             name: Test
@@ -62,7 +58,6 @@ run({
       filename: 'job-step-has-no-name.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             name: Test
@@ -76,8 +71,8 @@ run({
             {
               "column": 9,
               "endColumn": 30,
-              "endLine": 8,
-              "line": 8,
+              "endLine": 7,
+              "line": 7,
               "message": "Require job step name to be set.",
               "messageId": "noName",
               "nodeType": "YAMLMapping",
@@ -92,7 +87,6 @@ run({
       filename: 'job-step-name-is-empty.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             name: Test
@@ -106,8 +100,8 @@ run({
             {
               "column": 9,
               "endColumn": 14,
-              "endLine": 7,
-              "line": 7,
+              "endLine": 6,
+              "line": 6,
               "message": "Job step name must be a non-empty string.",
               "messageId": "invalidName",
               "nodeType": "YAMLPair",
@@ -122,7 +116,6 @@ run({
       filename: 'job-step-name-is-not-string.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             name: Test
@@ -136,8 +129,8 @@ run({
             {
               "column": 11,
               "endColumn": 17,
-              "endLine": 8,
-              "line": 8,
+              "endLine": 7,
+              "line": 7,
               "message": "Job step name must be a non-empty string.",
               "messageId": "invalidName",
               "nodeType": "YAMLSequence",
@@ -152,7 +145,6 @@ run({
       filename: 'every-job-no-name.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             name: Test
@@ -166,8 +158,8 @@ run({
             {
               "column": 9,
               "endColumn": 30,
-              "endLine": 7,
-              "line": 7,
+              "endLine": 6,
+              "line": 6,
               "message": "Require job step name to be set.",
               "messageId": "noName",
               "nodeType": "YAMLMapping",
@@ -177,8 +169,8 @@ run({
             {
               "column": 9,
               "endColumn": 30,
-              "endLine": 8,
-              "line": 8,
+              "endLine": 7,
+              "line": 7,
               "message": "Require job step name to be set.",
               "messageId": "noName",
               "nodeType": "YAMLMapping",

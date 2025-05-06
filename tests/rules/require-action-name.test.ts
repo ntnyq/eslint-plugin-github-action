@@ -1,8 +1,9 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/require-action-name'
 import { $, run } from '../internal'
+import type { Options } from '../../src/rules/require-action-name'
 
-run({
+run<Options>({
   name: RULE_NAME,
   rule,
   valid: [
@@ -10,7 +11,6 @@ run({
       filename: 'valid-name.yml',
       code: $`
         name: Release
-        
         on:
           push:
             branches:

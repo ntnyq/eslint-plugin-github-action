@@ -1,8 +1,9 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/require-job-name'
 import { $, run } from '../internal'
+import type { Options } from '../../src/rules/require-job-name'
 
-run({
+run<Options>({
   name: RULE_NAME,
   rule,
   valid: [
@@ -10,7 +11,6 @@ run({
       filename: 'no-jobs.yml',
       code: $`
         name: Release
-        
         jobs:
       `,
     },
@@ -18,11 +18,9 @@ run({
       filename: 'all-jobs-have-name.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             name: Test
-        
           lint:
             name: Lint
       `,
@@ -33,7 +31,6 @@ run({
       filename: 'job-content-not-mapping.yml',
       code: $`
         name: Release
-        
         jobs:
           test: helloWorld
       `,
@@ -43,8 +40,8 @@ run({
             {
               "column": 9,
               "endColumn": 19,
-              "endLine": 4,
-              "line": 4,
+              "endLine": 3,
+              "line": 3,
               "message": "Require job name to be set.",
               "messageId": "noName",
               "nodeType": "YAMLScalar",
@@ -59,7 +56,6 @@ run({
       filename: 'job-has-no-name.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             runs-on: ubuntu-latest
@@ -70,8 +66,8 @@ run({
             {
               "column": 3,
               "endColumn": 27,
-              "endLine": 5,
-              "line": 4,
+              "endLine": 4,
+              "line": 3,
               "message": "Require job name to be set.",
               "messageId": "noName",
               "nodeType": "YAMLPair",
@@ -86,7 +82,6 @@ run({
       filename: 'job-name-is-empty.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             name:
@@ -98,8 +93,8 @@ run({
             {
               "column": 5,
               "endColumn": 10,
-              "endLine": 5,
-              "line": 5,
+              "endLine": 4,
+              "line": 4,
               "message": "Job name must be a non-empty string.",
               "messageId": "invalidName",
               "nodeType": "YAMLPair",
@@ -114,7 +109,6 @@ run({
       filename: 'job-name-is-not-a-string.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             name:
@@ -127,8 +121,8 @@ run({
             {
               "column": 7,
               "endColumn": 13,
-              "endLine": 6,
-              "line": 6,
+              "endLine": 5,
+              "line": 5,
               "message": "Job name must be a non-empty string.",
               "messageId": "invalidName",
               "nodeType": "YAMLSequence",
@@ -143,11 +137,9 @@ run({
       filename: 'one-job-no-name.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
             name: Test
-        
           lint:
       `,
       errors(errors) {
@@ -156,8 +148,8 @@ run({
             {
               "column": 3,
               "endColumn": 8,
-              "endLine": 7,
-              "line": 7,
+              "endLine": 5,
+              "line": 5,
               "message": "Require job name to be set.",
               "messageId": "noName",
               "nodeType": "YAMLPair",
@@ -172,10 +164,8 @@ run({
       filename: 'every-job-no-name.yml',
       code: $`
         name: Release
-        
         jobs:
           test:
-        
           lint:
       `,
       errors(errors) {
@@ -184,8 +174,8 @@ run({
             {
               "column": 3,
               "endColumn": 8,
-              "endLine": 4,
-              "line": 4,
+              "endLine": 3,
+              "line": 3,
               "message": "Require job name to be set.",
               "messageId": "noName",
               "nodeType": "YAMLPair",
@@ -195,8 +185,8 @@ run({
             {
               "column": 3,
               "endColumn": 8,
-              "endLine": 6,
-              "line": 6,
+              "endLine": 4,
+              "line": 4,
               "message": "Require job name to be set.",
               "messageId": "noName",
               "nodeType": "YAMLPair",

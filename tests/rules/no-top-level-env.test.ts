@@ -1,8 +1,9 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/no-top-level-env'
 import { $, run } from '../internal'
+import type { Options } from '../../src/rules/no-top-level-env'
 
-run({
+run<Options>({
   name: RULE_NAME,
   rule,
   valid: [
@@ -32,7 +33,6 @@ run({
       filename: 'top-level-env.yml',
       code: $`
         name: Release
-        
         env:
           SERVER: production
       `,
@@ -42,8 +42,8 @@ run({
             {
               "column": 1,
               "endColumn": 21,
-              "endLine": 4,
-              "line": 3,
+              "endLine": 3,
+              "line": 2,
               "message": "Disallow using top level env.",
               "messageId": "disallowTopLevelEnv",
               "nodeType": "YAMLPair",
