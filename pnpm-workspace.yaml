@@ -19,7 +19,7 @@ catalog:
   husky: ^9.1.7
   markdown-it-container: ^4.0.0
   nano-staged: ^0.8.0
-  npm-run-all2: ^7.0.2
+  npm-run-all2: ^8.0.1
   prettier: ^3.5.3
   tinyglobby: ^0.2.13
   twoslash: ^0.3.1
