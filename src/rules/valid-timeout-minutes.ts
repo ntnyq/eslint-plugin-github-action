@@ -1,6 +1,6 @@
-import { isNumber } from '@ntnyq/utils'
+import { isInteger, isNumber } from '@ntnyq/utils'
 import { TIMEOUT_MINUTES } from '../constants/time'
-import { createESLintRule, resolveOptions } from '../utils'
+import { createESLintRule, isYAMLScalar, resolveOptions } from '../utils'
 import type { YAMLAst } from '../types/yaml'
 
 type TimeoutMinutesRange = {
@@ -9,7 +9,7 @@ type TimeoutMinutesRange = {
 }
 
 export const RULE_NAME = 'valid-timeout-minutes'
-export type MessageIds = 'invalid'
+export type MessageIds = 'notInteger' | 'invalidRange'
 export type Options = [
   | number
   | TimeoutMinutesRange
@@ -127,7 +127,8 @@ export default createESLintRule<Options, MessageIds>({
       },
     ],
     messages: {
-      invalid: 'Timeout-minutes range should be {{min}}-{{max}}.',
+      notInteger: 'Timeout-minutes should be a positive integer.',
+      invalidRange: 'Timeout-minutes range should be {{min}}-{{max}}.',
     },
   },
   defaultOptions: [defaultOptions],
@@ -149,17 +150,23 @@ export default createESLintRule<Options, MessageIds>({
       if ('min' in rawOptions && rawOptions.min) {
         jobTimeoutMinutes.min = rawOptions.min
         stepTimeoutMinutes.min = rawOptions.min
-      } else if ('max' in rawOptions && rawOptions.max) {
+      }
+
+      if ('max' in rawOptions && rawOptions.max) {
         jobTimeoutMinutes.max = rawOptions.max
         stepTimeoutMinutes.max = rawOptions.max
-      } else if ('job' in rawOptions && rawOptions.job) {
+      }
+
+      if ('job' in rawOptions && rawOptions.job) {
         if (isNumber(rawOptions.job)) {
           jobTimeoutMinutes.max = rawOptions.job
         } else {
           jobTimeoutMinutes.min = rawOptions.job.min || jobTimeoutMinutes.min
           jobTimeoutMinutes.max = rawOptions.job.max || jobTimeoutMinutes.max
         }
-      } else if ('step' in rawOptions && rawOptions.step) {
+      }
+
+      if ('step' in rawOptions && rawOptions.step) {
         if (isNumber(rawOptions.step)) {
           stepTimeoutMinutes.max = rawOptions.step
         } else {
@@ -168,20 +175,50 @@ export default createESLintRule<Options, MessageIds>({
         }
       }
     }
-    return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=env]': (
-        node: YAMLAst.YAMLPair,
-      ) => {
-        context.report({
+
+    function validateTimeoutMinutes(
+      node: YAMLAst.YAMLPair,
+      range: Required<TimeoutMinutesRange>,
+    ) {
+      if (!isYAMLScalar(node.value)) {
+        return
+      }
+
+      // positive integer
+      if (
+        !isNumber(node.value.value)
+        || !isInteger(node.value.value)
+        || node.value.value <= 0
+      ) {
+        return context.report({
+          messageId: 'notInteger',
+          node,
+          loc: node.loc,
+        })
+      }
+
+      if (node.value.value < range.min || node.value.value > range.max) {
+        return context.report({
+          messageId: 'invalidRange',
           node,
           loc: node.loc,
           data: {
-            min: 1,
-            max: 10,
+            min: range.min,
+            max: range.max,
           },
-          messageId: 'invalid',
         })
-      },
+      }
+    }
+
+    return {
+      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=timeout-minutes]':
+        (node: YAMLAst.YAMLPair) => {
+          return validateTimeoutMinutes(node, jobTimeoutMinutes)
+        },
+      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=steps] > YAMLSequence > YAMLMapping > YAMLPair[key.value=timeout-minutes]':
+        (node: YAMLAst.YAMLPair) => {
+          return validateTimeoutMinutes(node, stepTimeoutMinutes)
+        },
     }
   },
 })

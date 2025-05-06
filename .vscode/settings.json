@@ -34,8 +34,10 @@
     "rehype",
     "shiki",
     "shikijs",
+    "tinyglobby",
     "tses",
     "unplugin",
+    "unrs",
     "vite",
     "vitepress",
     "vitest"

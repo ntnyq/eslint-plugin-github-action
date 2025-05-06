@@ -25,4 +25,5 @@ sidebarDepth: 0
 | [require-action-run-name](./require-action-run-name)   | Require a string action run-name.         |     |     |     |
 | [require-job-name](./require-job-name)                 | Require a string job name.                |     |     |     |
 | [require-job-step-name](./require-job-step-name)       | Require a string job step name.           |     |     |     |
+| [valid-timeout-minutes](./valid-timeout-minutes)       | Disallow invalid timeout-minutes.         | ✅  |     |     |
 | [valid-trigger-events](./valid-trigger-events)         | Disallow invalid trigger events.          | ✅  | 🔧  |     |
