@@ -83,7 +83,9 @@ export default createESLintRule<Options, MessageIds>({
         const fileExtension = filename.split('.').pop()
 
         // No extension
-        if (!filename.includes('.') || !fileExtension) return
+        if (!filename.includes('.') || !fileExtension) {
+          return
+        }
 
         if (
           (caseSensitive ? fileExtension : fileExtension.toLowerCase())

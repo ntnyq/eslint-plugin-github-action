@@ -24,7 +24,9 @@ export default createESLintRule<Options, MessageIds>({
   create(context) {
     return {
       YAMLDocument(node: YAMLAst.YAMLDocument) {
-        if (node.content) return
+        if (node.content) {
+          return
+        }
 
         // Empty file
         context.report({

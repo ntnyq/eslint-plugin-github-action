@@ -22,20 +22,20 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
-  "main": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
+    "build": "tsdown",
     "coverage": "vitest --coverage",
     "deploy": "run-s build docs:build",
-    "dev": "unbuild --watch",
+    "dev": "tsdown --watch",
     "docs:build": "pnpm -C docs run build",
     "docs:dev": "pnpm -C docs run dev",
     "lint": "eslint",
@@ -52,29 +52,29 @@
     "eslint": "^9.5.0"
   },
   "dependencies": {
-    "@ntnyq/utils": "catalog:",
-    "@types/json-schema": "catalog:",
-    "uncase": "catalog:",
-    "yaml-eslint-parser": "catalog:"
+    "@ntnyq/utils": "^0.7.0",
+    "@types/json-schema": "^7.0.15",
+    "uncase": "^0.1.0",
+    "yaml-eslint-parser": "^1.3.0"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "catalog:",
-    "@ntnyq/prettier-config": "catalog:",
-    "@types/node": "catalog:",
-    "@vitest/coverage-v8": "catalog:",
-    "bumpp": "catalog:",
-    "eslint": "catalog:",
-    "eslint-plugin-eslint-plugin": "catalog:",
+    "@ntnyq/eslint-config": "^5.0.0-beta.5",
+    "@ntnyq/prettier-config": "^2.2.0",
+    "@types/node": "^22.15.29",
+    "@vitest/coverage-v8": "^3.1.4",
+    "bumpp": "^10.1.1",
+    "eslint": "^9.28.0",
+    "eslint-plugin-eslint-plugin": "^6.4.0",
     "eslint-plugin-github-action": "workspace:*",
-    "eslint-vitest-rule-tester": "catalog:",
-    "husky": "catalog:",
-    "nano-staged": "catalog:",
-    "npm-run-all2": "catalog:",
-    "prettier": "catalog:",
-    "tinyglobby": "catalog:",
-    "typescript": "catalog:",
-    "unbuild": "catalog:",
-    "vitest": "catalog:"
+    "eslint-vitest-rule-tester": "^2.2.0",
+    "husky": "^9.1.7",
+    "nano-staged": "^0.8.0",
+    "npm-run-all2": "^8.0.4",
+    "prettier": "^3.5.3",
+    "tinyglobby": "^0.2.14",
+    "tsdown": "^0.12.6",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.4"
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"

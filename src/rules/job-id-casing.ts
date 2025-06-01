@@ -122,7 +122,9 @@ export default createESLintRule<Options, MessageIds>({
     const converters = caseTypes.map(caseType => getExactConverter(caseType))
 
     function isJobIdValid(id: string) {
-      if (ignores.some(regex => regex.test(id))) return true
+      if (ignores.some(regex => regex.test(id))) {
+        return true
+      }
 
       // Some converter can NOT change job id
       return converters.some(converter => !converter(id).changed)

@@ -13,7 +13,11 @@ import type { YAMLAst } from '../types/yaml'
  * @returns - `key` value of YAMLPair or `undefined`
  */
 export function getPairKeyValue(pair: YAMLAst.YAMLPair) {
-  if (!isYAMLScalar(pair.key)) return
-  if (!isNonEmptyString(pair.key.value)) return
+  if (!isYAMLScalar(pair.key)) {
+    return
+  }
+  if (!isNonEmptyString(pair.key.value)) {
+    return
+  }
   return pair.key.value
 }

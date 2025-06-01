@@ -128,7 +128,9 @@ export default createESLintRule<Options, MessageIds>({
     const converters = caseTypes.map(caseType => getExactConverter(caseType))
 
     function isActionNameValid(name: string) {
-      if (ignores.some(regex => regex.test(name))) return true
+      if (ignores.some(regex => regex.test(name))) {
+        return true
+      }
 
       // Some converter can NOT change action name
       return converters.some(converter => !converter(name).changed)
