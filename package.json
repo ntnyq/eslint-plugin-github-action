@@ -76,7 +76,7 @@
     "vitest": "^3.2.4"
   },
   "engines": {
-    "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+    "node": "^20.11.0 || >=21.1.0"
   },
   "nano-staged": {
     "*.{js,ts,mjs,cjs,vue,svg,md,yml,yaml,json}": "eslint --fix",
