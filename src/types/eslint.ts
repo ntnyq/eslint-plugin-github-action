@@ -4,7 +4,7 @@
 
 import type { Rule } from 'eslint'
 import type { JSONSchema4 } from 'json-schema'
-import type { SourceCode } from './source-code'
+import type { SourceCode } from './sourceCode'
 import type { YAMLAst } from './yaml'
 
 /**
@@ -31,16 +31,19 @@ export type ReportDescriptorBase<TMessageIds extends string> = {
 export type ReportDescriptorLocOnly = {
   loc: Readonly<YAMLAst.Position> | Readonly<YAMLAst.SourceLocation>
 }
+
 export type ReportDescriptorMessageData = Readonly<Record<string, unknown>>
 
 export type ReportDescriptorNodeOptionalLoc = {
   readonly node: YAMLAst.YAMLNode
   readonly loc?: Readonly<YAMLAst.Position> | Readonly<YAMLAst.SourceLocation>
 }
+
 export interface ReportDescriptorWithSuggestion<TMessageIds extends string>
   extends ReportDescriptorBase<TMessageIds> {
   readonly suggest?: readonly Rule.SuggestionReportDescriptor[]
 }
+
 export interface RuleContext<
   TMessageIds extends string,
   TOptions extends readonly unknown[] = [],
@@ -58,6 +61,7 @@ export interface RuleContext<
     parseError?: any
   }
 }
+
 export interface RuleCreateAndOptions<
   TOptions extends readonly unknown[],
   TMessageIds extends string,
@@ -117,6 +121,7 @@ export interface RuleMetaDataDocs {
   recommended?: boolean
   url?: string
 }
+
 export interface RuleModule<
   TMessageIds extends string,
   TOptions extends readonly unknown[] = [],
@@ -134,6 +139,7 @@ export interface RuleWithMeta<
 > extends RuleCreateAndOptions<TOptions, TMessageIds> {
   meta: RuleMetaData<TMessageIds, TDocs, TOptions>
 }
+
 export interface RuleWithMetaAndName<
   TOptions extends readonly unknown[],
   TMessageIds extends string,
@@ -142,4 +148,5 @@ export interface RuleWithMetaAndName<
   meta: NamedCreateRuleMeta<TMessageIds, TDocs, TOptions>
   name: string
 }
+
 type YMLSettings = { indent?: number }

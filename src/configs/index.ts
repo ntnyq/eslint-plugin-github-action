@@ -1,17 +1,19 @@
 import * as parserYAML from 'yaml-eslint-parser'
 import { plugin } from '..'
 import type { Linter } from 'eslint'
+import type { PluginGitHubAction } from '../types/plugin'
 
 /**
  * recommended config
  */
-export const recommended: Linter.Config[] = [
+export const recommended: Linter.Config<Linter.RulesRecord>[] = [
   {
     name: 'github-action/recommended',
     files: ['**/.github/workflows/*.y?(a)ml'],
     ignores: ['!**/.github/workflows/*.y?(a)ml'],
     plugins: {
       /* v8 ignore start */
+      // @ts-expect-error types
       get 'github-action'() {
         return plugin
       },
@@ -30,6 +32,6 @@ export const recommended: Linter.Config[] = [
   },
 ]
 
-export const configs = {
+export const configs: PluginGitHubAction['configs'] = {
   recommended,
 }

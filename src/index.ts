@@ -1,7 +1,7 @@
 import { configs } from './configs'
 import { meta } from './meta'
 import { rules } from './rules'
-import type { ESLint, Rule } from 'eslint'
+import type { PluginGitHubAction } from './types/plugin'
 
 /**
  * eslint-plugin-github-action
@@ -9,11 +9,11 @@ import type { ESLint, Rule } from 'eslint'
  *
  * @see {@link https://github.com/ntnyq/eslint-plugin-github-action}
  */
-export const plugin = {
+export const plugin: PluginGitHubAction = {
   meta,
-  rules: rules as unknown as Record<string, Rule.RuleModule>,
+  rules,
   configs,
-} satisfies ESLint.Plugin
+}
 
 export default plugin
 
