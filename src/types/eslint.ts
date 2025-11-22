@@ -128,7 +128,7 @@ export interface RuleModule<
   TDocs = unknown,
 > {
   defaultOptions: TOptions
-  meta?: RuleMetaData<TMessageIds, TDocs, TOptions>
+  meta: RuleMetaData<TMessageIds, TDocs, TOptions>
   create(context: RuleContext<TMessageIds, TOptions>): RuleListener
 }
 
