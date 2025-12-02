@@ -30,6 +30,7 @@
     "gollum",
     "iconify",
     "lcov",
+    "oxlint",
     "pnpm",
     "rehype",
     "shiki",

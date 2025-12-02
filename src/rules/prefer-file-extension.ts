@@ -79,7 +79,7 @@ export default createESLintRule<Options, MessageIds>({
 
     return {
       Program: (node: YAMLAst.YAMLProgram) => {
-        const filename = context.getFilename()
+        const filename = context.filename
         const fileExtension = filename.split('.').pop()
 
         // No extension

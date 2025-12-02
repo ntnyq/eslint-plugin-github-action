@@ -39,8 +39,9 @@ export type ReportDescriptorNodeOptionalLoc = {
   readonly loc?: Readonly<YAMLAst.Position> | Readonly<YAMLAst.SourceLocation>
 }
 
-export interface ReportDescriptorWithSuggestion<TMessageIds extends string>
-  extends ReportDescriptorBase<TMessageIds> {
+export interface ReportDescriptorWithSuggestion<
+  TMessageIds extends string,
+> extends ReportDescriptorBase<TMessageIds> {
   readonly suggest?: readonly Rule.SuggestionReportDescriptor[]
 }
 
@@ -48,13 +49,12 @@ export interface RuleContext<
   TMessageIds extends string,
   TOptions extends readonly unknown[] = [],
 > {
+  filename: string
   id: string
   options: TOptions
-  parserPath: string
+  parserPath: string | undefined
   settings: { yml?: YMLSettings; [name: string]: any }
-  getAncestors(): YAMLAst.YAMLNode[]
-  getFilename(): string
-  getSourceCode(): SourceCode
+  sourceCode: SourceCode
   report(descriptor: ReportDescriptor<TMessageIds>): void
   parserServices?: {
     isYAML?: true

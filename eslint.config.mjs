@@ -9,6 +9,12 @@ export default defineESLintConfig({
       'eslint-plugin/require-meta-default-options': 'off',
     },
   },
+  test: {
+    overridesVitestRules: {
+      // in favor of eslint-vitest-rule-tester
+      'vitest/no-standalone-expect': 'off',
+    },
+  },
   yml: {
     overrides: {
       'yml/no-empty-document': 'off',
