@@ -39,8 +39,9 @@ export type ReportDescriptorNodeOptionalLoc = {
   readonly loc?: Readonly<YAMLAst.Position> | Readonly<YAMLAst.SourceLocation>
 }
 
-export interface ReportDescriptorWithSuggestion<TMessageIds extends string>
-  extends ReportDescriptorBase<TMessageIds> {
+export interface ReportDescriptorWithSuggestion<
+  TMessageIds extends string,
+> extends ReportDescriptorBase<TMessageIds> {
   readonly suggest?: readonly Rule.SuggestionReportDescriptor[]
 }
 
