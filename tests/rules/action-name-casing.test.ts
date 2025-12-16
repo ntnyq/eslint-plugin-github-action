@@ -60,6 +60,19 @@ run<Options>({
         },
       ],
     },
+    {
+      filename: 'options-with-false-values.yml',
+      code: $`
+        name: Unit Test
+      `,
+      options: [
+        {
+          'Title Case': true,
+          'kebab-case': false,
+          camelCase: false,
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -247,6 +260,22 @@ run<Options>({
             },
           ]
         `)
+      },
+    },
+    {
+      filename: 'multiple-case-types.yml',
+      code: $`
+        name: invalid_name
+      `,
+      options: [
+        {
+          'kebab-case': true,
+          camelCase: true,
+        },
+      ],
+      errors(errors) {
+        expect(errors.length).toBe(1)
+        expect(errors[0].fix).toBeUndefined() // No fix when multiple case types
       },
     },
   ],

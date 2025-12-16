@@ -59,6 +59,17 @@ run<Options>({
       options: ['snake_case'],
     },
     {
+      filename: 'empty-object-options.yml',
+      code: $`
+        jobs:
+          unit-test:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v4
+      `,
+      options: [{}],
+    },
+    {
       filename: 'multi-case.yml',
       code: $`
         jobs:
