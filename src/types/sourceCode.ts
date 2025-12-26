@@ -32,8 +32,6 @@ export interface SourceCode {
   getTokenAfter(node: YAMLNodeOrToken): YAMLAst.Token | null
   getTokenBefore(node: YAMLNodeOrToken): YAMLAst.Token | null
 
-  isSpaceBetweenTokens(first: YAMLToken, second: YAMLToken): boolean
-
   visitorKeys: {
     [nodeType: string]: string[]
   }

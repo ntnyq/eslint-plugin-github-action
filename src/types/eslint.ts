@@ -49,10 +49,13 @@ export interface RuleContext<
   TMessageIds extends string,
   TOptions extends readonly unknown[] = [],
 > {
+  cwd: string
   filename: string
   id: string
+  // TODO: v10 migrate
+  languageOptions: any
   options: TOptions
-  parserPath: string | undefined
+  physicalFilename: string
   settings: { yml?: YMLSettings; [name: string]: any }
   sourceCode: SourceCode
   report(descriptor: ReportDescriptor<TMessageIds>): void
