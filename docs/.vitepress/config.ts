@@ -78,10 +78,7 @@ export default defineConfig({
             // Remove trailing newline and presentational `⏎` characters
             return code.replace(/⏎(?=\n)/gu, '').replace(/⏎$/gu, '\n')
           },
-          eslintConfig: [
-            //
-            ...pluginGitHubAction.configs.recommended,
-          ],
+          eslintConfig: [...pluginGitHubAction.configs.recommended],
         }),
       }),
     ],

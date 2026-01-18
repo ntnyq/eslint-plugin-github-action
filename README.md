@@ -8,6 +8,10 @@
 
 > Rules for consistent, readable and valid GitHub action files.
 
+## Requirements
+
+- Node.js ^20.19.0 || ^22.13.0 || >=24
+
 ## Install
 
 ```shell
