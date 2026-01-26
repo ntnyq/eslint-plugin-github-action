@@ -59,7 +59,7 @@
   "devDependencies": {
     "@ntnyq/eslint-config": "^5.9.0",
     "@ntnyq/prettier-config": "^3.0.1",
-    "@types/node": "^24.10.7",
+    "@types/node": "^24.10.9",
     "@vitest/coverage-v8": "^4.0.17",
     "bumpp": "^10.4.0",
     "eslint": "^9.39.2",
