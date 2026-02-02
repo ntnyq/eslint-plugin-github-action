@@ -11,7 +11,7 @@
     "@iconify-json/ri": "^1.2.7",
     "@shikijs/transformers": "^3.21.0",
     "@shikijs/vitepress-twoslash": "^3.21.0",
-    "@types/markdown-it-container": "^2.0.11",
+    "@types/markdown-it-container": "^4.0.0",
     "eslint-plugin-github-action": "workspace:*",
     "markdown-it-container": "^4.0.0",
     "twoslash": "^0.3.6",
