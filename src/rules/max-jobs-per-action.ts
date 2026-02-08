@@ -13,7 +13,7 @@ export default createESLintRule<Options, MessageIds>({
     type: 'suggestion',
     docs: {
       recommended: false,
-      description: 'enforce maximum jobs per action file.',
+      description: 'enforce maximum jobs per workflow file.',
     },
     schema: [
       {

@@ -2,19 +2,19 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: github-action/require-action-name
-description: Require a string action name.
+description: Require a string workflow name.
 since: v0.0.0
 ---
 
 # github-action/require-action-name
 
-> Require a string action name.
+> Require a string workflow name.
 
 - 💼 This rule is enabled in the ✅ `recommended` config.
 
 ## :book: Rule Details
 
-This rule reports when action has no name or not a string.
+This rule reports when a workflow has no name or the name is not a string.
 
 ::: correct
 

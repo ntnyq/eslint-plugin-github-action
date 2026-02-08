@@ -14,7 +14,7 @@ since: v0.0.16
 
 ## :book: Rule Details
 
-This rule reports when jobs or steps has invalid `timeout-minutes`.
+This rule reports when jobs or steps have invalid `timeout-minutes`.
 
 ::: correct
 
@@ -51,7 +51,7 @@ jobs:
 jobs:
   unit-test:
     steps:
-      - timeout-minutes: 30
+      - timeout-minutes: 0
 ```
 
 :::
@@ -74,7 +74,7 @@ type ValidTimeoutMinutesOptions = [
 ]
 ```
 
-Default options is set to `{ min: 1, max: 360 }`.
+Default option is set to `{ min: 1, max: 360 }`.
 
 ## :rocket: Version
 

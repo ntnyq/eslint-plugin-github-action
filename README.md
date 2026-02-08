@@ -6,7 +6,7 @@
 [![CODECOV](https://codecov.io/github/ntnyq/eslint-plugin-github-action/branch/main/graph/badge.svg)](https://codecov.io/github/ntnyq/eslint-plugin-github-action)
 [![LICENSE](https://img.shields.io/github/license/ntnyq/eslint-plugin-github-action.svg)](https://github.com/ntnyq/eslint-plugin-github-action/blob/main/LICENSE)
 
-> Rules for consistent, readable and valid GitHub action files.
+> Rules for consistent, readable, and valid GitHub Actions workflow files.
 
 ## Requirements
 
@@ -28,7 +28,7 @@ pnpm add eslint-plugin-github-action -D
 
 ## Usage
 
-Config in ESLint config files:
+Configure in ESLint config files:
 
 ```ts
 import { defineConfig } from 'eslint/config'
@@ -40,7 +40,9 @@ export default defineConfig([
 ])
 ```
 
-:apple: For advanced usaged, please check [Advanced Usage](https://eslint-plugin-github-action.ntnyq.com/guide/#advanced-usage)
+The recommended config targets `.github/workflows/*.yml` and `.yaml` files.
+
+:apple: For advanced usage, please check [Advanced Usage](https://eslint-plugin-github-action.ntnyq.com/guide/#advanced-usage)
 
 ## Rules
 
@@ -49,24 +51,24 @@ export default defineConfig([
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).\
 💡 Manually fixable by [editor suggestions](https://eslint.org/docs/developer-guide/working-with-rules#providing-suggestions).
 
-| Name                                                                                                          | Description                               | 💼  | 🔧  | 💡  |
-| :------------------------------------------------------------------------------------------------------------ | :---------------------------------------- | :-: | :-: | :-: |
-| [action-name-casing](https://eslint-plugin-github-action.ntnyq.com/rules/action-name-casing.html)             | Enforce naming convention to action name. |     | 🔧  |     |
-| [job-id-casing](https://eslint-plugin-github-action.ntnyq.com/rules/job-id-casing.html)                       | Enforce naming convention to job id.      |     |     |     |
-| [max-jobs-per-action](https://eslint-plugin-github-action.ntnyq.com/rules/max-jobs-per-action.html)           | Enforce maximum jobs per action file.     |     |     |     |
-| [no-external-job](https://eslint-plugin-github-action.ntnyq.com/rules/no-external-job.html)                   | Disallow using external job.              |     |     |     |
-| [no-invalid-key](https://eslint-plugin-github-action.ntnyq.com/rules/no-invalid-key.html)                     | Disallow using invalid key.               | ✅  |     |     |
-| [no-top-level-env](https://eslint-plugin-github-action.ntnyq.com/rules/no-top-level-env.html)                 | Disallow using top level env.             |     |     |     |
-| [no-top-level-permissions](https://eslint-plugin-github-action.ntnyq.com/rules/no-top-level-permissions.html) | Disallow using top level permissions.     |     |     |     |
-| [prefer-fail-fast](https://eslint-plugin-github-action.ntnyq.com/rules/prefer-fail-fast.html)                 | Disallow setting fail-fast to false.      |     |     |     |
-| [prefer-file-extension](https://eslint-plugin-github-action.ntnyq.com/rules/prefer-file-extension.html)       | Enforce action file extension.            | ✅  |     |     |
-| [prefer-step-uses-style](https://eslint-plugin-github-action.ntnyq.com/rules/prefer-step-uses-style.html)     | Enforce the style of job step uses.       |     |     |     |
-| [require-action-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-name.html)           | Require a string action name.             | ✅  |     |     |
-| [require-action-run-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-run-name.html)   | Require a string action run-name.         |     |     |     |
-| [require-job-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-job-name.html)                 | Require a string job name.                |     |     |     |
-| [require-job-step-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-job-step-name.html)       | Require a string job step name.           |     |     |     |
-| [valid-trigger-events](https://eslint-plugin-github-action.ntnyq.com/rules/valid-trigger-events.html)         | Disallow invalid trigger events.          | ✅  | 🔧  |     |
-| [valid-timeout-minutes](https://eslint-plugin-github-action.ntnyq.com/rules/valid-timeout-minutes.html)       | Disallow invalid timeout-minutes.         | ✅  |     |     |
+| Name                                                                                                          | Description                                  | 💼  | 🔧  | 💡  |
+| :------------------------------------------------------------------------------------------------------------ | :------------------------------------------- | :-: | :-: | :-: |
+| [action-name-casing](https://eslint-plugin-github-action.ntnyq.com/rules/action-name-casing.html)             | Enforce naming convention for workflow name. |     | 🔧  |     |
+| [job-id-casing](https://eslint-plugin-github-action.ntnyq.com/rules/job-id-casing.html)                       | Enforce naming convention for job IDs.       |     |     |     |
+| [max-jobs-per-action](https://eslint-plugin-github-action.ntnyq.com/rules/max-jobs-per-action.html)           | Enforce maximum jobs per workflow file.      |     |     |     |
+| [no-external-job](https://eslint-plugin-github-action.ntnyq.com/rules/no-external-job.html)                   | Disallow using external jobs.                |     |     |     |
+| [no-invalid-key](https://eslint-plugin-github-action.ntnyq.com/rules/no-invalid-key.html)                     | Disallow using invalid key.                  | ✅  |     |     |
+| [no-top-level-env](https://eslint-plugin-github-action.ntnyq.com/rules/no-top-level-env.html)                 | Disallow using top-level env.                |     |     |     |
+| [no-top-level-permissions](https://eslint-plugin-github-action.ntnyq.com/rules/no-top-level-permissions.html) | Disallow using top-level permissions.        |     |     |     |
+| [prefer-fail-fast](https://eslint-plugin-github-action.ntnyq.com/rules/prefer-fail-fast.html)                 | Disallow setting fail-fast to false.         |     |     |     |
+| [prefer-file-extension](https://eslint-plugin-github-action.ntnyq.com/rules/prefer-file-extension.html)       | Enforce workflow file extension.             | ✅  |     |     |
+| [prefer-step-uses-style](https://eslint-plugin-github-action.ntnyq.com/rules/prefer-step-uses-style.html)     | Enforce the style of job step `uses`.        |     |     |     |
+| [require-action-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-name.html)           | Require a string workflow name.              | ✅  |     |     |
+| [require-action-run-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-action-run-name.html)   | Require a string workflow run-name.          |     |     |     |
+| [require-job-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-job-name.html)                 | Require a string job name.                   |     |     |     |
+| [require-job-step-name](https://eslint-plugin-github-action.ntnyq.com/rules/require-job-step-name.html)       | Require a string job step name.              |     |     |     |
+| [valid-trigger-events](https://eslint-plugin-github-action.ntnyq.com/rules/valid-trigger-events.html)         | Disallow invalid trigger events.             | ✅  | 🔧  |     |
+| [valid-timeout-minutes](https://eslint-plugin-github-action.ntnyq.com/rules/valid-timeout-minutes.html)       | Disallow invalid timeout-minutes.            | ✅  |     |     |
 
 ## Links
 

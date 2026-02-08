@@ -9,6 +9,8 @@ sidebarDepth: 0
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).\
 💡 Manually fixable by [editor suggestions](https://eslint.org/docs/developer-guide/working-with-rules#providing-suggestions).
 
+All rules target GitHub Actions workflow files under `.github/workflows/` unless configured otherwise.
+
 | Name                                                   | Description                               | 💼  | 🔧  | 💡  |
 | :----------------------------------------------------- | :---------------------------------------- | :-: | :-: | :-: |
 | [action-name-casing](./action-name-casing)             | Enforce naming convention to action name. |     | 🔧  |     |

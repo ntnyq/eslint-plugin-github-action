@@ -12,7 +12,7 @@ export default createESLintRule<Options, MessageIds>({
     type: 'suggestion',
     docs: {
       recommended: false,
-      description: 'require a string action run-name.',
+      description: 'require a string workflow run-name.',
     },
     schema: [],
     messages: {

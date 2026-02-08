@@ -56,7 +56,7 @@ export default createESLintRule<Options, MessageIds>({
     type: 'suggestion',
     docs: {
       recommended: false,
-      description: 'enforce the style of job step uses.',
+      description: 'enforce the style of job step `uses`.',
     },
     schema: [
       {

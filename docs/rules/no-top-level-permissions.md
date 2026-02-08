@@ -2,17 +2,17 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: github-action/no-top-level-permissions
-description: Disallow using top level permissions.
+description: Disallow using top-level permissions.
 since: v0.0.4
 ---
 
 # github-action/no-top-level-permissions
 
-> Disallow using top level permissions.
+> Disallow using top-level permissions.
 
 ## :book: Rule Details
 
-This rule reports when action has a top level `permissions` property.
+This rule reports when a workflow has a top-level `permissions` property.
 
 ::: correct
 
@@ -22,7 +22,7 @@ name: CI
 jobs:
   unit-test:
     runs-on: ubuntu-latest
-    # Non top level permissions
+    # Non top-level permissions
     permissions:
       id-token: write
       contents: write

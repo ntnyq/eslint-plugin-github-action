@@ -12,7 +12,7 @@ since: v0.0.6
 
 ## :book: Rule Details
 
-This rule reports when action job steps has no name or not a string.
+This rule reports when workflow job steps have no name or the name is not a string.
 
 ::: correct
 

@@ -2,17 +2,17 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: github-action/max-jobs-per-action
-description: Enforce maximum jobs per action file.
+description: Enforce maximum jobs per workflow file.
 since: v0.0.2
 ---
 
 # github-action/max-jobs-per-action
 
-> Enforce maximum jobs per action file.
+> Enforce maximum jobs per workflow file.
 
 ## :book: Rule Details
 
-This rule reports when action jobs count exceed limit.
+This rule reports when the number of jobs in a workflow exceeds the limit.
 
 ::: correct
 

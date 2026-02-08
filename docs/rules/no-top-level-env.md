@@ -2,17 +2,17 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: github-action/no-top-level-env
-description: Disallow using top level env.
+description: Disallow using top-level env.
 since: v0.0.6
 ---
 
 # github-action/no-top-level-env
 
-> Disallow using top level env.
+> Disallow using top-level env.
 
 ## :book: Rule Details
 
-This rule reports when action has a top level `env` property.
+This rule reports when a workflow has a top-level `env` property.
 
 ::: correct
 
@@ -22,7 +22,7 @@ name: CI
 jobs:
   unit-test:
     runs-on: ubuntu-latest
-    # Non top level env
+    # Non top-level env
     env:
       SERVER: production
 ```

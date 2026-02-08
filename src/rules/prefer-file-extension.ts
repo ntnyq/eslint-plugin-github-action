@@ -36,7 +36,7 @@ export default createESLintRule<Options, MessageIds>({
     type: 'suggestion',
     docs: {
       recommended: true,
-      description: 'enforce action file extension.',
+      description: 'enforce workflow file extension.',
     },
     schema: [
       {

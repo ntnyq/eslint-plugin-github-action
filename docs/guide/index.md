@@ -33,6 +33,8 @@ export default defineConfig([
 ])
 ```
 
+The recommended config already applies to `.github/workflows/*.yml` and `.yaml` files and sets `yaml-eslint-parser`.
+
 ### The recommended preset
 
 The `recommended` config enables a subset of [the rules](#rules) that should be most useful to most users.
@@ -47,7 +49,7 @@ _See also: [http://eslint.org/docs/user-guide/configuring](http://eslint.org/doc
 // @noErrors
 import { defineConfig } from 'eslint/config'
 import pluginGitHubAction from 'eslint-plugin-github-action'
-import * as parserYAML from 'yml-eslint-parser'
+import * as parserYAML from 'yaml-eslint-parser'
 
 export default defineConfig([
   // Create a single config based on the recommended config

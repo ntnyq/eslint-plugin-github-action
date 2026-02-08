@@ -11,7 +11,7 @@ export default createESLintRule<Options, MessageIds>({
     type: 'suggestion',
     docs: {
       recommended: false,
-      description: 'disallow using top level permissions.',
+      description: 'disallow using top-level permissions.',
     },
     schema: [],
     messages: {

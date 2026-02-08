@@ -29,6 +29,15 @@ hero:
 
 See [Guide](./guide/index.md).
 
+Quick start:
+
+```ts
+import { defineConfig } from 'eslint/config'
+import pluginGitHubAction from 'eslint-plugin-github-action'
+
+export default defineConfig([...pluginGitHubAction.configs.recommended])
+```
+
 ## :white_check_mark: Rules
 
 See [Available Rules](./rules/index.md).

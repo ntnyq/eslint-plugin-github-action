@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.1.0",
   "packageManager": "pnpm@10.29.1",
-  "description": "Rules for consistent, readable and valid GitHub action files.",
+  "description": "Rules for consistent, readable, and valid GitHub Actions workflow files.",
   "keywords": [
     "eslint",
     "eslint-plugin",
@@ -61,7 +61,7 @@
   "devDependencies": {
     "@ntnyq/eslint-config": "^6.0.0-beta.7",
     "@types/node": "^25.2.2",
-    "@typescript/native-preview": "7.0.0-dev.20260208.1",
+    "@typescript/native-preview": "^7.0.0-dev.20260208.1",
     "@vitest/coverage-v8": "^4.0.18",
     "bumpp": "^10.4.1",
     "eslint": "^10.0.0",

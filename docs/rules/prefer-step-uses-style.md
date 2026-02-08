@@ -2,17 +2,17 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: github-action/prefer-step-uses-style
-description: Enforce the style of job step uses.
+description: Enforce the style of job step `uses`.
 since: v0.0.7
 ---
 
 # github-action/prefer-step-uses-style
 
-> Enforce the style of job step uses.
+> Enforce the style of job step `uses`.
 
 ## :book: Rule Details
 
-This rule enforces the consistent case usage of job step uses.
+This rule enforces a consistent style for job step `uses`.
 
 ::: correct
 
@@ -169,23 +169,23 @@ jobs:
 
 ### docker
 
-When the `uses` is starts with `docker://`, it is considered as a docker action.
+When `uses` starts with `docker://`, it is considered a docker action.
 
 ### repository
 
-When the `uses` is starts with `./`, it is considered as a same repository action.
+When `uses` starts with `./`, it is considered a same-repository action.
 
 ### commit
 
-When the `uses` has 40 chars after `@`, it is considered as a commit style action.
+When `uses` has 40 characters after `@`, it is considered a commit style action.
 
 ### release
 
-When the `uses` starts with `^` after `@`, it is considered as a release style action.
+When `uses` starts with `v` after `@`, it is considered a release style action.
 
 ### branch
 
-Fallback style. If none matched above.
+Fallback style when none match above.
 
 ### Reference
 

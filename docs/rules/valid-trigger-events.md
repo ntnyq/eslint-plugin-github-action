@@ -14,7 +14,7 @@ since: v0.0.16
 
 ## :book: Rule Details
 
-This rule reports when action has invalid `on.event_name`.
+This rule reports when a workflow has an invalid `on.<event_name>`.
 
 ::: correct
 

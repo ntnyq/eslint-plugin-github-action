@@ -2,17 +2,17 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: github-action/no-external-job
-description: Disallow using external job.
+description: Disallow using external jobs.
 since: v0.0.7
 ---
 
 # github-action/no-external-job
 
-> Disallow using external job.
+> Disallow using external jobs.
 
 ## :book: Rule Details
 
-This rule reports when job uses a external job.
+This rule reports when a job uses an external workflow via `uses`.
 
 ::: correct
 

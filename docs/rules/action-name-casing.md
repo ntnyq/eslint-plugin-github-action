@@ -2,13 +2,13 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: github-action/action-name-casing
-description: Enforce naming convention to action name.
+description: Enforce naming convention for workflow name.
 since: v0.0.2
 ---
 
 # github-action/action-name-casing
 
-> Enforce naming convention to action name.
+> Enforce naming convention for workflow name.
 
 - 💼 This rule is enabled in the ✅ `recommended` config.
 
@@ -16,7 +16,7 @@ since: v0.0.2
 
 ## :book: Rule Details
 
-This rule enforces the consistent case usage of action names.
+This rule enforces consistent casing for the workflow `name`.
 
 ::: correct
 
@@ -82,7 +82,7 @@ name: UNIT_TEST
 
 ## :wrench: Options
 
-Default casing is set to `TitleCase`.
+Default casing is set to `Title Case`.
 
 ```ts
 type ActionNameCasingOptions = [
@@ -110,8 +110,6 @@ name: Unit Test
 ```
 
 Examples of **incorrect** code for this rule with default option:
-
-:::
 
 ::: incorrect
 
@@ -212,7 +210,7 @@ name: unit_test
 
 ```yaml
 # Title Case
-name: unit-test
+name: Unit Test
 ```
 
 :::

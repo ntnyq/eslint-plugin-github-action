@@ -36,7 +36,7 @@ export default createESLintRule<Options, MessageIds>({
     type: 'suggestion',
     docs: {
       recommended: false,
-      description: 'enforce naming convention to job id.',
+      description: 'enforce naming convention for job IDs.',
     },
     schema: [
       {

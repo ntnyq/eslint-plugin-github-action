@@ -14,7 +14,7 @@ since: v0.0.8
 
 ## :book: Rule Details
 
-This rule reports when action file uses invalid keys.
+This rule reports when a workflow file uses invalid keys.
 
 ::: correct
 

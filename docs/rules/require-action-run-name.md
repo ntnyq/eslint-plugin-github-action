@@ -2,17 +2,17 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: github-action/require-action-run-name
-description: Require a string action run-name.
+description: Require a string workflow run-name.
 since: v0.0.9
 ---
 
 # github-action/require-action-run-name
 
-> Require a string action run-name.
+> Require a string workflow run-name.
 
 ## :book: Rule Details
 
-This rule reports when action has no run-name or not a string.
+This rule reports when a workflow has no run-name or the run-name is not a string.
 
 ::: correct
 

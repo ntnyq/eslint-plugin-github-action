@@ -2,17 +2,17 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: github-action/job-id-casing
-description: Enforce naming convention to job id.
+description: Enforce naming convention for job IDs.
 since: v0.0.3
 ---
 
 # github-action/job-id-casing
 
-> Enforce naming convention to job id.
+> Enforce naming convention for job IDs.
 
 ## :book: Rule Details
 
-This rule enforces the consistent case usage of job ids.
+This rule enforces consistent casing for job IDs.
 
 ::: correct
 

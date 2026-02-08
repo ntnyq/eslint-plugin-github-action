@@ -11,7 +11,7 @@ export default createESLintRule<Options, MessageIds>({
     type: 'suggestion',
     docs: {
       recommended: false,
-      description: 'disallow using external job.',
+      description: 'disallow using external jobs.',
     },
     schema: [],
     messages: {

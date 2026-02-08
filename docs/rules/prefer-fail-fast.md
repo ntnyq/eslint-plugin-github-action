@@ -12,7 +12,7 @@ since: v0.0.9
 
 ## :book: Rule Details
 
-This rule reports when set `strategy.fail-fast` to false.
+This rule reports when `strategy.fail-fast` is set to false.
 
 ::: correct
 

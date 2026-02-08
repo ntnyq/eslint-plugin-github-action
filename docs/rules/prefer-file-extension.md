@@ -2,19 +2,19 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: github-action/prefer-file-extension
-description: Enforce action file extension.
+description: Enforce workflow file extension.
 since: v0.0.8
 ---
 
 # github-action/prefer-file-extension
 
-> Enforce action file extension.
+> Enforce workflow file extension.
 
 - 💼 This rule is enabled in the ✅ `recommended` config.
 
 ## :book: Rule Details
 
-This rule reports when action file extension doesn't match.
+This rule reports when a workflow file extension does not match.
 
 ::: correct
 
@@ -41,7 +41,7 @@ Default extension is set to `yml`.
 ```ts
 type AllowedExtension = 'yml' | 'yaml'
 
-type JobIdCasingOptions = [
+type PreferFileExtensionOptions = [
   'error' | 'warn' | 'off' | 2 | 1 | 0,
   (
     | AllowedExtension
