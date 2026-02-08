@@ -186,9 +186,9 @@ export default createESLintRule<Options, MessageIds>({
 
       // positive integer
       if (
-        !isNumber(node.value.value)
-        || !isInteger(node.value.value)
-        || node.value.value <= 0
+        !isNumber(node.value.value) ||
+        !isInteger(node.value.value) ||
+        node.value.value <= 0
       ) {
         return context.report({
           messageId: 'notInteger',

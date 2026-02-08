@@ -47,8 +47,8 @@ export default createESLintRule<Options, MessageIds>({
 
           // job name is not non-empty string
           if (
-            !isYAMLScalar(namePair.value)
-            || !isNonEmptyString(namePair.value.value)
+            !isYAMLScalar(namePair.value) ||
+            !isNonEmptyString(namePair.value.value)
           ) {
             return context.report({
               node: namePair.value || namePair,

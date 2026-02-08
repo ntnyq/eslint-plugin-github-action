@@ -1,9 +1,9 @@
 {
+  "oxc.enable": true,
   "eslint.enable": true,
-  "prettier.enable": true,
+  "prettier.enable": false,
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "prettier.configPath": "./prettier.config.mjs",
+  "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never",
@@ -20,8 +20,10 @@
     "javascript",
     "typescript",
     "javascriptreact",
-    "typescriptreact"
+    "typescriptreact",
+    "github-actions-workflow"
   ],
+  "typescript.experimental.useTsgo": true,
   "cSpell.words": [
     "bumpp",
     "changelogithub",
@@ -30,6 +32,7 @@
     "gollum",
     "iconify",
     "lcov",
+    "oxfmt",
     "oxlint",
     "pnpm",
     "rehype",
@@ -38,6 +41,7 @@
     "tinyglobby",
     "tsdown",
     "tses",
+    "tsgo",
     "unplugin",
     "unrs",
     "vite",

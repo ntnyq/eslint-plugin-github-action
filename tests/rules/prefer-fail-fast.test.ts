@@ -64,7 +64,6 @@ run<Options>({
               "line": 5,
               "message": "Disallow setting fail-fast to false.",
               "messageId": "unexpected",
-              "nodeType": "YAMLPair",
               "ruleId": "prefer-fail-fast",
               "severity": 2,
             },

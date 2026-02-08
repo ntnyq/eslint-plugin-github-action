@@ -15,6 +15,11 @@ export default defineESLintConfig({
       'vitest/no-standalone-expect': 'off',
     },
   },
+  typescript: {
+    overrides: {
+      '@typescript-eslint/consistent-generic-constructors': 'off',
+    },
+  },
   yml: {
     overrides: {
       'yml/no-empty-document': 'off',

@@ -2,7 +2,7 @@
   "name": "eslint-plugin-github-action",
   "type": "module",
   "version": "0.1.0",
-  "packageManager": "pnpm@10.28.1",
+  "packageManager": "pnpm@10.29.1",
   "description": "Rules for consistent, readable and valid GitHub action files.",
   "keywords": [
     "eslint",
@@ -38,17 +38,19 @@
     "dev": "tsdown --watch",
     "docs:build": "pnpm -C docs run build",
     "docs:dev": "pnpm -C docs run dev",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
     "lint": "eslint",
     "prepare": "husky",
     "prepublishOnly": "pnpm run build",
     "release": "run-s release:check release:version",
-    "release:check": "run-s lint typecheck test",
+    "release:check": "run-s format:check lint typecheck test",
     "release:version": "bumpp",
     "test": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsgo --noEmit"
   },
   "peerDependencies": {
-    "eslint": "^9.5.0"
+    "eslint": "^9.5.0 || ^10.0.0"
   },
   "dependencies": {
     "@ntnyq/utils": "^0.11.0",
@@ -57,21 +59,21 @@
     "yaml-eslint-parser": "^2.0.0"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^5.9.0",
-    "@ntnyq/prettier-config": "^3.0.1",
-    "@types/node": "^24.10.9",
+    "@ntnyq/eslint-config": "^6.0.0-beta.7",
+    "@types/node": "^25.2.2",
+    "@typescript/native-preview": "7.0.0-dev.20260208.1",
     "@vitest/coverage-v8": "^4.0.18",
-    "bumpp": "^10.4.0",
-    "eslint": "^9.39.2",
+    "bumpp": "^10.4.1",
+    "eslint": "^10.0.0",
     "eslint-plugin-eslint-plugin": "^7.3.0",
     "eslint-plugin-github-action": "workspace:*",
-    "eslint-vitest-rule-tester": "^3.0.1",
+    "eslint-vitest-rule-tester": "^3.1.0",
     "husky": "^9.1.7",
     "nano-staged": "^0.9.0",
     "npm-run-all2": "^8.0.4",
-    "prettier": "^3.8.1",
+    "oxfmt": "^0.28.0",
     "tinyglobby": "^0.2.15",
-    "tsdown": "^0.20.1",
+    "tsdown": "^0.20.3",
     "typescript": "^5.9.3",
     "vitest": "^4.0.18"
   },
@@ -79,7 +81,7 @@
     "node": "^20.19.0 || ^22.13.0 || >=24"
   },
   "nano-staged": {
-    "*.{js,ts,mjs,cjs,vue,svg,md,yml,yaml,json}": "eslint --fix",
-    "*.{css,scss,html}": "prettier -uw"
+    "*.{js,ts,mjs,tsx,vue,svg,md,yml,yaml,json}": "eslint --fix",
+    "*": "oxfmt --no-error-on-unmatched-pattern"
   }
 }

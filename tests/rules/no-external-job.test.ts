@@ -43,7 +43,6 @@ run<Options>({
               "line": 4,
               "message": "Disallow using external job.",
               "messageId": "disallowExternalJob",
-              "nodeType": "YAMLPair",
               "ruleId": "no-external-job",
               "severity": 2,
             },

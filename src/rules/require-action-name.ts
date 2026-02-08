@@ -48,8 +48,8 @@ export default createESLintRule<Options, MessageIds>({
         }
 
         if (
-          !isYAMLScalar(namePair.value)
-          || !isNonEmptyString(namePair.value.value)
+          !isYAMLScalar(namePair.value) ||
+          !isNonEmptyString(namePair.value.value)
         ) {
           return context.report({
             node: namePair.value ?? namePair,

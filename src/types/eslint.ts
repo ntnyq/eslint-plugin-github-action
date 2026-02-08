@@ -19,8 +19,8 @@ export interface NamedCreateRuleMeta<
 }
 
 export type ReportDescriptor<TMessageIds extends string> =
-  ReportDescriptorWithSuggestion<TMessageIds>
-    & (ReportDescriptorLocOnly | ReportDescriptorNodeOptionalLoc)
+  ReportDescriptorWithSuggestion<TMessageIds> &
+    (ReportDescriptorLocOnly | ReportDescriptorNodeOptionalLoc)
 
 export type ReportDescriptorBase<TMessageIds extends string> = {
   readonly messageId: TMessageIds
