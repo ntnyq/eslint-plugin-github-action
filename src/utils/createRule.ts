@@ -40,8 +40,8 @@ function createRule<
         (_, i) => {
           /* v8 ignore start */
           if (
-            isObjectNotArray(context.options[i])
-            && isObjectNotArray(defaultOptions[i])
+            isObjectNotArray(context.options[i]) &&
+            isObjectNotArray(defaultOptions[i])
           ) {
             return deepMerge(defaultOptions[i], context.options[i])
           }

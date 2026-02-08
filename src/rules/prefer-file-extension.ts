@@ -88,8 +88,8 @@ export default createESLintRule<Options, MessageIds>({
         }
 
         if (
-          (caseSensitive ? fileExtension : fileExtension.toLowerCase())
-          === extension
+          (caseSensitive ? fileExtension : fileExtension.toLowerCase()) ===
+          extension
         ) {
           return
         }

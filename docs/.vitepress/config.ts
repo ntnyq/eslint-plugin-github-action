@@ -29,7 +29,6 @@ export default defineConfig({
   themeConfig: getThemeConfig(),
   markdown: {
     config(md) {
-      // @ts-expect-error types
       md.use(groupIconMdPlugin)
 
       type MarkdownIt = Parameters<typeof MarkdownItContainer>[0]

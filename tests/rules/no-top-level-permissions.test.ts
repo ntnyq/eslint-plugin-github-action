@@ -49,7 +49,6 @@ run<Options>({
               "line": 3,
               "message": "Disallow using top level permissions.",
               "messageId": "disallowTopLevelPermissions",
-              "nodeType": "YAMLPair",
               "ruleId": "no-top-level-permissions",
               "severity": 2,
             },

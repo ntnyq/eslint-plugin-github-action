@@ -149,8 +149,8 @@ export default createESLintRule<Options, MessageIds>({
         (node: YAMLAst.YAMLPair) => {
           // step uses is not non-empty string
           if (
-            !isYAMLScalar(node.value)
-            || !isNonEmptyString(node.value.value)
+            !isYAMLScalar(node.value) ||
+            !isNonEmptyString(node.value.value)
           ) {
             context.report({
               node: node.value || node,

@@ -89,7 +89,6 @@ run<Options>({
               "line": 3,
               "message": "There are 4 jobs, maximum allowed is 3.",
               "messageId": "toManyJobs",
-              "nodeType": "YAMLMapping",
               "ruleId": "max-jobs-per-action",
               "severity": 2,
             },
