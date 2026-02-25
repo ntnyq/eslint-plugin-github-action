@@ -89,11 +89,11 @@ export default createESLintRule<Options, MessageIds>({
         ],
       },
     ],
+    defaultOptions: [defaultOptions],
     messages: {
       actionNameNotMatch: `Action name '{{name}}' is not in {{caseTypes}}.`,
     },
   },
-  defaultOptions: [defaultOptions],
   create(context) {
     const rawOptions = resolveOptions(context.options, defaultOptions)
 

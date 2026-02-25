@@ -22,7 +22,6 @@ export default createESLintRule<Options, MessageIds>({
       invalidPair: 'Disallow invalid on.event_name',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=on]': (

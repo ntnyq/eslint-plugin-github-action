@@ -28,8 +28,7 @@ describe('eslint-plugin', () => {
   })
 
   it('should access plugin through getter', () => {
-    const config = configs.recommended[0]
-    const plugins = config.plugins!
+    const plugins = configs.recommended[0].plugins ?? {}
 
     expect(plugins).toBeDefined()
     expect(plugins).toHaveProperty('github-action')

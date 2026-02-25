@@ -13,7 +13,6 @@ export const recommended: Linter.Config<Linter.RulesRecord>[] = [
     ignores: ['!**/.github/workflows/*.y?(a)ml'],
     plugins: {
       /* v8 ignore start */
-      // @ts-expect-error types
       get 'github-action'() {
         return plugin
       },

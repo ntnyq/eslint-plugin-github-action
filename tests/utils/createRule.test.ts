@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { createESLintRule } from '../../src/utils/createRule'
-import type { RuleContext } from '../../src/types/eslint'
+import type { Rule } from 'eslint'
 
 describe('createRule', () => {
   it('should merge object options with object defaults', () => {
@@ -18,9 +18,9 @@ describe('createRule', () => {
         messages: {
           testMessage: 'Test message',
         },
+        defaultOptions: [{ max: 100, min: 0 }],
         schema: [],
       },
-      defaultOptions: [{ max: 100, min: 0 }],
       create(context, options) {
         // Verify that options were merged correctly
         expect(options[0]).toEqual({ max: 50, min: 0 })
@@ -31,7 +31,7 @@ describe('createRule', () => {
     // Simulate ESLint calling the rule with partial options
     const mockContext = {
       options: [{ max: 50 }],
-    } as unknown as RuleContext<TestMessageIds, TestOptions>
+    } as unknown as Rule.RuleContext
 
     // Call the create function
     testRule.create(mockContext)
@@ -53,8 +53,8 @@ describe('createRule', () => {
           testMessage: 'Test message',
         },
         schema: [],
+        defaultOptions: [42],
       },
-      defaultOptions: [42],
       create(context, options) {
         expect(options[0]).toBe(42)
         return {}
@@ -63,7 +63,7 @@ describe('createRule', () => {
 
     const mockContext = {
       options: [],
-    } as unknown as RuleContext<TestMessageIds, TestOptions>
+    } as unknown as Rule.RuleContext
 
     testRule.create(mockContext)
   })
@@ -84,8 +84,8 @@ describe('createRule', () => {
           testMessage: 'Test message',
         },
         schema: [],
+        defaultOptions: ['default'],
       },
-      defaultOptions: ['default'],
       create(context, options) {
         expect(options[0]).toBe('custom')
         return {}
@@ -94,7 +94,7 @@ describe('createRule', () => {
 
     const mockContext = {
       options: ['custom'],
-    } as unknown as RuleContext<TestMessageIds, TestOptions>
+    } as unknown as Rule.RuleContext
 
     testRule.create(mockContext)
   })

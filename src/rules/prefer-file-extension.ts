@@ -64,11 +64,11 @@ export default createESLintRule<Options, MessageIds>({
         ],
       },
     ],
+    defaultOptions: [defaultOptions],
     messages: {
       unexpected: 'Expected extension `{{expected}}`, but got `{{actual}}`.',
     },
   },
-  defaultOptions: [defaultOptions],
   create(context) {
     const rawOptions = resolveOptions(context.options, defaultOptions)
 

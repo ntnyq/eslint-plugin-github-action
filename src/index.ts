@@ -17,7 +17,6 @@ export const plugin: PluginGitHubAction = {
 
 export default plugin
 
-export * from './dts'
 export * from './meta'
 export * from './rules'
 export * from './configs'

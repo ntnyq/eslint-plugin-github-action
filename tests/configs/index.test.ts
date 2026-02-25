@@ -18,8 +18,7 @@ describe('configs', () => {
   })
 
   it('should access plugin through getter', () => {
-    const config = configs.recommended[0]
-    const plugins = config.plugins!
+    const plugins = configs.recommended[0].plugins ?? {}
 
     // This should trigger the getter
     const keys = Object.keys(plugins)

@@ -20,7 +20,6 @@ export default createESLintRule<Options, MessageIds>({
       invalidName: 'Job name must be a non-empty string.',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair':

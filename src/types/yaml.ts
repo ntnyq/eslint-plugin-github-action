@@ -10,4 +10,4 @@ export type YAMLNode = AST.YAMLNode
 export type YAMLProgram = AST.YAMLProgram
 export type YAMLToken = AST.Token
 
-export type { AST as YAMLAst } from 'yaml-eslint-parser'
+export type { AST as YAMLAst }

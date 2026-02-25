@@ -18,7 +18,6 @@ export default createESLintRule<Options, MessageIds>({
       disallowExternalJob: 'Disallow using external job.',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=uses]':

@@ -2,11 +2,12 @@
  * @copyright {@link https://github.com/eslint-stylistic/eslint-stylistic}
  */
 
+import { toArray } from '@ntnyq/utils'
 import { deepMerge, isObjectNotArray } from './merge'
+import type { Rule } from 'eslint'
 import type {
   RuleContext,
   RuleListener,
-  RuleModule,
   RuleWithMeta,
   RuleWithMetaAndName,
 } from '../types/eslint'
@@ -20,20 +21,16 @@ function createRule<
   TMessageIds extends string,
 >({
   create,
-  defaultOptions,
   meta,
-}: Readonly<RuleWithMeta<TOptions, TMessageIds, PluginDocs>>): RuleModule<
-  TMessageIds,
-  TOptions,
-  PluginDocs
-> {
+}: Readonly<RuleWithMeta<TOptions, TMessageIds, PluginDocs>>): Rule.RuleModule {
+  const resolvedDefaultOptions = toArray(meta.defaultOptions)
   return {
     create: ((
       context: Readonly<RuleContext<TMessageIds, TOptions>>,
     ): RuleListener => {
       const optionsCount = Math.max(
         context.options.length,
-        defaultOptions.length,
+        resolvedDefaultOptions.length,
       )
       const optionsWithDefault = Array.from(
         { length: optionsCount },
@@ -41,22 +38,19 @@ function createRule<
           /* v8 ignore start */
           if (
             isObjectNotArray(context.options[i]) &&
-            isObjectNotArray(defaultOptions[i])
+            isObjectNotArray(resolvedDefaultOptions[i])
           ) {
-            return deepMerge(defaultOptions[i], context.options[i])
+            return deepMerge(resolvedDefaultOptions[i], context.options[i])
           }
-          return context.options[i] ?? defaultOptions[i]
+          return context.options[i] ?? resolvedDefaultOptions[i]
           /* v8 ignore stop */
         },
       ) as unknown as TOptions
       return create(context, optionsWithDefault)
-    }) as unknown as (
-      context: RuleContext<TMessageIds, TOptions>,
-    ) => RuleListener,
-    defaultOptions,
+    }) as unknown as Rule.RuleModule['create'],
     meta: {
       ...meta,
-      defaultOptions: defaultOptions as unknown as TOptions,
+      defaultOptions: resolvedDefaultOptions,
     },
   }
 }
@@ -71,7 +65,7 @@ function RuleCreator(urlCreator: (name: string) => string) {
     ...rule
   }: Readonly<
     RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>
-  >): RuleModule<TMessageIds, TOptions> {
+  >): Rule.RuleModule {
     return createRule<TOptions, TMessageIds>({
       meta: {
         ...meta,
@@ -94,7 +88,7 @@ export const createESLintRule: <
   ...rule
 }: Readonly<
   RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>
->) => RuleModule<TMessageIds, TOptions> = RuleCreator(
+>) => Rule.RuleModule = RuleCreator(
   ruleName =>
     `https://eslint-plugin-github-action.ntnyq.com/rules/${ruleName}.html`,
 )

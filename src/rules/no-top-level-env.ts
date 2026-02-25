@@ -18,7 +18,6 @@ export default createESLintRule<Options, MessageIds>({
       disallowTopLevelEnv: 'Disallow using top level env.',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=env]': (

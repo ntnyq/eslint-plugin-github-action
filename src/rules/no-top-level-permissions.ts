@@ -18,7 +18,6 @@ export default createESLintRule<Options, MessageIds>({
       disallowTopLevelPermissions: 'Disallow using top level permissions.',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=permissions]':

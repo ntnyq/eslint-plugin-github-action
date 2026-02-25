@@ -101,6 +101,7 @@ export default createESLintRule<Options, MessageIds>({
         ],
       },
     ],
+    defaultOptions: [defaultOptions],
     messages: {
       invalidStyle: 'Invalid style for job step uses.',
       disallowStyle: 'Disallow style `{{style}}` for job step uses.',
@@ -108,7 +109,6 @@ export default createESLintRule<Options, MessageIds>({
       disallowDocker: 'Disallow using docker action.',
     },
   },
-  defaultOptions: [defaultOptions],
   create(context) {
     const rawOptions = resolveOptions(context.options, defaultOptions)
 

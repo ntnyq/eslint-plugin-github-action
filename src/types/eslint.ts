@@ -52,7 +52,6 @@ export interface RuleContext<
   cwd: string
   filename: string
   id: string
-  // TODO: v10 migrate
   languageOptions: any
   options: TOptions
   physicalFilename: string
@@ -69,7 +68,6 @@ export interface RuleCreateAndOptions<
   TOptions extends readonly unknown[],
   TMessageIds extends string,
 > {
-  defaultOptions: Readonly<TOptions>
   create: (
     context: Readonly<RuleContext<TMessageIds, TOptions>>,
     optionsWithDefault: Readonly<TOptions>,
@@ -130,7 +128,6 @@ export interface RuleModule<
   TOptions extends readonly unknown[] = [],
   TDocs = unknown,
 > {
-  defaultOptions: TOptions
   meta: RuleMetaData<TMessageIds, TDocs, TOptions>
   create(context: RuleContext<TMessageIds, TOptions>): RuleListener
 }

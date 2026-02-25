@@ -22,11 +22,11 @@ export default createESLintRule<Options, MessageIds>({
         minimum: 1,
       },
     ],
+    defaultOptions: [defaultOptions],
     messages: {
       toManyJobs: 'There are {{count}} jobs, maximum allowed is {{limit}}.',
     },
   },
-  defaultOptions: [defaultOptions],
   create(context) {
     const optionLimit = resolveOptions(context.options, defaultOptions)
 

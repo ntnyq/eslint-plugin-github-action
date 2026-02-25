@@ -39,7 +39,6 @@ export default createESLintRule<Options, MessageIds>({
       invalidServiceKey: 'invalid service key `{{key}}`.',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {

@@ -28,6 +28,6 @@ export const rules = {
   'require-action-run-name': requireActionRunName,
   'require-job-name': requireJobName,
   'require-job-step-name': requireJobStepName,
-  'valid-trigger-events': validTriggerEvents,
   'valid-timeout-minutes': validTimeoutMinutes,
+  'valid-trigger-events': validTriggerEvents,
 }

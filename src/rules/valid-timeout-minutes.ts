@@ -126,12 +126,12 @@ export default createESLintRule<Options, MessageIds>({
         ],
       },
     ],
+    defaultOptions: [defaultOptions],
     messages: {
       notInteger: 'Timeout-minutes should be a positive integer.',
       invalidRange: 'Timeout-minutes range should be {{min}}-{{max}}.',
     },
   },
-  defaultOptions: [defaultOptions],
   create(context) {
     const rawOptions = resolveOptions(context.options, defaultOptions)
     const jobTimeoutMinutes = {

@@ -20,7 +20,6 @@ export default createESLintRule<Options, MessageIds>({
       invalidName: 'Action name must be a non-empty string.',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       YAMLDocument(node: YAMLAst.YAMLDocument) {

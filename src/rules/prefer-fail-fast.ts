@@ -18,7 +18,6 @@ export default createESLintRule<Options, MessageIds>({
       unexpected: 'Disallow setting fail-fast to false.',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=strategy] > YAMLMapping > YAMLPair[key.value=fail-fast]':
