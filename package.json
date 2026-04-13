@@ -53,30 +53,30 @@
     "eslint": "^9.5.0 || ^10.0.0"
   },
   "dependencies": {
-    "@eslint/core": "^1.2.0",
-    "@ntnyq/utils": "^0.11.5",
+    "@eslint/core": "^1.2.1",
+    "@ntnyq/utils": "^0.11.6",
     "@types/json-schema": "^7.0.15",
     "uncase": "^0.2.0",
     "yaml-eslint-parser": "^2.0.0"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^6.0.0",
-    "@types/node": "^25.5.2",
-    "@typescript/native-preview": "^7.0.0-dev.20260405.1",
-    "@vitest/coverage-v8": "^4.1.2",
-    "bumpp": "^10.4.1",
+    "@ntnyq/eslint-config": "^6.0.1",
+    "@types/node": "^25.6.0",
+    "@typescript/native-preview": "^7.0.0-dev.20260412.1",
+    "@vitest/coverage-v8": "^4.1.4",
+    "bumpp": "^11.0.1",
     "eslint": "^10.2.0",
     "eslint-plugin-eslint-plugin": "^7.3.2",
     "eslint-plugin-github-action": "workspace:*",
     "eslint-vitest-rule-tester": "^3.1.0",
     "husky": "^9.1.7",
-    "nano-staged": "^0.9.0",
+    "nano-staged": "^1.0.2",
     "npm-run-all2": "^8.0.4",
-    "oxfmt": "^0.43.0",
-    "tinyglobby": "^0.2.15",
+    "oxfmt": "^0.44.0",
+    "tinyglobby": "^0.2.16",
     "tsdown": "^0.21.7",
-    "typescript": "^5.9.3",
-    "vitest": "^4.1.2"
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.4"
   },
   "engines": {
     "node": "^20.19.0 || ^22.13.0 || >=24"
