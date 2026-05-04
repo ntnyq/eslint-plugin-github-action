@@ -18,10 +18,10 @@
     "twoslash-eslint": "^0.3.8",
     "unocss": "^66.6.8",
     "unplugin-vue-components": "^32.0.0",
-    "vite": "^8.0.9",
+    "vite": "^8.0.10",
     "vitepress": "^2.0.0-alpha.17",
     "vitepress-plugin-group-icons": "^1.7.5",
-    "vue": "^3.5.32",
+    "vue": "^3.5.33",
     "yaml-eslint-parser": "^2.0.0"
   }
 }
