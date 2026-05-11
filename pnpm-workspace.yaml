@@ -1,7 +1,11 @@
 packages:
   - docs
+
 overrides:
   esbuild: ^0.28.1
-onlyBuiltDependencies:
-  - esbuild
-  - unrs-resolver
+
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true
+
+minimumReleaseAge: 0
