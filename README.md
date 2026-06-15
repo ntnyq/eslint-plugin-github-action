@@ -10,7 +10,7 @@
 
 ## Requirements
 
-- Node.js ^20.19.0 || ^22.13.0 || >=24
+- Node.js ^22.13.0 || >=24
 
 ## Install
 
