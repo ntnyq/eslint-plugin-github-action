@@ -143,6 +143,7 @@ export default createESLintRule<Options, MessageIds>({
         if (isYAMLScalar(node.value) && isNonEmptyString(node.value.value)) {
           const name = node.value.value
           const range = node.value.range
+          const style = node.value.style
 
           if (!isActionNameValid(name)) {
             context.report({
@@ -157,7 +158,15 @@ export default createESLintRule<Options, MessageIds>({
                 caseTypes.length === 1
                   ? fixer => {
                       const result = getExactConverter(caseTypes[0])(name)
-                      return fixer.replaceTextRange(range, result.value)
+                      let replacement = result.value
+
+                      if (style === 'double-quoted') {
+                        replacement = JSON.stringify(replacement)
+                      } else if (style === 'single-quoted') {
+                        replacement = `'${replacement.replaceAll("'", "''")}'`
+                      }
+
+                      return fixer.replaceTextRange(range, replacement)
                     }
                   : undefined,
             })

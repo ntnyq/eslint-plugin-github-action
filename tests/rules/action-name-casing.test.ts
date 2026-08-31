@@ -76,6 +76,18 @@ run<Options>({
   ],
   invalid: [
     {
+      filename: 'quoted-boolean.yml',
+      code: 'name: "false"',
+      output: 'name: "False"',
+      errors: [{ messageId: 'actionNameNotMatch' }],
+    },
+    {
+      filename: 'quoted-null.yml',
+      code: "name: 'null'",
+      output: "name: 'Null'",
+      errors: [{ messageId: 'actionNameNotMatch' }],
+    },
+    {
       filename: 'kebab-case.yml',
       code: $`
         name: unit-test
