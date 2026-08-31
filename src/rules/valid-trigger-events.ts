@@ -1,6 +1,11 @@
 import { isString } from '@ntnyq/utils'
 import { VALID_TRIGGER_EVENTS } from '../constants/event'
-import { createESLintRule, isYAMLMapping, isYAMLScalar } from '../utils'
+import {
+  createESLintRule,
+  isYAMLMapping,
+  isYAMLScalar,
+  isYAMLSequence,
+} from '../utils'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'valid-trigger-events'
@@ -27,18 +32,35 @@ export default createESLintRule<Options, MessageIds>({
       'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=on]': (
         node: YAMLAst.YAMLPair,
       ) => {
-        if (!isYAMLMapping(node.value)) {
+        if (node.value === null) {
           return
         }
 
-        const onPairs = node.value.pairs
+        if (isYAMLScalar(node.value)) {
+          validateEvent(node.value)
+          return
+        }
+
+        if (isYAMLSequence(node.value)) {
+          node.value.entries.forEach(validateEvent)
+          return
+        }
+
+        if (!isYAMLMapping(node.value)) {
+          context.report({
+            node: node.value || node,
+            loc: node.value?.loc || node.loc,
+            messageId: 'invalidPair',
+          })
+          return
+        }
 
         // empty `on` mapping
-        if (!onPairs.length) {
+        if (!node.value.pairs.length) {
           return
         }
 
-        onPairs.forEach(pair => {
+        node.value.pairs.forEach(pair => {
           if (isYAMLScalar(pair.key) && isString(pair.key.value)) {
             const event = pair.key.value
 
@@ -65,6 +87,34 @@ export default createESLintRule<Options, MessageIds>({
           }
         })
       },
+    }
+
+    function validateEvent(
+      eventNode: YAMLAst.YAMLContent | YAMLAst.YAMLWithMeta | null,
+    ) {
+      if (!isYAMLScalar(eventNode) || !isString(eventNode.value)) {
+        context.report({
+          node: eventNode || context.sourceCode.ast,
+          loc: eventNode?.loc,
+          messageId: 'invalidPair',
+        })
+        return
+      }
+
+      const event = eventNode.value
+
+      if (VALID_TRIGGER_EVENTS.includes(event)) {
+        return
+      }
+
+      context.report({
+        node: eventNode,
+        loc: eventNode.loc,
+        data: {
+          event,
+        },
+        messageId: 'invalidEvent',
+      })
     }
   },
 })
