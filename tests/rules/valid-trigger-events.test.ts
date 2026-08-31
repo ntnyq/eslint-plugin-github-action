@@ -96,6 +96,14 @@ run<Options>({
       },
     },
     {
+      filename: 'alias.yml',
+      code: $`
+        events: &events push
+        on: *events
+      `,
+      errors: [{ messageId: 'invalidPair' }],
+    },
+    {
       filename: 'invalid-flow-mapping.yml',
       code: 'on: { push: {}, foo_bar: {}, pull_request: {} }',
       errors(errors) {
