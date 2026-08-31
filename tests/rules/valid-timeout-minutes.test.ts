@@ -18,14 +18,6 @@ run<Options>({
       `,
     },
     {
-      filename: 'not-scaler.yml',
-      code: $`
-        jobs:
-          unit-test:
-            timeout-minutes: {}
-      `,
-    },
-    {
       filename: 'valid-job.yml',
       code: $`
         jobs:
@@ -54,6 +46,34 @@ run<Options>({
     },
   ],
   invalid: [
+    {
+      filename: 'mapping-job.yml',
+      code: $`
+        jobs:
+          unit-test:
+            timeout-minutes: {}
+      `,
+      errors: [{ messageId: 'notInteger' }],
+    },
+    {
+      filename: 'null-job.yml',
+      code: $`
+        jobs:
+          unit-test:
+            timeout-minutes:
+      `,
+      errors: [{ messageId: 'notInteger' }],
+    },
+    {
+      filename: 'sequence-step.yml',
+      code: $`
+        jobs:
+          unit-test:
+            steps:
+              - timeout-minutes: [10]
+      `,
+      errors: [{ messageId: 'notInteger' }],
+    },
     {
       filename: 'not-number-job.yml',
       code: $`

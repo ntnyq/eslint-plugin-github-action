@@ -181,7 +181,11 @@ export default createESLintRule<Options, MessageIds>({
       range: Required<TimeoutMinutesRange>,
     ) {
       if (!isYAMLScalar(node.value)) {
-        return
+        return context.report({
+          messageId: 'notInteger',
+          node,
+          loc: node.loc,
+        })
       }
 
       // positive integer
