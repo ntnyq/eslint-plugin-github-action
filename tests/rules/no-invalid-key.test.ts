@@ -83,6 +83,11 @@ run<Options>({
                   SERVER: production
                 continue-on-error: true
                 timeout-minutes: 10
+                background: true
+                wait: test
+                wait-all: true
+                cancel: test
+                parallel: true
       `,
     },
     {
@@ -136,6 +141,8 @@ run<Options>({
                 volumes:
                   - /var/run/docker.sock:/var/run/docker.sock
                 options: --privileged
+                command: nginx
+                entrypoint: /docker-entrypoint.sh
       `,
     },
   ],
@@ -221,6 +228,8 @@ run<Options>({
         jobs:
           test:
             container:
+              command: nginx
+              entrypoint: /docker-entrypoint.sh
               workflow: CI
               dispatch: inputs
               push: branch

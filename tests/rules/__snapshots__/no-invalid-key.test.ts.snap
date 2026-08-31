@@ -292,6 +292,8 @@ exports[`no-invalid-key > invalid > Invalid #4: name: CI
 jobs:
   test:
     container:
+      command: nginx
+      entrypoint: /docker-entrypoint.sh
       workflow: CI
       dispatch: inputs
       push: branch
@@ -302,9 +304,29 @@ jobs:
 [
   {
     "column": 7,
-    "endColumn": 15,
+    "endColumn": 14,
     "endLine": 5,
     "line": 5,
+    "message": "invalid container key \`command\`.",
+    "messageId": "invalidContainerKey",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 7,
+    "endColumn": 17,
+    "endLine": 6,
+    "line": 6,
+    "message": "invalid container key \`entrypoint\`.",
+    "messageId": "invalidContainerKey",
+    "ruleId": "no-invalid-key",
+    "severity": 2,
+  },
+  {
+    "column": 7,
+    "endColumn": 15,
+    "endLine": 7,
+    "line": 7,
     "message": "invalid container key \`workflow\`.",
     "messageId": "invalidContainerKey",
     "ruleId": "no-invalid-key",
@@ -313,8 +335,8 @@ jobs:
   {
     "column": 7,
     "endColumn": 15,
-    "endLine": 6,
-    "line": 6,
+    "endLine": 8,
+    "line": 8,
     "message": "invalid container key \`dispatch\`.",
     "messageId": "invalidContainerKey",
     "ruleId": "no-invalid-key",
@@ -323,8 +345,8 @@ jobs:
   {
     "column": 7,
     "endColumn": 11,
-    "endLine": 7,
-    "line": 7,
+    "endLine": 9,
+    "line": 9,
     "message": "invalid container key \`push\`.",
     "messageId": "invalidContainerKey",
     "ruleId": "no-invalid-key",
@@ -333,8 +355,8 @@ jobs:
   {
     "column": 7,
     "endColumn": 11,
-    "endLine": 8,
-    "line": 8,
+    "endLine": 10,
+    "line": 10,
     "message": "invalid container key \`test\`.",
     "messageId": "invalidContainerKey",
     "ruleId": "no-invalid-key",
@@ -343,8 +365,8 @@ jobs:
   {
     "column": 7,
     "endColumn": 12,
-    "endLine": 10,
-    "line": 10,
+    "endLine": 12,
+    "line": 12,
     "message": "invalid container key \`check\`.",
     "messageId": "invalidContainerKey",
     "ruleId": "no-invalid-key",

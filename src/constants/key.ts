@@ -47,6 +47,11 @@ export const validStepKeys = [
   'env',
   'continue-on-error',
   'timeout-minutes',
+  'background',
+  'wait',
+  'wait-all',
+  'cancel',
+  'parallel',
 ]
 
 export const validServiceKeys = [
@@ -56,8 +61,17 @@ export const validServiceKeys = [
   'ports',
   'volumes',
   'options',
+  'command',
+  'entrypoint',
 ]
 
-export const validContainerKeys = [...validServiceKeys]
+export const validContainerKeys = [
+  'image',
+  'credentials',
+  'env',
+  'ports',
+  'volumes',
+  'options',
+]
 
 export const validStrategyKeys = ['matrix', 'fail-fast', 'max-parallel']
