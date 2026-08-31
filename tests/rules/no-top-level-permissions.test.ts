@@ -28,6 +28,14 @@ run<Options>({
               contents: write
       `,
     },
+    {
+      filename: 'with-empty-permissions-block-allowed.yml',
+      code: $`
+        name: Release
+        permissions: {}
+      `,
+      options: [{ allowEmpty: true }],
+    },
   ],
   invalid: [
     {
