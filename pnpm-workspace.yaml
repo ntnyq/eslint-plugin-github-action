@@ -2,11 +2,11 @@ packages:
   - docs
 
 overrides:
-  '@shikijs/core': ^4.3.1
-  '@shikijs/transformers': ^4.3.1
-  '@shikijs/types': ^4.3.1
-  '@shikijs/vitepress-twoslash': ^4.3.1
-  esbuild: ^0.28.1
+  '@shikijs/core': ^4.4.3
+  '@shikijs/transformers': ^4.4.3
+  '@shikijs/types': ^4.4.3
+  '@shikijs/vitepress-twoslash': ^4.4.3
+  esbuild: ^0.28.2
 
 allowBuilds:
   esbuild: true
