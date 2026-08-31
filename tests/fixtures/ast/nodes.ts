@@ -2,7 +2,7 @@
  * Mock YAML AST nodes.
  */
 
-import type { YAMLAst, YAMLToken } from '../../../src/types/yaml'
+import type { YAMLAst } from '../../../src/types/yaml'
 
 const locAndRange: YAMLAst.Locations = {
   loc: {
@@ -16,12 +16,6 @@ const locAndRange: YAMLAst.Locations = {
     },
   },
   range: [0, 0],
-}
-
-const invalid: YAMLToken = {
-  type: 'String',
-  value: 'FooBar',
-  ...locAndRange,
 }
 
 const program: YAMLAst.YAMLProgram = {
@@ -41,64 +35,6 @@ const document: YAMLAst.YAMLDocument = {
   parent: program,
   anchors: {},
   version: '1.2',
-  ...locAndRange,
-}
-
-/**
- * Comment
- */
-const blockComment: YAMLAst.Comment = {
-  type: 'Block',
-  value: '',
-  ...locAndRange,
-}
-const lineComment: YAMLAst.Comment = {
-  type: 'Line',
-  value: '',
-  ...locAndRange,
-}
-
-/**
- * Punctuation
- */
-const question: YAMLAst.Token = {
-  type: 'Punctuator',
-  value: '?',
-  ...locAndRange,
-}
-const hyphen: YAMLAst.Token = {
-  type: 'Punctuator',
-  value: '-',
-  ...locAndRange,
-}
-const comma: YAMLAst.Token = {
-  type: 'Punctuator',
-  value: ',',
-  ...locAndRange,
-}
-const colon: YAMLAst.Token = {
-  type: 'Punctuator',
-  value: ':',
-  ...locAndRange,
-}
-const openingBracket: YAMLAst.Token = {
-  type: 'Punctuator',
-  value: '[',
-  ...locAndRange,
-}
-const closingBracket: YAMLAst.Token = {
-  type: 'Punctuator',
-  value: ']',
-  ...locAndRange,
-}
-const openingBrace: YAMLAst.Token = {
-  type: 'Punctuator',
-  value: '{',
-  ...locAndRange,
-}
-const closingBrace: YAMLAst.Token = {
-  type: 'Punctuator',
-  value: '}',
   ...locAndRange,
 }
 
@@ -163,21 +99,7 @@ const pairWithBlockLiteralScalarKey: YAMLAst.YAMLPair = {
 }
 
 export const YAML_NODES = {
-  invalid,
-
   locAndRange,
-
-  blockComment,
-  lineComment,
-
-  question,
-  hyphen,
-  comma,
-  colon,
-  openingBracket,
-  closingBracket,
-  openingBrace,
-  closingBrace,
 
   program,
   document,
