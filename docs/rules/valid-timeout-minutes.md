@@ -10,8 +10,6 @@ since: v0.0.16
 
 > Disallow invalid timeout-minutes.
 
-- :wrench: The `--fix` option on the [command line](https://eslint.org/docs/latest/use/command-line-interface#--fix) can automatically fix some of the problems reported by this rule.
-
 ## :book: Rule Details
 
 This rule reports when jobs or steps have invalid `timeout-minutes`.
