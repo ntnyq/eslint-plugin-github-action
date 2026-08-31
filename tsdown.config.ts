@@ -5,7 +5,4 @@ export default defineConfig({
   dts: true,
   entry: ['src/index.ts'],
   platform: 'neutral',
-  deps: {
-    neverBundle: ['json-schema'],
-  },
 })

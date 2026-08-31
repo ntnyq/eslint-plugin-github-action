@@ -11,15 +11,9 @@ importers:
 
   .:
     dependencies:
-      '@eslint/core':
-        specifier: ^1.2.1
-        version: 1.2.1
       '@ntnyq/utils':
         specifier: ^0.22.0
         version: 0.22.0
-      '@types/json-schema':
-        specifier: ^7.0.15
-        version: 7.0.15
       uncase:
         specifier: ^0.3.0
         version: 0.3.0
@@ -30,6 +24,9 @@ importers:
       '@ntnyq/eslint-config':
         specifier: ^6.1.5
         version: 6.1.5(@typescript-eslint/eslint-plugin@8.68.0(@typescript-eslint/parser@8.68.0(eslint@10.9.1(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3))(eslint@10.9.1(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3))(@typescript-eslint/parser@8.68.0(eslint@10.9.1(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3))(@typescript-eslint/typescript-estree@8.68.0(supports-color@7.2.0)(typescript@6.0.3))(@typescript-eslint/utils@8.68.0(eslint@10.9.1(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3))(@vue/compiler-sfc@3.5.42)(eslint-plugin-eslint-plugin@7.6.2(eslint@10.9.1(jiti@2.7.0)(supports-color@7.2.0)))(eslint@10.9.1(jiti@2.7.0)(supports-color@7.2.0))(oxfmt@0.65.0)(prettier@3.9.6)(supports-color@7.2.0)(typescript@6.0.3)(vitest@4.1.11)
+      '@types/json-schema':
+        specifier: ^7.0.15
+        version: 7.0.15
       '@types/node':
         specifier: ^26.4.0
         version: 26.4.0
