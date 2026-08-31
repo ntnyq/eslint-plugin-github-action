@@ -12,11 +12,11 @@ since: v0.3.0
 
 ## :book: Rule Details
 
-This rule reports `uses` references that are not pinned to a full 40-character commit SHA.
+This rule reports action and reusable workflow `uses` references that are not pinned to a full 40-character commit SHA. Docker references must be pinned to a full SHA-256 image digest.
 
 The rule checks both reusable workflow `jobs.<job_id>.uses` and step-level `jobs.<job_id>.steps[*].uses`.
 
-Local actions (`./`) and Docker actions (`docker://`) are ignored.
+Local actions (`./`) are ignored.
 
 ::: correct
 
@@ -28,6 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3
+      - uses: docker://alpine@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 ```
 
 :::
@@ -42,6 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: docker://alpine:latest
 ```
 
 ```yaml

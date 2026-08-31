@@ -3,10 +3,11 @@ import { createESLintRule, isYAMLScalar } from '../utils'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'no-unpinned-uses'
-export type MessageIds = 'disallowUnpinnedUses'
+export type MessageIds = 'disallowUnpinnedDockerUses' | 'disallowUnpinnedUses'
 export type Options = []
 
 const SHA1_PATTERN = /^[\da-f]{40}$/i
+const DOCKER_SHA256_PATTERN = /^docker:\/\/[^@\s]+@sha256:[\da-f]{64}$/i
 
 export default createESLintRule<Options, MessageIds>({
   name: RULE_NAME,
@@ -20,6 +21,8 @@ export default createESLintRule<Options, MessageIds>({
     messages: {
       disallowUnpinnedUses:
         'Disallow unpinned uses reference; pin to a full commit SHA.',
+      disallowUnpinnedDockerUses:
+        'Disallow unpinned Docker uses reference; pin to a full SHA-256 digest.',
     },
   },
   create(context) {
@@ -30,7 +33,18 @@ export default createESLintRule<Options, MessageIds>({
 
       const usesValue = node.value.value
 
-      if (usesValue.startsWith('./') || usesValue.startsWith('docker://')) {
+      if (usesValue.startsWith('./')) {
+        return
+      }
+
+      if (usesValue.startsWith('docker://')) {
+        if (!DOCKER_SHA256_PATTERN.test(usesValue)) {
+          context.report({
+            node: node.value,
+            loc: node.value.loc,
+            messageId: 'disallowUnpinnedDockerUses',
+          })
+        }
         return
       }
 

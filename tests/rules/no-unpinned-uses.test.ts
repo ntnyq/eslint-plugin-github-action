@@ -28,7 +28,7 @@ run<Options>({
       `,
     },
     {
-      filename: 'local-and-docker.yml',
+      filename: 'local-and-pinned-docker.yml',
       code: $`
         name: CI
         jobs:
@@ -36,7 +36,7 @@ run<Options>({
             runs-on: ubuntu-latest
             steps:
               - uses: ./.github/actions/setup
-              - uses: docker://alpine:3.20
+              - uses: docker://alpine@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
       `,
     },
     {
@@ -52,6 +52,30 @@ run<Options>({
     },
   ],
   invalid: [
+    {
+      filename: 'docker-tag.yml',
+      code: $`
+        name: CI
+        jobs:
+          test:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: docker://alpine:latest
+      `,
+      errors: [{ messageId: 'disallowUnpinnedDockerUses' }],
+    },
+    {
+      filename: 'short-docker-digest.yml',
+      code: $`
+        name: CI
+        jobs:
+          test:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: docker://alpine@sha256:abc123
+      `,
+      errors: [{ messageId: 'disallowUnpinnedDockerUses' }],
+    },
     {
       filename: 'step-uses-tag.yml',
       code: $`
