@@ -2,14 +2,12 @@ packages:
   - docs
 
 overrides:
-  '@shikijs/core': ^4.3.1
-  '@shikijs/transformers': ^4.3.1
-  '@shikijs/types': ^4.3.1
-  '@shikijs/vitepress-twoslash': ^4.3.1
-  esbuild: ^0.28.1
+  esbuild: ^0.28.2
 
 allowBuilds:
   esbuild: true
   unrs-resolver: true
 
+ignoreWorkspaceRootCheck: true
 minimumReleaseAge: 0
+pmOnFail: warn
