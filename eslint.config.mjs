@@ -9,6 +9,8 @@ export default defineESLintConfig({
   eslintPlugin: {
     overrides: {
       'eslint-plugin/require-meta-default-options': 'off',
+      // These rules target yaml-eslint-parser, not an ESLint language plugin.
+      'eslint-plugin/require-meta-languages': 'off',
     },
   },
   test: {

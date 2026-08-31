@@ -93,7 +93,6 @@ export default createESLintRule<Options, MessageIds>({
                   type: 'string',
                 },
                 uniqueItems: true,
-                additionalItems: false,
               },
             },
             additionalProperties: false,

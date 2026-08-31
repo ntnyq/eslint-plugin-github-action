@@ -23,7 +23,7 @@ function createRule<
   create,
   meta,
 }: Readonly<RuleWithMeta<TOptions, TMessageIds, PluginDocs>>): Rule.RuleModule {
-  const resolvedDefaultOptions = toArray(meta.defaultOptions)
+  const resolvedDefaultOptions = [...toArray(meta.defaultOptions)]
   return {
     create: ((
       context: Readonly<RuleContext<TMessageIds, TOptions>>,

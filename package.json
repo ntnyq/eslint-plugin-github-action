@@ -47,7 +47,7 @@
     "release:check": "run-s format:check lint typecheck test",
     "release:version": "bumpp",
     "test": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "node ./node_modules/@typescript/native-preview/bin/tsc --noEmit"
   },
   "peerDependencies": {
     "eslint": "^9.5.0 || ^10.0.0"
@@ -75,7 +75,7 @@
     "oxfmt": "^0.65.0",
     "tinyglobby": "^0.2.17",
     "tsdown": "^0.22.14",
-    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "typescript": "^6.0.3",
     "vitest": "^4.1.11"
   },
   "engines": {
