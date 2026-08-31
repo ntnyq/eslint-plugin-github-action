@@ -44,6 +44,14 @@ run<Options>({
   ],
   invalid: [
     {
+      filename: 'default-options.YML',
+      options: [{}],
+      code: $`
+        name: Release
+      `,
+      errors: [{ messageId: 'unexpected' }],
+    },
+    {
       filename: 'yaml.yaml',
       code: $`
         name: Release

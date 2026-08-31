@@ -75,7 +75,9 @@ export default createESLintRule<Options, MessageIds>({
     const extension = isString(rawOptions)
       ? rawOptions
       : (rawOptions.extension ?? defaultOptions)
-    const caseSensitive = isString(rawOptions) ? true : rawOptions.caseSensitive
+    const caseSensitive = isString(rawOptions)
+      ? true
+      : (rawOptions.caseSensitive ?? true)
 
     return {
       Program: (node: YAMLAst.YAMLProgram) => {
