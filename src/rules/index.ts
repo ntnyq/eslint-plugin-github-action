@@ -7,6 +7,7 @@ import noTopLevelEnv from './no-top-level-env'
 import noTopLevelPermissions from './no-top-level-permissions'
 import noUnpinnedUses from './no-unpinned-uses'
 import preferCancelInProgress from './prefer-cancel-in-progress'
+import preferFailFast from './prefer-fail-fast'
 import preferFileExtension from './prefer-file-extension'
 import preferStepUsesStyle from './prefer-step-uses-style'
 import requireActionName from './require-action-name'
@@ -27,6 +28,7 @@ export const rules = {
   'no-top-level-permissions': noTopLevelPermissions,
   'no-unpinned-uses': noUnpinnedUses,
   'prefer-cancel-in-progress': preferCancelInProgress,
+  'prefer-fail-fast': preferFailFast,
   'prefer-file-extension': preferFileExtension,
   'prefer-step-uses-style': preferStepUsesStyle,
   'require-action-name': requireActionName,

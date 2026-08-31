@@ -37,4 +37,8 @@ describe('eslint-plugin', () => {
     const githubActionPlugin = plugins['github-action']
     expect(githubActionPlugin).toBe(plugin)
   })
+
+  it('should expose every documented rule', () => {
+    expect(plugin.rules).toHaveProperty('prefer-fail-fast')
+  })
 })
