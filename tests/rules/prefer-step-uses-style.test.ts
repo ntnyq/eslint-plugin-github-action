@@ -151,7 +151,9 @@ run<Options>({
         jobs:
           test:
             steps:
+              - uses: actions/checkout
               - uses: actions/checkout@main
+              - uses: actions/checkout@xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
               - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3
       `,
       errors(errors) {
@@ -159,7 +161,7 @@ run<Options>({
           [
             {
               "column": 15,
-              "endColumn": 36,
+              "endColumn": 31,
               "endLine": 5,
               "line": 5,
               "message": "Disallow style \`branch\` for job step uses.",
@@ -169,9 +171,29 @@ run<Options>({
             },
             {
               "column": 15,
-              "endColumn": 72,
+              "endColumn": 36,
               "endLine": 6,
               "line": 6,
+              "message": "Disallow style \`branch\` for job step uses.",
+              "messageId": "disallowStyle",
+              "ruleId": "prefer-step-uses-style",
+              "severity": 2,
+            },
+            {
+              "column": 15,
+              "endColumn": 72,
+              "endLine": 7,
+              "line": 7,
+              "message": "Disallow style \`branch\` for job step uses.",
+              "messageId": "disallowStyle",
+              "ruleId": "prefer-step-uses-style",
+              "severity": 2,
+            },
+            {
+              "column": 15,
+              "endColumn": 72,
+              "endLine": 8,
+              "line": 8,
               "message": "Disallow style \`commit\` for job step uses.",
               "messageId": "disallowStyle",
               "ruleId": "prefer-step-uses-style",

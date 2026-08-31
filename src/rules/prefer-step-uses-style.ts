@@ -219,11 +219,11 @@ function parseJobStepUses(uses: string) {
   } else if (uses.startsWith('docker://')) {
     result.isDocker = true
   } else {
-    const [_, style] = uses.split('@')
-    // commit style length is 40
-    if (style.length === 40) {
+    const reference = uses.slice(uses.lastIndexOf('@') + 1)
+
+    if (/^[\da-f]{40}$/iu.test(reference)) {
       result.style = UsesStyle.commit
-    } else if (style.startsWith('v')) {
+    } else if (reference.startsWith('v')) {
       result.style = UsesStyle.release
     }
   }
