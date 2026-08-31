@@ -48,8 +48,8 @@ export default createESLintRule<Options, MessageIds>({
 
         if (!isYAMLMapping(node.value)) {
           context.report({
-            node: node.value || node,
-            loc: node.value?.loc || node.loc,
+            node: node.value,
+            loc: node.value.loc,
             messageId: 'invalidPair',
           })
           return

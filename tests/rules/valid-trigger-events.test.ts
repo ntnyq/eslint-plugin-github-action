@@ -96,6 +96,16 @@ run<Options>({
       },
     },
     {
+      filename: 'empty-sequence-entry.yml',
+      code: $`
+        on:
+          - push
+          -
+          - pull_request
+      `,
+      errors: [{ messageId: 'invalidPair' }],
+    },
+    {
       filename: 'alias.yml',
       code: $`
         events: &events push
@@ -199,6 +209,11 @@ run<Options>({
           ]
         `)
       },
+    },
+    {
+      filename: 'not-scalar-flow.yml',
+      code: 'on: { 2: 3 }',
+      errors: [{ messageId: 'invalidPair' }],
     },
   ],
 })
