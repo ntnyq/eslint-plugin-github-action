@@ -55,12 +55,14 @@ export default createESLintRule<Options, MessageIds>({
           return
         }
 
+        const onMapping = node.value
+
         // empty `on` mapping
-        if (!node.value.pairs.length) {
+        if (!onMapping.pairs.length) {
           return
         }
 
-        node.value.pairs.forEach(pair => {
+        onMapping.pairs.forEach(pair => {
           if (isYAMLScalar(pair.key) && isString(pair.key.value)) {
             const event = pair.key.value
 
@@ -75,14 +77,18 @@ export default createESLintRule<Options, MessageIds>({
                 event,
               },
               messageId: 'invalidEvent',
-              fix: fixer => fixer.removeRange(pair.range),
+              ...(onMapping.style === 'block'
+                ? { fix: fixer => fixer.removeRange(pair.range) }
+                : {}),
             })
           } else {
             context.report({
               node: pair,
               loc: pair.loc,
               messageId: 'invalidPair',
-              fix: fixer => fixer.removeRange(pair.range),
+              ...(onMapping.style === 'block'
+                ? { fix: fixer => fixer.removeRange(pair.range) }
+                : {}),
             })
           }
         })

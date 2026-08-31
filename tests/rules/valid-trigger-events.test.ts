@@ -96,6 +96,26 @@ run<Options>({
       },
     },
     {
+      filename: 'invalid-flow-mapping.yml',
+      code: 'on: { push: {}, foo_bar: {}, pull_request: {} }',
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 17,
+              "endColumn": 28,
+              "endLine": 1,
+              "line": 1,
+              "message": "Disallow invalid trigger events foo_bar.",
+              "messageId": "invalidEvent",
+              "ruleId": "valid-trigger-events",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
+    },
+    {
       filename: 'invalid.yml',
       code: $`
         name: CI
