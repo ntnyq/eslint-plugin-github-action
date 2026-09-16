@@ -2,7 +2,7 @@
   "name": "eslint-plugin-github-action",
   "type": "module",
   "version": "0.4.0",
-  "packageManager": "pnpm@12.1.0",
+  "packageManager": "pnpm@12.4.2",
   "description": "Rules for consistent, readable, and valid GitHub Actions workflow files.",
   "keywords": [
     "eslint",
@@ -47,7 +47,7 @@
     "release:check": "run-s format:check lint typecheck test",
     "release:version": "bumpp",
     "test": "vitest",
-    "typecheck": "node ./node_modules/@typescript/native-preview/bin/tsc --noEmit"
+    "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
     "eslint": "^9.5.0 || ^10.0.0"
@@ -58,25 +58,24 @@
     "yaml-eslint-parser": "^2.1.0"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^6.1.5",
+    "@ntnyq/eslint-config": "^7.0.0-beta.19",
     "@types/json-schema": "^7.0.15",
-    "@types/node": "^26.4.0",
-    "@typescript/native-preview": "npm:typescript@^7.0.2",
-    "@vitest/coverage-v8": "^5.0.0",
-    "bumpp": "^12.2.2",
+    "@types/node": "^26.6.1",
+    "@vitest/coverage-v8": "^5.0.1",
+    "bumpp": "^12.3.0",
     "changelogithub": "15.0.5",
-    "eslint": "^10.9.1",
+    "eslint": "^10.10.0",
     "eslint-plugin-eslint-plugin": "^7.6.2",
     "eslint-plugin-github-action": "workspace:*",
-    "eslint-vitest-rule-tester": "^3.1.0",
+    "eslint-vitest-rule-tester": "^3.2.0",
     "husky": "^9.1.7",
     "nano-staged": "^1.0.2",
     "npm-run-all2": "^9.0.3",
-    "oxfmt": "^0.65.0",
+    "oxfmt": "^0.68.0",
     "tinyglobby": "^0.2.17",
-    "tsdown": "^0.22.14",
+    "tsdown": "^0.23.0",
     "typescript": "^6.0.3",
-    "vitest": "^5.0.0"
+    "vitest": "^5.0.1"
   },
   "engines": {
     "node": "^22.13.0 || >=24"

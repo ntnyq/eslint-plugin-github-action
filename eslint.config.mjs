@@ -13,10 +13,22 @@ export default defineESLintConfig({
       'eslint-plugin/require-meta-languages': 'off',
     },
   },
+  ntnyq: {
+    overrides: {
+      'ntnyq/prefer-object-method-syntax': [
+        'error',
+        {
+          allowArrowFunctions: true,
+        },
+      ],
+    },
+  },
   test: {
-    overridesVitestRules: {
-      // in favor of eslint-vitest-rule-tester
-      'vitest/no-standalone-expect': 'off',
+    vitest: {
+      overrides: {
+        // in favor of eslint-vitest-rule-tester
+        'vitest/no-standalone-expect': 'off',
+      },
     },
   },
   yml: {
