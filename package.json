@@ -2,7 +2,7 @@
   "name": "eslint-plugin-github-action",
   "type": "module",
   "version": "0.4.0",
-  "packageManager": "pnpm@12.9.1",
+  "packageManager": "pnpm@12.15.0",
   "description": "Rules for consistent, readable, and valid GitHub Actions workflow files.",
   "keywords": [
     "eslint",
@@ -58,24 +58,24 @@
     "yaml-eslint-parser": "^2.1.0"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^7.0.0-beta.22",
+    "@ntnyq/eslint-config": "^7.0.0-beta.27",
     "@types/json-schema": "^7.0.15",
-    "@types/node": "^26.6.4",
-    "@vitest/coverage-v8": "^5.0.3",
+    "@types/node": "^26.6.5",
+    "@vitest/coverage-v8": "^5.0.5",
     "bumpp": "^12.3.0",
     "changelogithub": "15.0.5",
-    "eslint": "^10.12.0",
+    "eslint": "^10.13.0",
     "eslint-plugin-eslint-plugin": "^7.6.2",
     "eslint-plugin-github-action": "workspace:*",
     "eslint-vitest-rule-tester": "^3.2.0",
     "husky": "^9.1.7",
     "nano-staged": "^1.0.2",
-    "npm-run-all2": "^9.0.3",
-    "oxfmt": "^0.71.0",
+    "npm-run-all2": "^9.0.4",
+    "oxfmt": "^0.74.0",
     "tinyglobby": "^0.2.17",
-    "tsdown": "^0.23.0",
+    "tsdown": "^0.23.2",
     "typescript": "^6.0.3",
-    "vitest": "^5.0.3"
+    "vitest": "^5.0.5"
   },
   "engines": {
     "node": "^22.13.0 || >=24"
