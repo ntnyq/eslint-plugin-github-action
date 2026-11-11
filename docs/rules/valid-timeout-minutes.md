@@ -16,6 +16,13 @@ since: v0.0.16
 
 This rule reports when jobs or steps have invalid `timeout-minutes`.
 
+It checks anchored and aliased values and steps inside `parallel` groups.
+Complete GitHub Actions expressions such as <code v-pre>${{ matrix.timeout }}</code> and
+<code v-pre>${{ fromJSON(vars.TIMEOUT) }}</code> are accepted because their values are resolved at
+runtime. A value must contain a single complete expression; concatenated expressions or
+expressions mixed with literal text are reported as invalid. Delimiters inside quoted
+expression strings do not end the expression. Static values must be positive integers within the configured range.
+
 ::: correct
 
 ```yaml
@@ -84,7 +91,13 @@ A number sets the maximum for both jobs and steps. A `{ min, max }` object sets 
 }
 ```
 
-Custom bounds must be integers from `1` to `1440`. With an object option, omitted minimums default to `1` and omitted maximums default to `1440`.
+Custom job bounds must be integers from `1` to `1440`; step bounds must be
+integers from `1` to `360`. Shared maximums above `360` apply to jobs, while the
+step maximum remains capped at `360`. A shared minimum cannot exceed `360`.
+With an object option, omitted minimums default to `1`; omitted maximums default
+to `1440` for jobs and `360` for steps.
+
+The step cap follows the [GitHub Actions timeout limit](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#jobsjob_idstepstimeout-minutes).
 
 ## :rocket: Version
 

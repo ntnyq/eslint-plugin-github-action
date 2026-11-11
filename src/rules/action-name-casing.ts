@@ -1,4 +1,5 @@
 import { isNonEmptyString, isString } from '@ntnyq/utils'
+import { parseYAML } from 'yaml-eslint-parser'
 import {
   CASING,
   createESLintRule,
@@ -6,7 +7,8 @@ import {
   isYAMLScalar,
   resolveOptions,
 } from '../utils'
-import type { YAMLAst } from '../types/yaml'
+import { getPairKeyValue } from '../utils/action'
+import { visitWorkflow } from '../utils/workflow'
 import type { CasingKind } from '../utils'
 
 type AllowedCasing = CasingKind
@@ -136,42 +138,65 @@ export default createESLintRule<Options, MessageIds>({
     }
 
     return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=name]': (
-        node: YAMLAst.YAMLPair,
-      ) => {
-        // name is a non-empty string
-        if (isYAMLScalar(node.value) && isNonEmptyString(node.value.value)) {
-          const name = node.value.value
-          const range = node.value.range
-          const style = node.value.style
+      YAMLDocument(document) {
+        visitWorkflow(document, {
+          workflow(mapping, resolve) {
+            for (const node of mapping.pairs) {
+              if (getPairKeyValue(node) !== 'name') {
+                continue
+              }
+              const value = resolve(node.value)
+              // name is a non-empty string
+              if (isYAMLScalar(value) && isNonEmptyString(value.value)) {
+                const name = value.value
+                const sourceValue = node.value ?? value
+                const isAlias = sourceValue.type === 'YAMLAlias'
+                const range = isAlias ? sourceValue.range : value.range
+                const style = isAlias ? 'double-quoted' : value.style
 
-          if (!isActionNameValid(name)) {
-            context.report({
-              node: node.value,
-              messageId: 'actionNameNotMatch',
-              loc: node.value.loc,
-              data: {
-                name,
-                caseTypes: caseTypes.join(', '),
-              },
-              fix:
-                caseTypes.length === 1
-                  ? fixer => {
-                      const result = getExactConverter(caseTypes[0])(name)
-                      let replacement = result.value
+                if (!isActionNameValid(name)) {
+                  context.report({
+                    node: sourceValue,
+                    messageId: 'actionNameNotMatch',
+                    loc: sourceValue.loc,
+                    data: {
+                      name,
+                      caseTypes: caseTypes.join(', '),
+                    },
+                    fix:
+                      caseTypes.length === 1
+                        ? fixer => {
+                            const result = getExactConverter(caseTypes[0])(name)
+                            let replacement = result.value
+                            if (!isNonEmptyString(replacement)) {
+                              return null
+                            }
 
-                      if (style === 'double-quoted') {
-                        replacement = JSON.stringify(replacement)
-                      } else if (style === 'single-quoted') {
-                        replacement = `'${replacement.replaceAll("'", "''")}'`
-                      }
+                            // Casing can turn a plain string into a YAML boolean,
+                            // number, or null. Preserve its string type in both versions.
+                            const parsed = parseYAML(replacement, {
+                              defaultYAMLVersion: '1.1',
+                            }).body[0].content
+                            if (
+                              (style === 'plain' &&
+                                (!isYAMLScalar(parsed) ||
+                                  parsed.value !== replacement)) ||
+                              (style !== 'plain' && style !== 'single-quoted')
+                            ) {
+                              replacement = JSON.stringify(replacement)
+                            } else if (style === 'single-quoted') {
+                              replacement = `'${replacement.replaceAll("'", "''")}'`
+                            }
 
-                      return fixer.replaceTextRange(range, replacement)
-                    }
-                  : undefined,
-            })
-          }
-        }
+                            return fixer.replaceTextRange(range, replacement)
+                          }
+                        : undefined,
+                  })
+                }
+              }
+            }
+          },
+        })
       },
     }
   },

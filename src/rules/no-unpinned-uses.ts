@@ -1,5 +1,7 @@
 import { isNonEmptyString } from '@ntnyq/utils'
 import { createESLintRule, isYAMLScalar } from '../utils'
+import { getPairKeyValue } from '../utils/action'
+import { visitWorkflow } from '../utils/workflow'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'no-unpinned-uses'
@@ -26,12 +28,19 @@ export default createESLintRule<Options, MessageIds>({
     },
   },
   create(context) {
-    function checkUses(node: YAMLAst.YAMLPair) {
-      if (!isYAMLScalar(node.value) || !isNonEmptyString(node.value.value)) {
+    function checkUses(
+      node: YAMLAst.YAMLPair,
+      value: YAMLAst.YAMLContent | null,
+    ) {
+      if (
+        !node.value ||
+        !isYAMLScalar(value) ||
+        !isNonEmptyString(value.value)
+      ) {
         return
       }
 
-      const usesValue = node.value.value
+      const usesValue = value.value
 
       if (usesValue.startsWith('./')) {
         return
@@ -41,7 +50,6 @@ export default createESLintRule<Options, MessageIds>({
         if (!DOCKER_SHA256_PATTERN.test(usesValue)) {
           context.report({
             node: node.value,
-            loc: node.value.loc,
             messageId: 'disallowUnpinnedDockerUses',
           })
         }
@@ -52,7 +60,6 @@ export default createESLintRule<Options, MessageIds>({
       if (atIndex === -1) {
         context.report({
           node: node.value,
-          loc: node.value.loc,
           messageId: 'disallowUnpinnedUses',
         })
         return
@@ -62,21 +69,29 @@ export default createESLintRule<Options, MessageIds>({
       if (!SHA1_PATTERN.test(ref)) {
         context.report({
           node: node.value,
-          loc: node.value.loc,
           messageId: 'disallowUnpinnedUses',
         })
       }
     }
 
+    function checkMapping(
+      node: YAMLAst.YAMLMapping,
+      resolve: (node: YAMLAst.YAMLPair['value']) => YAMLAst.YAMLContent | null,
+    ) {
+      for (const pair of node.pairs) {
+        if (getPairKeyValue(pair) === 'uses') {
+          checkUses(pair, resolve(pair.value))
+        }
+      }
+    }
     return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=uses]':
-        (node: YAMLAst.YAMLPair) => {
-          checkUses(node)
-        },
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=steps] > YAMLSequence > YAMLMapping > YAMLPair[key.value=uses]':
-        (node: YAMLAst.YAMLPair) => {
-          checkUses(node)
-        },
+      YAMLDocument(document) {
+        const visitors = {
+          job: checkMapping,
+          step: checkMapping,
+        }
+        visitWorkflow(document, visitors)
+      },
     }
   },
 })

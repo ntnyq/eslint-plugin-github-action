@@ -1,6 +1,8 @@
 import { isInteger, isNumber } from '@ntnyq/utils'
 import { TIMEOUT_MINUTES } from '../constants/time'
 import { createESLintRule, isYAMLScalar, resolveOptions } from '../utils'
+import { getPairKeyValue, isSingleExpression } from '../utils/action'
+import { visitWorkflow } from '../utils/workflow'
 import type { YAMLAst } from '../types/yaml'
 
 type TimeoutMinutesRange = {
@@ -46,7 +48,7 @@ export default createESLintRule<Options, MessageIds>({
               min: {
                 type: 'integer',
                 minimum: TIMEOUT_MINUTES.min,
-                maximum: TIMEOUT_MINUTES.max,
+                maximum: TIMEOUT_MINUTES.stepMax,
                 description: 'Min value for timeout-minutes',
               },
               max: {
@@ -96,7 +98,7 @@ export default createESLintRule<Options, MessageIds>({
                   {
                     type: 'integer',
                     minimum: TIMEOUT_MINUTES.min,
-                    maximum: TIMEOUT_MINUTES.max,
+                    maximum: TIMEOUT_MINUTES.stepMax,
                     description: 'Max value for step timeout-minutes',
                   },
                   {
@@ -106,13 +108,13 @@ export default createESLintRule<Options, MessageIds>({
                       min: {
                         type: 'integer',
                         minimum: TIMEOUT_MINUTES.min,
-                        maximum: TIMEOUT_MINUTES.max,
+                        maximum: TIMEOUT_MINUTES.stepMax,
                         description: 'Min value for step timeout-minutes',
                       },
                       max: {
                         type: 'integer',
                         minimum: TIMEOUT_MINUTES.min,
-                        maximum: TIMEOUT_MINUTES.max,
+                        maximum: TIMEOUT_MINUTES.stepMax,
                         description: 'Max value for step timeout-minutes',
                       },
                     },
@@ -140,7 +142,7 @@ export default createESLintRule<Options, MessageIds>({
     }
     const stepTimeoutMinutes = {
       min: TIMEOUT_MINUTES.min,
-      max: TIMEOUT_MINUTES.max,
+      max: TIMEOUT_MINUTES.stepMax,
     }
 
     if (isNumber(rawOptions)) {
@@ -176,11 +178,18 @@ export default createESLintRule<Options, MessageIds>({
       }
     }
 
+    // Shared options may extend job limits, but cannot extend the step limit.
+    stepTimeoutMinutes.max = Math.min(
+      stepTimeoutMinutes.max,
+      TIMEOUT_MINUTES.stepMax,
+    )
+
     function validateTimeoutMinutes(
       node: YAMLAst.YAMLPair,
       range: Required<TimeoutMinutesRange>,
+      value: YAMLAst.YAMLContent | null,
     ) {
-      if (!isYAMLScalar(node.value)) {
+      if (!isYAMLScalar(value)) {
         return context.report({
           messageId: 'notInteger',
           node,
@@ -188,11 +197,15 @@ export default createESLintRule<Options, MessageIds>({
         })
       }
 
+      if (typeof value.value === 'string' && isSingleExpression(value.value)) {
+        return
+      }
+
       // positive integer
       if (
-        !isNumber(node.value.value) ||
-        !isInteger(node.value.value) ||
-        node.value.value <= 0
+        !isNumber(value.value) ||
+        !isInteger(value.value) ||
+        value.value <= 0
       ) {
         return context.report({
           messageId: 'notInteger',
@@ -201,7 +214,7 @@ export default createESLintRule<Options, MessageIds>({
         })
       }
 
-      if (node.value.value < range.min || node.value.value > range.max) {
+      if (value.value < range.min || value.value > range.max) {
         return context.report({
           messageId: 'invalidRange',
           node,
@@ -215,14 +228,32 @@ export default createESLintRule<Options, MessageIds>({
     }
 
     return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=timeout-minutes]':
-        (node: YAMLAst.YAMLPair) => {
-          return validateTimeoutMinutes(node, jobTimeoutMinutes)
-        },
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=steps] > YAMLSequence > YAMLMapping > YAMLPair[key.value=timeout-minutes]':
-        (node: YAMLAst.YAMLPair) => {
-          return validateTimeoutMinutes(node, stepTimeoutMinutes)
-        },
+      YAMLDocument(document) {
+        visitWorkflow(document, {
+          job(node, resolve) {
+            for (const pair of node.pairs) {
+              if (getPairKeyValue(pair) === 'timeout-minutes') {
+                validateTimeoutMinutes(
+                  pair,
+                  jobTimeoutMinutes,
+                  resolve(pair.value),
+                )
+              }
+            }
+          },
+          step(node, resolve) {
+            for (const pair of node.pairs) {
+              if (getPairKeyValue(pair) === 'timeout-minutes') {
+                validateTimeoutMinutes(
+                  pair,
+                  stepTimeoutMinutes,
+                  resolve(pair.value),
+                )
+              }
+            }
+          },
+        })
+      },
     }
   },
 })

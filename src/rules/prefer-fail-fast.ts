@@ -1,5 +1,6 @@
 import { createESLintRule, isYAMLScalar } from '../utils'
-import type { YAMLAst } from '../types/yaml'
+import { getPairKeyValue } from '../utils/action'
+import { visitWorkflow } from '../utils/workflow'
 
 export const RULE_NAME = 'prefer-fail-fast'
 export type MessageIds = 'unexpected'
@@ -20,21 +21,25 @@ export default createESLintRule<Options, MessageIds>({
   },
   create(context) {
     return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=strategy] > YAMLMapping > YAMLPair[key.value=fail-fast]':
-        (node: YAMLAst.YAMLPair) => {
-          if (!isYAMLScalar(node.value)) {
-            return
-          }
-
-          // check fail-fast value
-          if (node.value.value === false) {
-            context.report({
-              node,
-              loc: node.loc,
-              messageId: 'unexpected',
-            })
-          }
-        },
+      YAMLDocument(document) {
+        visitWorkflow(document, {
+          strategy(node, resolve) {
+            for (const pair of node.pairs) {
+              if (getPairKeyValue(pair) !== 'fail-fast') {
+                continue
+              }
+              const value = resolve(pair.value)
+              if (isYAMLScalar(value) && value.value === false) {
+                context.report({
+                  node: pair,
+                  loc: pair.loc,
+                  messageId: 'unexpected',
+                })
+              }
+            }
+          },
+        })
+      },
     }
   },
 })

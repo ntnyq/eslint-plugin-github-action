@@ -1,4 +1,11 @@
-import { createESLintRule, isYAMLMapping, isYAMLScalar } from '../utils'
+import {
+  createESLintRule,
+  isYAMLMapping,
+  isYAMLScalar,
+  resolveYAMLNode,
+} from '../utils'
+import { getPairKeyValue } from '../utils/action'
+import { visitWorkflow } from '../utils/workflow'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'prefer-cancel-in-progress'
@@ -21,7 +28,8 @@ export default createESLintRule<Options, MessageIds>({
   },
   create(context) {
     function checkConcurrency(node: YAMLAst.YAMLPair) {
-      if (!isYAMLMapping(node.value)) {
+      const concurrency = resolveYAMLNode(node.value)
+      if (!isYAMLMapping(concurrency)) {
         context.report({
           node: node.value || node,
           loc: node.value?.loc || node.loc,
@@ -30,33 +38,32 @@ export default createESLintRule<Options, MessageIds>({
         return
       }
 
-      const cancelPair = node.value.pairs.find(
-        pair =>
-          isYAMLScalar(pair.key) && pair.key.value === 'cancel-in-progress',
+      const cancelPair = concurrency.pairs.find(
+        pair => getPairKeyValue(pair) === 'cancel-in-progress',
       )
 
-      if (
-        !cancelPair ||
-        !isYAMLScalar(cancelPair.value) ||
-        cancelPair.value.value !== true
-      ) {
+      const cancel = resolveYAMLNode(cancelPair?.value ?? null)
+      if (!isYAMLScalar(cancel) || cancel.value !== true) {
         context.report({
-          node: cancelPair?.value || cancelPair || node.value,
-          loc: cancelPair?.value?.loc || cancelPair?.loc || node.value.loc,
+          node: cancelPair?.value || cancelPair || concurrency,
+          loc: cancelPair?.value?.loc || cancelPair?.loc || concurrency.loc,
           messageId: 'preferCancelInProgress',
         })
       }
     }
 
+    function checkMapping(mapping: YAMLAst.YAMLMapping) {
+      for (const pair of mapping.pairs) {
+        if (getPairKeyValue(pair) === 'concurrency') {
+          checkConcurrency(pair)
+        }
+      }
+    }
+
     return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=concurrency]':
-        (node: YAMLAst.YAMLPair) => {
-          checkConcurrency(node)
-        },
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=concurrency]':
-        (node: YAMLAst.YAMLPair) => {
-          checkConcurrency(node)
-        },
+      YAMLDocument(document) {
+        visitWorkflow(document, { workflow: checkMapping, job: checkMapping })
+      },
     }
   },
 })

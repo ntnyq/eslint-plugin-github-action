@@ -5,7 +5,10 @@ import {
   isYAMLMapping,
   isYAMLScalar,
   isYAMLSequence,
+  resolveYAMLNode,
 } from '../utils'
+import { getPairKeyValue } from '../utils/action'
+import { visitWorkflow } from '../utils/workflow'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'valid-trigger-events'
@@ -29,93 +32,107 @@ export default createESLintRule<Options, MessageIds>({
   },
   create(context) {
     return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=on]': (
-        node: YAMLAst.YAMLPair,
-      ) => {
-        if (node.value === null) {
-          return
-        }
-
-        if (isYAMLScalar(node.value)) {
-          validateEvent(node.value)
-          return
-        }
-
-        if (isYAMLSequence(node.value)) {
-          node.value.entries.forEach(validateEvent)
-          return
-        }
-
-        if (!isYAMLMapping(node.value)) {
-          context.report({
-            node: node.value,
-            loc: node.value.loc,
-            messageId: 'invalidPair',
-          })
-          return
-        }
-
-        const onMapping = node.value
-
-        // empty `on` mapping
-        if (!onMapping.pairs.length) {
-          return
-        }
-
-        onMapping.pairs.forEach(pair => {
-          if (isYAMLScalar(pair.key) && isString(pair.key.value)) {
-            const event = pair.key.value
-
-            if (VALID_TRIGGER_EVENTS.includes(event)) {
-              return
+      YAMLDocument(document) {
+        visitWorkflow(document, {
+          workflow(mapping, resolve) {
+            for (const node of mapping.pairs) {
+              if (getPairKeyValue(node) !== 'on') {
+                continue
+              }
+              validateEvents(node, resolve(node.value))
             }
-
-            context.report({
-              node: pair,
-              loc: pair.loc,
-              data: {
-                event,
-              },
-              messageId: 'invalidEvent',
-              ...(onMapping.style === 'block'
-                ? { fix: fixer => fixer.removeRange(pair.range) }
-                : {}),
-            })
-          } else {
-            context.report({
-              node: pair,
-              loc: pair.loc,
-              messageId: 'invalidPair',
-              ...(onMapping.style === 'block'
-                ? { fix: fixer => fixer.removeRange(pair.range) }
-                : {}),
-            })
-          }
+          },
         })
       },
+    }
+
+    function validateEvents(
+      node: YAMLAst.YAMLPair,
+      value: YAMLAst.YAMLContent | null,
+    ) {
+      if (node.value === null) {
+        return
+      }
+
+      if (isYAMLScalar(value)) {
+        validateEvent(node.value)
+        return
+      }
+
+      if (isYAMLSequence(value)) {
+        value.entries.forEach(validateEvent)
+        return
+      }
+
+      if (!isYAMLMapping(value)) {
+        context.report({
+          node: node.value,
+          loc: node.value.loc,
+          messageId: 'invalidPair',
+        })
+        return
+      }
+
+      const onMapping = value
+      // Do not mutate an anchor definition when validating an alias at `on`.
+      const canFix =
+        node.value.type !== 'YAMLAlias' && onMapping.style === 'block'
+
+      // empty `on` mapping
+      if (!onMapping.pairs.length) {
+        return
+      }
+
+      onMapping.pairs.forEach(pair => {
+        const event = getPairKeyValue(pair)
+        if (event) {
+          if (VALID_TRIGGER_EVENTS.includes(event)) {
+            return
+          }
+
+          context.report({
+            node: pair,
+            loc: pair.loc,
+            data: {
+              event,
+            },
+            messageId: 'invalidEvent',
+            ...(canFix ? { fix: fixer => fixer.removeRange(pair.range) } : {}),
+          })
+        } else {
+          context.report({
+            node: pair,
+            loc: pair.loc,
+            messageId: 'invalidPair',
+            ...(canFix ? { fix: fixer => fixer.removeRange(pair.range) } : {}),
+          })
+        }
+      })
     }
 
     function validateEvent(
       eventNode: YAMLAst.YAMLContent | YAMLAst.YAMLWithMeta | null,
     ) {
-      if (!isYAMLScalar(eventNode) || !isString(eventNode.value)) {
+      const value = resolveYAMLNode(eventNode)
+      const reportNode = eventNode ?? context.sourceCode.ast
+      if (!isYAMLScalar(value) || !isString(value.value)) {
         context.report({
-          node: eventNode || context.sourceCode.ast,
+          node: reportNode,
           loc: eventNode?.loc,
           messageId: 'invalidPair',
         })
         return
       }
 
-      const event = eventNode.value
+      const event = value.value
 
       if (VALID_TRIGGER_EVENTS.includes(event)) {
         return
       }
 
       context.report({
-        node: eventNode,
-        loc: eventNode.loc,
+        node: reportNode,
+        loc: eventNode?.loc,
         data: {
           event,
         },

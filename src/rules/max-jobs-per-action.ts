@@ -1,5 +1,6 @@
-import { createESLintRule, resolveOptions } from '../utils'
-import type { YAMLAst } from '../types/yaml'
+import { createESLintRule, isYAMLMapping, resolveOptions } from '../utils'
+import { getPairKeyValue } from '../utils/action'
+import { visitWorkflow } from '../utils/workflow'
 
 export const RULE_NAME = 'max-jobs-per-action'
 export type MessageIds = 'toManyJobs'
@@ -34,21 +35,32 @@ export default createESLintRule<Options, MessageIds>({
     const limit = optionLimit >= 1 ? optionLimit : defaultOptions
 
     return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping':
-        (node: YAMLAst.YAMLMapping) => {
-          const count = node.pairs.length
-
-          if (count > limit) {
-            context.report({
-              node,
-              messageId: 'toManyJobs',
-              data: {
-                count,
-                limit,
-              },
-            })
-          }
-        },
+      YAMLDocument(document) {
+        visitWorkflow(document, {
+          workflow(mapping, resolve) {
+            for (const pair of mapping.pairs) {
+              if (getPairKeyValue(pair) !== 'jobs') {
+                continue
+              }
+              const node = resolve(pair.value)
+              if (!isYAMLMapping(node)) {
+                continue
+              }
+              const count = node.pairs.length
+              if (count > limit) {
+                context.report({
+                  node,
+                  messageId: 'toManyJobs',
+                  data: {
+                    count,
+                    limit,
+                  },
+                })
+              }
+            }
+          },
+        })
+      },
     }
   },
 })

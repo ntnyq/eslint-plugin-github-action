@@ -16,6 +16,11 @@ This rule reports action and reusable workflow `uses` references that are not pi
 
 The rule checks both reusable workflow `jobs.<job_id>.uses` and step-level `jobs.<job_id>.steps[*].uses`.
 
+YAML anchors and aliases are resolved within each document, including anchored
+jobs and step lists. Steps inside `parallel` groups are checked as well. Shared
+mappings are checked once at their definition to avoid duplicate diagnostics;
+scalar `uses` aliases are reported at each reference.
+
 Local actions (`./`) are ignored.
 
 ::: correct

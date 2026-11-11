@@ -1,5 +1,6 @@
 import { createESLintRule } from '../utils'
-import type { YAMLAst } from '../types/yaml'
+import { getPairKeyValue } from '../utils/action'
+import { visitWorkflow } from '../utils/workflow'
 
 export const RULE_NAME = 'no-external-job'
 export type MessageIds = 'disallowExternalJob'
@@ -20,14 +21,21 @@ export default createESLintRule<Options, MessageIds>({
   },
   create(context) {
     return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=uses]':
-        (node: YAMLAst.YAMLPair) => {
-          context.report({
-            node,
-            loc: node.loc,
-            messageId: 'disallowExternalJob',
-          })
-        },
+      YAMLDocument(document) {
+        visitWorkflow(document, {
+          job(mapping) {
+            for (const node of mapping.pairs) {
+              if (getPairKeyValue(node) === 'uses') {
+                context.report({
+                  node,
+                  loc: node.loc,
+                  messageId: 'disallowExternalJob',
+                })
+              }
+            }
+          },
+        })
+      },
     }
   },
 })

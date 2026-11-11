@@ -8,6 +8,18 @@ run<Options>({
   rule,
   valid: [
     {
+      filename: 'named-parallel-anchors.yml',
+      code: $`
+        jobs:
+          test: &job
+            steps:
+              - name: &name Parallel
+                parallel:
+                  - name: *name
+                    run: echo test
+      `,
+    },
+    {
       filename: 'no-jobs.yml',
       code: $`
         name: Release
@@ -54,6 +66,24 @@ run<Options>({
     },
   ],
   invalid: [
+    {
+      filename: 'unnamed-parallel.yml',
+      code: $`
+        jobs:
+          test: &job
+            steps:
+              - name: Parallel
+                parallel:
+                  - run: echo test
+                  - name: &name false
+                  - name: *name
+      `,
+      errors: [
+        { messageId: 'noName' },
+        { messageId: 'invalidName' },
+        { messageId: 'invalidName' },
+      ],
+    },
     {
       filename: 'job-step-has-no-name.yml',
       code: $`

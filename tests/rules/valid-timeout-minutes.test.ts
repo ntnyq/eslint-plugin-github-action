@@ -3,10 +3,51 @@ import rule, { RULE_NAME } from '../../src/rules/valid-timeout-minutes'
 import { $, run } from '../internal'
 import type { Options } from '../../src/rules/valid-timeout-minutes'
 
+const customOptions: Options[] = [
+  [1440],
+  [{ max: 1440 }],
+  [{ job: 60 }],
+  [{}],
+  [{ step: {} }],
+]
+
 run<Options>({
   name: RULE_NAME,
   rule,
   valid: [
+    {
+      filename: 'expressions.yml',
+      code: $`
+        jobs:
+          test:
+            timeout-minutes: \${{ matrix.timeout }}
+            steps:
+              - timeout-minutes: \${{ fromJSON(vars.TIMEOUT) }}
+      `,
+    },
+    ...customOptions.map(options => ({
+      filename: 'step-upper-bound.yml',
+      options,
+      code: 'jobs:\n  test:\n    steps:\n      - timeout-minutes: 360',
+    })),
+    {
+      filename: 'job-upper-bound.yml',
+      options: [{ job: 1440 }],
+      code: 'jobs:\n  test:\n    timeout-minutes: 1440',
+    },
+    {
+      filename: 'anchored-expressions.yml',
+      code: $`
+        jobs:
+          test:
+            timeout-minutes: &timeout \${{ matrix.timeout }}
+            steps:
+              - parallel:
+                  - timeout-minutes: *timeout
+                  - timeout-minutes: >-
+                      \${{ fromJSON(vars.TIMEOUT) }}
+      `,
+    },
     {
       filename: 'empty.yml',
       code: '',
@@ -46,6 +87,36 @@ run<Options>({
     },
   ],
   invalid: [
+    ...customOptions.map(options => ({
+      filename: 'step-above-upper-bound.yml',
+      options,
+      code: 'jobs:\n  test:\n    steps:\n      - timeout-minutes: 361',
+      errors: [
+        { messageId: 'invalidRange' as const, data: { min: 1, max: 360 } },
+      ],
+    })),
+    ...[
+      '"20"',
+      `"prefix \${{ matrix.timeout }}"`,
+      `"\${{ }}"`,
+      '"${{ matrix.timeout"',
+      'true',
+    ].map(value => ({
+      filename: 'invalid-static-value.yml',
+      code: `jobs:\n  test:\n    timeout-minutes: ${value}`,
+      errors: [{ messageId: 'notInteger' as const }],
+    })),
+    {
+      filename: 'custom-job-keeps-step-limit.yml',
+      options: [{ job: 60 }],
+      code: 'jobs:\n  test:\n    steps:\n      - timeout-minutes: 1000',
+      errors: [{ messageId: 'invalidRange', data: { min: 1, max: 360 } }],
+    },
+    {
+      filename: 'anchored-parallel.yml',
+      code: 'jobs:\n  test: &test\n    steps:\n      - parallel:\n          - timeout-minutes: &timeout 0\n          - timeout-minutes: *timeout',
+      errors: [{ messageId: 'notInteger' }, { messageId: 'notInteger' }],
+    },
     {
       filename: 'mapping-job.yml',
       code: $`
@@ -454,7 +525,7 @@ run<Options>({
               "endColumn": 28,
               "endLine": 4,
               "line": 4,
-              "message": "Timeout-minutes range should be 40-1440.",
+              "message": "Timeout-minutes range should be 40-360.",
               "messageId": "invalidRange",
               "ruleId": "valid-timeout-minutes",
               "severity": 2,

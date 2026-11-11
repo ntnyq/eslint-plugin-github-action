@@ -15,6 +15,7 @@ export const VALID_TRIGGER_EVENTS: string[] = [
   'discussion_comment',
   'fork',
   'gollum',
+  'image_version',
   'issue_comment',
   'issues',
   'label',

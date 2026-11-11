@@ -1,13 +1,14 @@
 import {
-  validContainerKeys,
-  validJobKeys,
-  validServiceKeys,
-  validStepKeys,
-  validStrategyKeys,
-  validTopLevelKeys,
+  VALID_CONTAINER_KEYS,
+  VALID_JOB_KEYS,
+  VALID_SERVICE_KEYS,
+  VALID_STEP_KEYS,
+  VALID_STRATEGY_KEYS,
+  VALID_TOP_LEVEL_KEYS,
 } from '../constants/key'
 import { createESLintRule } from '../utils'
 import { getPairKeyValue } from '../utils/action'
+import { visitWorkflow } from '../utils/workflow'
 import type { RuleContext } from '../types/eslint'
 import type { YAMLAst } from '../types/yaml'
 
@@ -41,69 +42,58 @@ export default createESLintRule<Options, MessageIds>({
   },
   create(context) {
     return {
-      'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
-        validateMappingKeys({
-          context,
-          node,
-          validKeys: validTopLevelKeys,
-          messageId: 'invalidTopLevelKey',
+      YAMLDocument(document) {
+        visitWorkflow(document, {
+          workflow(node) {
+            validateMappingKeys({
+              context,
+              node,
+              validKeys: VALID_TOP_LEVEL_KEYS,
+              messageId: 'invalidTopLevelKey',
+            })
+          },
+          job(node) {
+            validateMappingKeys({
+              context,
+              node,
+              validKeys: VALID_JOB_KEYS,
+              messageId: 'invalidJobKey',
+            })
+          },
+          strategy(node) {
+            validateMappingKeys({
+              context,
+              node,
+              validKeys: VALID_STRATEGY_KEYS,
+              messageId: 'invalidStrategyKey',
+            })
+          },
+          container(node) {
+            validateMappingKeys({
+              context,
+              node,
+              validKeys: VALID_CONTAINER_KEYS,
+              messageId: 'invalidContainerKey',
+            })
+          },
+          service(node) {
+            validateMappingKeys({
+              context,
+              node,
+              validKeys: VALID_SERVICE_KEYS,
+              messageId: 'invalidServiceKey',
+            })
+          },
+          step(node) {
+            validateMappingKeys({
+              context,
+              node,
+              validKeys: VALID_STEP_KEYS,
+              messageId: 'invalidStepKey',
+            })
+          },
         })
       },
-
-      // checks all jobs keys
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping':
-        (node: YAMLAst.YAMLMapping) => {
-          validateMappingKeys({
-            context,
-            node,
-            validKeys: validJobKeys,
-            messageId: 'invalidJobKey',
-          })
-        },
-
-      // checks all jobs strategy keys
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=strategy] > YAMLMapping':
-        (node: YAMLAst.YAMLMapping) => {
-          validateMappingKeys({
-            context,
-            node,
-            validKeys: validStrategyKeys,
-            messageId: 'invalidStrategyKey',
-          })
-        },
-
-      // checks all jobs container keys
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=container] > YAMLMapping':
-        (node: YAMLAst.YAMLMapping) => {
-          validateMappingKeys({
-            context,
-            node,
-            validKeys: validContainerKeys,
-            messageId: 'invalidContainerKey',
-          })
-        },
-
-      // checks all steps services keys
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=services] > YAMLMapping > YAMLPair > YAMLMapping':
-        (node: YAMLAst.YAMLMapping) => {
-          validateMappingKeys({
-            context,
-            node,
-            validKeys: validServiceKeys,
-            messageId: 'invalidServiceKey',
-          })
-        },
-
-      // checks all steps keys
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=steps] > YAMLSequence > YAMLMapping':
-        (node: YAMLAst.YAMLMapping) => {
-          validateMappingKeys({
-            context,
-            node,
-            validKeys: validStepKeys,
-            messageId: 'invalidStepKey',
-          })
-        },
     }
   },
 })

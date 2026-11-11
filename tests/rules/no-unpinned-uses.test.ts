@@ -8,6 +8,21 @@ run<Options>({
   rule,
   valid: [
     {
+      filename: 'pinned-anchors.yml',
+      code: $`
+        jobs:
+          test: &test
+            steps: &steps
+              - uses: &checkout actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3
+              - uses: *checkout
+              - parallel:
+                  - uses: ./.github/actions/setup
+                  - uses: &docker docker://alpine@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                  - uses: *docker
+          copy: *test
+      `,
+    },
+    {
       filename: 'step-uses-pinned.yml',
       code: $`
         name: CI
@@ -52,6 +67,53 @@ run<Options>({
     },
   ],
   invalid: [
+    {
+      filename: 'job-alias-from-env.yml',
+      code: $`
+        env:
+          template: &job
+            uses: &uses owner/repo/.github/workflows/test.yml@main
+        jobs:
+          test: *job
+          other:
+            uses: *uses
+      `,
+      errors: [
+        { messageId: 'disallowUnpinnedUses', line: 3 },
+        { messageId: 'disallowUnpinnedUses', line: 7 },
+      ],
+    },
+    {
+      filename: 'anchors-and-aliases.yml',
+      code: $`
+        jobs: &jobs
+          test: &job
+            steps: &steps
+              - uses: &checkout actions/checkout@v4
+              - uses: *checkout
+              - &step
+                parallel:
+                  - uses: docker://alpine:latest
+              - *step
+          copy: *job
+      `,
+      errors: [
+        { messageId: 'disallowUnpinnedUses' },
+        { messageId: 'disallowUnpinnedUses' },
+        { messageId: 'disallowUnpinnedDockerUses' },
+      ],
+    },
+    {
+      filename: 'parallel.yml',
+      code: $`
+        jobs:
+          test:
+            steps:
+              - parallel:
+                  - uses: actions/checkout@v4
+      `,
+      errors: [{ messageId: 'disallowUnpinnedUses' }],
+    },
     {
       filename: 'docker-tag.yml',
       code: $`

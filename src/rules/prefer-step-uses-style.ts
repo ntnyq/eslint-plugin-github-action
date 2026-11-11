@@ -1,6 +1,7 @@
 import { isNonEmptyString, isString } from '@ntnyq/utils'
 import { createESLintRule, isYAMLScalar, resolveOptions } from '../utils'
-import type { YAMLAst } from '../types/yaml'
+import { getPairKeyValue } from '../utils/action'
+import { visitWorkflow } from '../utils/workflow'
 
 const UsesStyle = {
   commit: 'commit',
@@ -144,58 +145,68 @@ export default createESLintRule<Options, MessageIds>({
     }
 
     return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair > YAMLMapping > YAMLPair[key.value=steps] > YAMLSequence > YAMLMapping > YAMLPair[key.value=uses]':
-        (node: YAMLAst.YAMLPair) => {
-          // step uses is not non-empty string
-          if (
-            !isYAMLScalar(node.value) ||
-            !isNonEmptyString(node.value.value)
-          ) {
-            context.report({
-              node: node.value || node,
-              messageId: 'invalidStyle',
-              loc: node.value?.loc || node.loc,
-            })
-          } else {
-            const usesValue = node.value.value
+      YAMLDocument(document) {
+        visitWorkflow(document, {
+          step(mapping, resolve) {
+            for (const node of mapping.pairs) {
+              if (getPairKeyValue(node) !== 'uses') {
+                continue
+              }
+              const value = resolve(node.value)
+              // step uses is not non-empty string
+              if (
+                !node.value ||
+                !isYAMLScalar(value) ||
+                !isNonEmptyString(value.value)
+              ) {
+                context.report({
+                  node: node.value || node,
+                  messageId: 'invalidStyle',
+                  loc: node.value?.loc || node.loc,
+                })
+              } else {
+                const usesValue = value.value
 
-            if (ignores.some(regex => regex.test(usesValue))) {
-              return
+                if (ignores.some(regex => regex.test(usesValue))) {
+                  continue
+                }
+
+                const { style, isRepository, isDocker } =
+                  parseJobStepUses(usesValue)
+
+                if (isRepository) {
+                  if (!allowRepository) {
+                    context.report({
+                      node: node.value,
+                      messageId: 'disallowRepository',
+                      loc: node.value.loc,
+                    })
+                  }
+                } else if (isDocker) {
+                  if (!allowDocker) {
+                    context.report({
+                      node: node.value,
+                      messageId: 'disallowDocker',
+                      loc: node.value.loc,
+                    })
+                  }
+                } else {
+                  if (!usesStyles.includes(style)) {
+                    context.report({
+                      node: node.value,
+                      messageId: 'disallowStyle',
+                      loc: node.value.loc,
+                      data: {
+                        style,
+                      },
+                    })
+                  }
+                }
+              }
             }
-
-            const { style, isRepository, isDocker } =
-              parseJobStepUses(usesValue)
-
-            if (isRepository) {
-              if (!allowRepository) {
-                context.report({
-                  node: node.value,
-                  messageId: 'disallowRepository',
-                  loc: node.value.loc,
-                })
-              }
-            } else if (isDocker) {
-              if (!allowDocker) {
-                context.report({
-                  node: node.value,
-                  messageId: 'disallowDocker',
-                  loc: node.value.loc,
-                })
-              }
-            } else {
-              if (!usesStyles.includes(style)) {
-                context.report({
-                  node: node.value,
-                  messageId: 'disallowStyle',
-                  loc: node.value.loc,
-                  data: {
-                    style,
-                  },
-                })
-              }
-            }
-          }
-        },
+          },
+        })
+      },
     }
   },
 })

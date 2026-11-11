@@ -1,12 +1,13 @@
-import { isNonEmptyString, isString } from '@ntnyq/utils'
+import { isString } from '@ntnyq/utils'
 import {
   CASING,
   createESLintRule,
   getExactConverter,
-  isYAMLScalar,
+  isYAMLMapping,
   resolveOptions,
 } from '../utils'
-import type { YAMLAst } from '../types/yaml'
+import { getPairKeyValue } from '../utils/action'
+import { visitWorkflow } from '../utils/workflow'
 import type { CasingKind } from '../utils'
 
 type AllowedCasing = Exclude<CasingKind, 'Title Case'>
@@ -130,24 +131,32 @@ export default createESLintRule<Options, MessageIds>({
     }
 
     return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=jobs] > YAMLMapping > YAMLPair':
-        (node: YAMLAst.YAMLPair) => {
-          if (isYAMLScalar(node.key) && isNonEmptyString(node.key.value)) {
-            const id = node.key.value
-
-            if (!isJobIdValid(id)) {
-              context.report({
-                node: node.key,
-                messageId: 'jobIdNotMatch',
-                loc: node.key.loc,
-                data: {
-                  id,
-                  caseTypes: caseTypes.join(', '),
-                },
-              })
+      YAMLDocument(document) {
+        visitWorkflow(document, {
+          workflow(mapping, resolve) {
+            for (const pair of mapping.pairs) {
+              if (getPairKeyValue(pair) !== 'jobs') {
+                continue
+              }
+              const jobs = resolve(pair.value)
+              if (!isYAMLMapping(jobs)) {
+                continue
+              }
+              for (const node of jobs.pairs) {
+                const id = getPairKeyValue(node)
+                if (id && !isJobIdValid(id)) {
+                  context.report({
+                    node: node.key ?? node,
+                    messageId: 'jobIdNotMatch',
+                    loc: node.key?.loc,
+                    data: { id, caseTypes: caseTypes.join(', ') },
+                  })
+                }
+              }
             }
-          }
-        },
+          },
+        })
+      },
     }
   },
 })

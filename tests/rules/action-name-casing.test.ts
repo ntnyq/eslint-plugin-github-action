@@ -75,6 +75,12 @@ run<Options>({
     },
   ],
   invalid: [
+    ...['|-', '>-', '|', '>'].map(style => ({
+      filename: `block-${style}.yml`,
+      code: `name: ${style}\n  false\non: push`,
+      output: 'name: "False"\non: push',
+      errors: [{ messageId: 'actionNameNotMatch' as const }],
+    })),
     {
       filename: 'quoted-boolean.yml',
       code: 'name: "false"',

@@ -8,6 +8,14 @@ run<Options>({
   rule,
   valid: [
     {
+      filename: 'alias.yml',
+      code: $`
+        events: &events push
+        on: *events
+      `,
+    },
+
+    {
       filename: 'empty.yml',
       code: '',
     },
@@ -102,14 +110,6 @@ run<Options>({
           - push
           -
           - pull_request
-      `,
-      errors: [{ messageId: 'invalidPair' }],
-    },
-    {
-      filename: 'alias.yml',
-      code: $`
-        events: &events push
-        on: *events
       `,
       errors: [{ messageId: 'invalidPair' }],
     },

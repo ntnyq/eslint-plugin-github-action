@@ -8,6 +8,16 @@ run<Options>({
   rule,
   valid: [
     {
+      filename: 'cache-and-snapshot.yml',
+      code: $`
+        cache-mode: read-only
+        jobs:
+          test:
+            cache-mode: read-write
+            snapshot: image-name
+      `,
+    },
+    {
       filename: 'top-level-keys.yml',
       code: $`
         name: CI
@@ -261,6 +271,19 @@ run<Options>({
       errors(errors) {
         expect(errors).toMatchSnapshot()
       },
+    },
+    {
+      filename: 'anchored-parallel.yml',
+      code: $`
+        jobs:
+          test: &test
+            steps:
+              - parallel:
+                  - &step
+                    invalid: true
+                  - *step
+      `,
+      errors: [{ messageId: 'invalidStepKey' }],
     },
   ],
 })

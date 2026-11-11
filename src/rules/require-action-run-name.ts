@@ -1,5 +1,7 @@
 import { isNonEmptyString } from '@ntnyq/utils'
 import { createESLintRule, isYAMLScalar } from '../utils'
+import { getPairKeyValue } from '../utils/action'
+import { visitWorkflow } from '../utils/workflow'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'require-action-run-name'
@@ -22,40 +24,34 @@ export default createESLintRule<Options, MessageIds>({
   },
   create(context) {
     return {
-      YAMLDocument(node: YAMLAst.YAMLDocument) {
-        if (node.content) {
+      YAMLDocument(document: YAMLAst.YAMLDocument) {
+        if (!document.content) {
+          context.report({ node: document, messageId: 'noName' })
           return
         }
+        visitWorkflow(document, {
+          workflow(node, resolve) {
+            const namePair = node.pairs.find(
+              pair => getPairKeyValue(pair) === 'run-name',
+            )
 
-        // Empty file
-        context.report({
-          node,
-          messageId: 'noName',
+            if (!namePair) {
+              return context.report({
+                node,
+                messageId: 'noName',
+              })
+            }
+
+            const value = resolve(namePair.value)
+            if (!isYAMLScalar(value) || !isNonEmptyString(value.value)) {
+              return context.report({
+                node: namePair.value ?? namePair,
+                loc: namePair.value?.loc ?? namePair.loc,
+                messageId: 'invalidName',
+              })
+            }
+          },
         })
-      },
-
-      'Program > YAMLDocument > YAMLMapping': (node: YAMLAst.YAMLMapping) => {
-        const namePair = node.pairs.find(
-          pair => isYAMLScalar(pair.key) && pair.key.value === 'run-name',
-        )
-
-        if (!namePair) {
-          return context.report({
-            node,
-            messageId: 'noName',
-          })
-        }
-
-        if (
-          !isYAMLScalar(namePair.value) ||
-          !isNonEmptyString(namePair.value.value)
-        ) {
-          return context.report({
-            node: namePair.value ?? namePair,
-            loc: namePair.value?.loc ?? namePair.loc,
-            messageId: 'invalidName',
-          })
-        }
       },
     }
   },

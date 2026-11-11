@@ -2,7 +2,10 @@
  * @file keys
  */
 
-export const validTopLevelKeys = [
+/**
+ * Valid keys at the top level of a GitHub Actions workflow
+ */
+export const VALID_TOP_LEVEL_KEYS: string[] = [
   'name',
   'run-name',
   'on',
@@ -10,15 +13,21 @@ export const validTopLevelKeys = [
   'env',
   'defaults',
   'concurrency',
+  'cache-mode',
   'jobs',
 ]
 
-export const validJobKeys = [
+/**
+ * Valid keys in a GitHub Actions job definition
+ */
+export const VALID_JOB_KEYS: string[] = [
   'name',
   'permissions',
   'needs',
   'if',
   'runs-on',
+  'snapshot',
+  'cache-mode',
   'environment',
   'concurrency',
   'outputs',
@@ -35,7 +44,10 @@ export const validJobKeys = [
   'secrets',
 ]
 
-export const validStepKeys = [
+/**
+ * Valid keys in a GitHub Actions step definition
+ */
+export const VALID_STEP_KEYS: string[] = [
   'id',
   'if',
   'name',
@@ -54,7 +66,10 @@ export const validStepKeys = [
   'parallel',
 ]
 
-export const validServiceKeys = [
+/**
+ * Valid keys in a GitHub Actions service container definition
+ */
+export const VALID_SERVICE_KEYS: string[] = [
   'image',
   'credentials',
   'env',
@@ -65,7 +80,10 @@ export const validServiceKeys = [
   'entrypoint',
 ]
 
-export const validContainerKeys = [
+/**
+ * Valid keys in a GitHub Actions job container definition
+ */
+export const VALID_CONTAINER_KEYS: string[] = [
   'image',
   'credentials',
   'env',
@@ -74,4 +92,11 @@ export const validContainerKeys = [
   'options',
 ]
 
-export const validStrategyKeys = ['matrix', 'fail-fast', 'max-parallel']
+/**
+ * Valid keys in a GitHub Actions job strategy definition
+ */
+export const VALID_STRATEGY_KEYS: string[] = [
+  'matrix',
+  'fail-fast',
+  'max-parallel',
+]

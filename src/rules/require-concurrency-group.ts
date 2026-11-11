@@ -1,5 +1,11 @@
 import { isNonEmptyString } from '@ntnyq/utils'
-import { createESLintRule, isYAMLMapping, isYAMLScalar } from '../utils'
+import {
+  createESLintRule,
+  isYAMLMapping,
+  isYAMLScalar,
+  resolveYAMLNode,
+} from '../utils'
+import { getPairKeyValue } from '../utils/action'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'require-concurrency-group'
@@ -24,7 +30,8 @@ export default createESLintRule<Options, MessageIds>({
   create(context) {
     return {
       YAMLDocument(node: YAMLAst.YAMLDocument) {
-        if (!node.content || !isYAMLMapping(node.content)) {
+        const workflow = resolveYAMLNode(node.content)
+        if (!isYAMLMapping(workflow)) {
           context.report({
             node,
             messageId: 'noConcurrencyGroup',
@@ -32,33 +39,31 @@ export default createESLintRule<Options, MessageIds>({
           return
         }
 
-        const concurrencyPair = node.content.pairs.find(
-          pair => isYAMLScalar(pair.key) && pair.key.value === 'concurrency',
+        const concurrencyPair = workflow.pairs.find(
+          pair => getPairKeyValue(pair) === 'concurrency',
         )
 
         if (!concurrencyPair) {
           context.report({
-            node: node.content,
-            loc: node.content.loc,
+            node: workflow,
+            loc: workflow.loc,
             messageId: 'noConcurrencyGroup',
           })
           return
         }
 
-        if (isYAMLScalar(concurrencyPair.value)) {
-          if (isNonEmptyString(concurrencyPair.value.value)) {
+        const concurrency = resolveYAMLNode(concurrencyPair.value)
+        if (isYAMLScalar(concurrency)) {
+          if (isNonEmptyString(concurrency.value)) {
             return
           }
-        } else if (isYAMLMapping(concurrencyPair.value)) {
-          const groupPair = concurrencyPair.value.pairs.find(
-            pair => isYAMLScalar(pair.key) && pair.key.value === 'group',
+        } else if (isYAMLMapping(concurrency)) {
+          const groupPair = concurrency.pairs.find(
+            pair => getPairKeyValue(pair) === 'group',
           )
 
-          if (
-            groupPair &&
-            isYAMLScalar(groupPair.value) &&
-            isNonEmptyString(groupPair.value.value)
-          ) {
+          const group = resolveYAMLNode(groupPair?.value ?? null)
+          if (isYAMLScalar(group) && isNonEmptyString(group.value)) {
             return
           }
         }

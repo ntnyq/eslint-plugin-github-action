@@ -1,5 +1,6 @@
-import { createESLintRule, resolveOptions } from '../utils'
-import type { YAMLAst } from '../types/yaml'
+import { createESLintRule, isYAMLMapping, resolveOptions } from '../utils'
+import { getPairKeyValue } from '../utils/action'
+import { visitWorkflow } from '../utils/workflow'
 
 export const RULE_NAME = 'no-top-level-permissions'
 export type MessageIds = 'disallowTopLevelPermissions'
@@ -42,28 +43,35 @@ export default createESLintRule<Options, MessageIds>({
     },
   },
   create(context) {
+    const { allowEmpty = false } = resolveOptions(
+      context.options,
+      defaultOptions,
+    )
     return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=permissions]':
-        (node: YAMLAst.YAMLPair) => {
-          const { allowEmpty = false } = resolveOptions(
-            context.options,
-            defaultOptions,
-          )
-
-          if (
-            allowEmpty &&
-            node.value?.type === 'YAMLMapping' &&
-            node.value.pairs.length === 0
-          ) {
-            return
-          }
-
-          context.report({
-            node,
-            loc: node.loc,
-            messageId: 'disallowTopLevelPermissions',
-          })
-        },
+      YAMLDocument(document) {
+        visitWorkflow(document, {
+          workflow(mapping, resolve) {
+            for (const node of mapping.pairs) {
+              if (getPairKeyValue(node) !== 'permissions') {
+                continue
+              }
+              const value = resolve(node.value)
+              if (
+                allowEmpty &&
+                isYAMLMapping(value) &&
+                value.pairs.length === 0
+              ) {
+                continue
+              }
+              context.report({
+                node,
+                loc: node.loc,
+                messageId: 'disallowTopLevelPermissions',
+              })
+            }
+          },
+        })
+      },
     }
   },
 })

@@ -1,5 +1,6 @@
 import { createESLintRule } from '../utils'
-import type { YAMLAst } from '../types/yaml'
+import { getPairKeyValue } from '../utils/action'
+import { visitWorkflow } from '../utils/workflow'
 
 export const RULE_NAME = 'no-top-level-env'
 export type MessageIds = 'disallowTopLevelEnv'
@@ -20,13 +21,19 @@ export default createESLintRule<Options, MessageIds>({
   },
   create(context) {
     return {
-      'Program > YAMLDocument > YAMLMapping > YAMLPair[key.value=env]': (
-        node: YAMLAst.YAMLPair,
-      ) => {
-        context.report({
-          node,
-          loc: node.loc,
-          messageId: 'disallowTopLevelEnv',
+      YAMLDocument(document) {
+        visitWorkflow(document, {
+          workflow(mapping) {
+            for (const node of mapping.pairs) {
+              if (getPairKeyValue(node) === 'env') {
+                context.report({
+                  node,
+                  loc: node.loc,
+                  messageId: 'disallowTopLevelEnv',
+                })
+              }
+            }
+          },
         })
       },
     }

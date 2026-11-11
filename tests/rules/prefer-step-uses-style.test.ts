@@ -8,6 +8,17 @@ run<Options>({
   rule,
   valid: [
     {
+      filename: 'parallel-release-alias.yml',
+      code: $`
+        jobs:
+          test: &job
+            steps:
+              - parallel:
+                  - uses: &checkout actions/checkout@v4
+                  - uses: *checkout
+      `,
+    },
+    {
       filename: 'no-jobs.yml',
       code: $`
         name: Release
@@ -92,6 +103,18 @@ run<Options>({
     },
   ],
   invalid: [
+    {
+      filename: 'parallel-branch-alias.yml',
+      code: $`
+        jobs:
+          test: &job
+            steps:
+              - parallel:
+                  - uses: &checkout actions/checkout@main
+                  - uses: *checkout
+      `,
+      errors: [{ messageId: 'disallowStyle' }, { messageId: 'disallowStyle' }],
+    },
     {
       filename: 'empty-step-uses.yml',
       code: $`
