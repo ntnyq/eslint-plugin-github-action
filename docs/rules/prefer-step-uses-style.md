@@ -173,7 +173,9 @@ When `uses` starts with `docker://`, it is considered a docker action.
 
 ### repository
 
-When `uses` starts with `./`, it is considered a same-repository action.
+When `uses` starts with `./` or `$/`, it is considered a same-repository action.
+Both forms are controlled by `allowRepository`, which defaults to `false`.
+Set `allowRepository: true` to allow them regardless of the selected ref styles.
 
 ### commit
 

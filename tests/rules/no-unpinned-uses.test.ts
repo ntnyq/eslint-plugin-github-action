@@ -8,6 +8,37 @@ run<Options>({
   rule,
   valid: [
     {
+      filename: 'same-repository-step.yml',
+      code: $`
+        on: push
+        jobs:
+          build:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: ./.github/actions/setup
+              - uses: $/.github/actions/setup
+      `,
+    },
+    {
+      filename: 'same-repository-workflow.yml',
+      code: $`
+        jobs:
+          build:
+            uses: $/.github/workflows/build.yml
+      `,
+    },
+    {
+      filename: 'same-repository-alias.yml',
+      code: $`
+        jobs:
+          build:
+            steps:
+              - uses: &setup $/.github/actions/setup
+              - parallel:
+                  - uses: *setup
+      `,
+    },
+    {
       filename: 'pinned-anchors.yml',
       code: $`
         jobs:
