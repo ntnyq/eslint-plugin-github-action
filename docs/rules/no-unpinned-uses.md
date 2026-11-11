@@ -21,7 +21,9 @@ jobs and step lists. Steps inside `parallel` groups are checked as well. Shared
 mappings are checked once at their definition to avoid duplicate diagnostics;
 scalar `uses` aliases are reported at each reference.
 
-Local actions (`./`) are ignored.
+Local references (`./`) and same-repository references (`$/`) are ignored.
+Same-repository references run at the workflow's own commit and do not need an
+explicit SHA.
 
 ::: correct
 
@@ -32,6 +34,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - uses: $/.github/actions/setup
       - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3
       - uses: docker://alpine@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 ```

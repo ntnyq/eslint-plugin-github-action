@@ -43,7 +43,7 @@ export default createESLintRule<Options, MessageIds>({
 
       const usesValue = scalarValue
 
-      if (usesValue.startsWith('./')) {
+      if (usesValue.startsWith('./') || usesValue.startsWith('$/')) {
         return
       }
 

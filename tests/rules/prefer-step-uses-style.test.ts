@@ -8,6 +8,31 @@ run<Options>({
   rule,
   valid: [
     {
+      filename: 'allow-same-repository.yml',
+      options: [{ release: true, allowRepository: true }],
+      code: $`
+        on: push
+        jobs:
+          build:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: ./.github/actions/setup
+              - uses: $/.github/actions/setup
+      `,
+    },
+    {
+      filename: 'allow-same-repository-alias.yml',
+      options: [{ commit: true, allowRepository: true }],
+      code: $`
+        jobs:
+          build:
+            steps:
+              - uses: &setup $/.github/actions/setup
+              - parallel:
+                  - uses: *setup
+      `,
+    },
+    {
       filename: 'parallel-release-alias.yml',
       code: $`
         jobs:
@@ -103,6 +128,32 @@ run<Options>({
     },
   ],
   invalid: [
+    {
+      filename: 'disallow-same-repository.yml',
+      code: $`
+        jobs:
+          build:
+            steps:
+              - uses: $/.github/actions/setup
+      `,
+      errors: [{ messageId: 'disallowRepository', line: 4 }],
+    },
+    {
+      filename: 'disallow-same-repository-with-branch-allowed.yml',
+      options: [{ branch: true, allowRepository: false }],
+      code: $`
+        jobs:
+          build:
+            steps:
+              - uses: &setup $/.github/actions/setup
+              - parallel:
+                  - uses: *setup
+      `,
+      errors: [
+        { messageId: 'disallowRepository', line: 4 },
+        { messageId: 'disallowRepository', line: 6 },
+      ],
+    },
     {
       filename: 'parallel-branch-alias.yml',
       code: $`

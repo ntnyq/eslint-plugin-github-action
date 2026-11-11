@@ -233,7 +233,7 @@ function parseJobStepUses(uses: string) {
     isRepository: false,
     isDocker: false,
   }
-  if (uses.startsWith('./')) {
+  if (uses.startsWith('./') || uses.startsWith('$/')) {
     result.isRepository = true
   } else if (uses.startsWith('docker://')) {
     result.isDocker = true
