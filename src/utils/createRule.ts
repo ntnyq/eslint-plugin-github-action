@@ -89,6 +89,5 @@ export const createESLintRule: <
 }: Readonly<
   RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>
 >) => Rule.RuleModule = RuleCreator(
-  ruleName =>
-    `https://eslint-plugin-github-action.ntnyq.com/rules/${ruleName}.html`,
+  ruleName => `https://github-action.ntnyq.dev/rules/${ruleName}.html`,
 )
