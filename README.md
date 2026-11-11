@@ -79,6 +79,7 @@ export default [...pluginGitHubAction.configs.recommended]
 | [require-concurrency-group](https://github-action.ntnyq.dev/rules/require-concurrency-group.html) | Require a workflow-level concurrency group.            |     |     |     |
 | [require-job-name](https://github-action.ntnyq.dev/rules/require-job-name.html)                   | Require a string job name.                             |     |     |     |
 | [require-job-step-name](https://github-action.ntnyq.dev/rules/require-job-step-name.html)         | Require a string job step name.                        |     |     |     |
+| [valid-job-needs](https://github-action.ntnyq.dev/rules/valid-job-needs.html)                     | Disallow invalid job dependencies.                     | ✅  |     |     |
 | [valid-trigger-events](https://github-action.ntnyq.dev/rules/valid-trigger-events.html)           | Disallow invalid trigger events.                       | ✅  | 🔧  |     |
 | [valid-timeout-minutes](https://github-action.ntnyq.dev/rules/valid-timeout-minutes.html)         | Disallow invalid timeout-minutes.                      | ✅  |     |     |
 

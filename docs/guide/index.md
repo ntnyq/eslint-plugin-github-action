@@ -55,6 +55,7 @@ The `recommended` config enables the following rules at error level:
 - [no-invalid-key](../rules/no-invalid-key.md)
 - [prefer-file-extension](../rules/prefer-file-extension.md)
 - [require-action-name](../rules/require-action-name.md)
+- [valid-job-needs](../rules/valid-job-needs.md)
 - [valid-trigger-events](../rules/valid-trigger-events.md)
 - [valid-timeout-minutes](../rules/valid-timeout-minutes.md)
 

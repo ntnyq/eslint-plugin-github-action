@@ -1,4 +1,13 @@
 /**
+ * Checks for an expression opener, including interpolation and malformed expressions.
+ * @param value - String to inspect without evaluating expressions.
+ * @returns Whether the string contains an expression opener.
+ */
+export function hasExpression(value: string): boolean {
+  return value.includes('${{')
+}
+
+/**
  * Checks whether a value consists of one complete GitHub Actions expression.
  * Quoted expression strings may contain closing delimiters and escaped quotes.
  *

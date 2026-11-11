@@ -30,5 +30,6 @@ All rules target GitHub Actions workflow files under `.github/workflows/` unless
 | [require-concurrency-group](./require-concurrency-group) | Require a workflow-level concurrency group.            |     |     |     |
 | [require-job-name](./require-job-name)                   | Require a string job name.                             |     |     |     |
 | [require-job-step-name](./require-job-step-name)         | Require a string job step name.                        |     |     |     |
+| [valid-job-needs](./valid-job-needs)                     | Disallow invalid job dependencies.                     | ✅  |     |     |
 | [valid-trigger-events](./valid-trigger-events)           | Disallow invalid trigger events.                       | ✅  | 🔧  |     |
 | [valid-timeout-minutes](./valid-timeout-minutes)         | Disallow invalid timeout-minutes.                      | ✅  |     |     |

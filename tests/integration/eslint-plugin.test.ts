@@ -9,6 +9,35 @@ import { $ } from '../helpers/rule-tester'
 const TEST_CWD = resolveProjectPath('tests/fixtures/eslint-plugin')
 
 describe('eslint-plugin', () => {
+  it('validates dependencies through the built recommended preset', () => {
+    const code = $`
+      name: CI
+      on: push
+      jobs:
+        build: &job
+          needs: test
+        test: *job
+        deploy:
+          needs: [build, missing]
+        a:
+          needs: b
+        b:
+          needs: a
+    `
+    const result = new Linter().verifyAndFix(code, configs.recommended, {
+      filename: '.github/workflows/ci.yml',
+    })
+    expect(result.messages.map(message => message.messageId)).toEqual([
+      'selfDependency',
+      'unknownJob',
+      'circularDependency',
+    ])
+    expect(result.messages.every(message => message.severity === 2)).toBe(true)
+    expect(result.output).toBe(code)
+    expect(result.fixed).toBe(false)
+    expect(plugin.rules).toHaveProperty('valid-job-needs')
+  })
+
   it.each([
     { step: 361 },
     { step: { min: 361 } },

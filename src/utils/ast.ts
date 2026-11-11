@@ -7,6 +7,7 @@
 
 import { isNonEmptyString } from '@ntnyq/utils'
 import { getStaticYAMLValue, traverseNodes } from 'yaml-eslint-parser'
+import type { SourceCode } from '../types/sourceCode'
 import type { YAMLAst } from '../types/yaml'
 
 /**
@@ -157,4 +158,25 @@ export function getPairKeyValue(pair: YAMLAst.YAMLPair) {
  */
 export function findYAMLPair(node: YAMLAst.YAMLMapping, key: string) {
   return node.pairs.find(pair => getPairKeyValue(pair) === key)
+}
+
+/**
+ * Finds a block sequence's entry indicators, excluding nested sequences and
+ * scalar text. An empty block entry has no AST node and uses its indicator's location.
+ * @param node - Sequence containing the entries to locate.
+ * @param sourceCode - Parsed source providing non-comment tokens.
+ * @returns Top-level dash tokens in entry order; flow sequences have no indicators.
+ */
+export function getYAMLSequenceEntryIndicators(
+  node: YAMLAst.YAMLSequence,
+  sourceCode: SourceCode,
+): YAMLAst.Token[] {
+  return sourceCode
+    .getTokens(node)
+    .filter(
+      (token): token is YAMLAst.Token =>
+        token.type === 'Punctuator' &&
+        token.value === '-' &&
+        token.loc.start.column === node.loc.start.column,
+    )
 }

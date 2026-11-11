@@ -15,6 +15,7 @@ import requireActionRunName from './require-action-run-name'
 import requireConcurrencyGroup from './require-concurrency-group'
 import requireJobName from './require-job-name'
 import requireJobStepName from './require-job-step-name'
+import validJobNeeds from './valid-job-needs'
 import validTimeoutMinutes from './valid-timeout-minutes'
 import validTriggerEvents from './valid-trigger-events'
 
@@ -36,6 +37,7 @@ export const rules = {
   'require-concurrency-group': requireConcurrencyGroup,
   'require-job-name': requireJobName,
   'require-job-step-name': requireJobStepName,
+  'valid-job-needs': validJobNeeds,
   'valid-timeout-minutes': validTimeoutMinutes,
   'valid-trigger-events': validTriggerEvents,
 }
