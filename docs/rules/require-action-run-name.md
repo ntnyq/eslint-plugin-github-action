@@ -12,7 +12,7 @@ since: v0.0.9
 
 ## :book: Rule Details
 
-This rule reports when a workflow has no run-name or the run-name is not a string.
+This rule reports when a workflow has no run-name or the run-name is not a non-empty string.
 
 ::: correct
 

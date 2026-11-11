@@ -4,7 +4,7 @@ layout: home
 hero:
   name: ESLint Plugin
   text: GitHub Action
-  tagline: Rules for consistent, readable and valid GitHub action files
+  tagline: Rules for consistent, readable, and valid GitHub Actions workflow files.
   image:
     light: /logo-light.svg
     dark: /logo-dark.svg
@@ -37,6 +37,8 @@ import pluginGitHubAction from 'eslint-plugin-github-action'
 
 export default defineConfig([...pluginGitHubAction.configs.recommended])
 ```
+
+Requires Node.js `^22.13.0 || >=24` and ESLint `^9.5.0 || ^10.0.0`. The example uses `defineConfig`, available in ESLint 9.22+. See the [Guide](./guide/index.md#basic-usage) for the ESLint 9.5–9.21 configuration.
 
 ## :white_check_mark: Rules
 

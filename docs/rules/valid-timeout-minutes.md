@@ -10,6 +10,8 @@ since: v0.0.16
 
 > Disallow invalid timeout-minutes.
 
+- 💼 This rule is enabled in the ✅ `recommended` config.
+
 ## :book: Rule Details
 
 This rule reports when jobs or steps have invalid `timeout-minutes`.
@@ -72,7 +74,17 @@ type ValidTimeoutMinutesOptions = [
 ]
 ```
 
-Default option is set to `{ min: 1, max: 360 }`.
+The default option is `360`, allowing positive integers from `1` to `360` for both jobs and steps.
+
+A number sets the maximum for both jobs and steps. A `{ min, max }` object sets a shared range. Use `job` and `step` to configure their limits separately, for example:
+
+```json
+{
+  "github-action/valid-timeout-minutes": ["error", { "job": 60, "step": 15 }]
+}
+```
+
+Custom bounds must be integers from `1` to `1440`. With an object option, omitted minimums default to `1` and omitted maximums default to `1440`.
 
 ## :rocket: Version
 

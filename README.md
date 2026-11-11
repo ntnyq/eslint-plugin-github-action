@@ -10,7 +10,8 @@
 
 ## Requirements
 
-- Node.js ^22.13.0 || >=24
+- Node.js `^22.13.0 || >=24`
+- ESLint `^9.5.0 || ^10.0.0` with flat config
 
 ## Install
 
@@ -40,7 +41,15 @@ export default defineConfig([
 ])
 ```
 
-The recommended config targets `.github/workflows/*.yml` and `.yaml` files.
+The recommended config targets `**/.github/workflows/*.yml` and `.yaml` files and sets `yaml-eslint-parser`.
+
+`defineConfig` requires [ESLint 9.22.0 or later](https://eslint.org/blog/2025/03/eslint-v9.22.0-released/). On ESLint 9.5–9.21, export the config array directly:
+
+```ts
+import pluginGitHubAction from 'eslint-plugin-github-action'
+
+export default [...pluginGitHubAction.configs.recommended]
+```
 
 :apple: For advanced usage, please check [Advanced Usage](https://eslint-plugin-github-action.ntnyq.com/guide/#advanced-usage)
 
@@ -48,8 +57,8 @@ The recommended config targets `.github/workflows/*.yml` and `.yaml` files.
 
 💼 Configurations enabled in.\
 ✅ Set in the `recommended` preset.\
-🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).\
-💡 Manually fixable by [editor suggestions](https://eslint.org/docs/developer-guide/working-with-rules#providing-suggestions).
+🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/use/command-line-interface#--fix).\
+💡 Manually fixable by [editor suggestions](https://eslint.org/docs/latest/extend/custom-rules#providing-suggestions).
 
 | Name                                                                                                            | Description                                            | 💼  | 🔧  | 💡  |
 | :-------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------- | :-: | :-: | :-: |
@@ -78,6 +87,18 @@ The recommended config targets `.github/workflows/*.yml` and `.yaml` files.
 - [GitHub Actions documentation](https://docs.github.com/en/actions)
 - [Understanding the workflow file](https://docs.github.com/en/actions/use-cases-and-examples/creating-an-example-workflow#understanding-the-workflow-file)
 - [Workflow syntax for GitHub Actions](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions)
+
+## Development
+
+This repository uses pnpm 12. Use the version pinned in the `packageManager` field of [package.json](./package.json).
+
+```shell
+pnpm install --frozen-lockfile
+pnpm build
+pnpm docs:dev
+```
+
+Build the plugin before starting the docs, as the docs import its built output. Run `pnpm docs:build` to build the documentation site, and `pnpm release:check` to run formatting, lint, type, and test checks.
 
 ## License
 

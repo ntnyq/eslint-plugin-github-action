@@ -10,8 +10,6 @@ since: v0.0.2
 
 > Enforce naming convention for workflow name.
 
-- 💼 This rule is enabled in the ✅ `recommended` config.
-
 - :wrench: The `--fix` option on the [command line](https://eslint.org/docs/latest/use/command-line-interface#--fix) can automatically fix some of the problems reported by this rule.
 
 ## :book: Rule Details
@@ -85,19 +83,29 @@ name: UNIT_TEST
 Default casing is set to `Title Case`.
 
 ```ts
+type AllowedCasing =
+  | 'camelCase'
+  | 'kebab-case'
+  | 'PascalCase'
+  | 'snake_case'
+  | 'Title Case'
+  | 'Train-Case'
+  | 'SCREAMING_SNAKE_CASE'
+
 type ActionNameCasingOptions = [
   'error' | 'warn' | 'off' | 2 | 1 | 0,
   (
-    | 'camelCase'
-    | 'kebab-case'
-    | 'PascalCase'
-    | 'snake_case'
-    | 'Title Case'
-    | 'Train-Case'
-    | 'SCREAMING_SNAKE_CASE'
+    | AllowedCasing
+    | ({
+        [key in AllowedCasing]?: boolean
+      } & {
+        ignores?: string[]
+      })
   ),
 ]
 ```
+
+The object form accepts multiple casing styles and regular expression strings in `ignores`. If no casing style is enabled, it falls back to `Title Case`. Automatic fixes are available only when one casing style is enabled.
 
 ### `"Title Case"` (default)
 
@@ -108,6 +116,8 @@ Examples of **correct** code for this rule with default option:
 ```yaml
 name: Unit Test
 ```
+
+:::
 
 Examples of **incorrect** code for this rule with default option:
 
@@ -175,9 +185,9 @@ Examples of **correct** code for this rule with `"kebab-case"` option:
 name: unit-test
 ```
 
-Examples of **incorrect** code for this rule with `"kebab-case"` option:
-
 :::
+
+Examples of **incorrect** code for this rule with `"kebab-case"` option:
 
 ::: incorrect
 

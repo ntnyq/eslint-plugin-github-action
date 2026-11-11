@@ -22,8 +22,8 @@ name: Release
 jobs:
   test:
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4.2.0
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.0
 ```
 
 :::
@@ -82,8 +82,8 @@ name: Release
 jobs:
   test:
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4.2.0
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.0
 ```
 
 :::
@@ -156,8 +156,8 @@ jobs:
   test:
     steps:
       # `release` style
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4.2.0
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.0
 
       # same repository
       - uses: ./.github/actions/hello-world-action

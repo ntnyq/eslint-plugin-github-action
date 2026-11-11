@@ -84,14 +84,12 @@ export default createESLintRule<Options, MessageIds>({
         const filename = context.filename
         const fileExtension = filename.split('.').pop()
 
-        // No extension
-        if (!filename.includes('.') || !fileExtension) {
-          return
-        }
-
+        // Skip files with no extension or an extension matching the preference
         if (
+          !filename.includes('.') ||
+          !fileExtension ||
           (caseSensitive ? fileExtension : fileExtension.toLowerCase()) ===
-          extension
+            extension
         ) {
           return
         }

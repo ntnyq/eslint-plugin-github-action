@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        version: [6, 7, 8]
+        node-version: [22, 24, 26]
 ```
 
 :::
@@ -39,9 +39,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: github.repository == 'ntnyq/eslint-plugin-github-action'
+      # fail-fast defaults to true when omitted
       matrix:
-        version: [6, 7, 8]
+        node-version: [22, 24, 26]
 ```
 
 :::
@@ -57,7 +57,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: [6, 7, 8]
+        node-version: [22, 24, 26]
 ```
 
 :::

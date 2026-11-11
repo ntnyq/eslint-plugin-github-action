@@ -14,7 +14,7 @@ since: v0.0.0
 
 ## :book: Rule Details
 
-This rule reports when a workflow has no name or the name is not a string.
+This rule reports when a workflow has no name or the name is not a non-empty string.
 
 ::: correct
 

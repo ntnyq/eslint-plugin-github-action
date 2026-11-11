@@ -12,7 +12,7 @@ since: v0.0.7
 
 ## :book: Rule Details
 
-This rule reports when a job uses an external workflow via `uses`.
+This rule reports when a job calls a reusable workflow via `jobs.<job_id>.uses`, including workflows in the same repository. Step-level action references are not checked by this rule.
 
 ::: correct
 
