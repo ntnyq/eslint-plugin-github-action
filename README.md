@@ -10,7 +10,7 @@
 
 ## Requirements
 
-- Node.js `^22.13.0 || >=24`
+- Node.js `^22.19.0 || >=24.11.0`
 - ESLint `^9.5.0 || ^10.0.0` with flat config
 
 ## Install

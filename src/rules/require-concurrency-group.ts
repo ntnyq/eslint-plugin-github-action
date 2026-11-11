@@ -1,6 +1,7 @@
 import { isNonEmptyString } from '@ntnyq/utils'
 import {
   createESLintRule,
+  getYAMLScalarValue,
   isYAMLMapping,
   isYAMLScalar,
   resolveYAMLNode,
@@ -54,7 +55,7 @@ export default createESLintRule<Options, MessageIds>({
 
         const concurrency = resolveYAMLNode(concurrencyPair.value)
         if (isYAMLScalar(concurrency)) {
-          if (isNonEmptyString(concurrency.value)) {
+          if (isNonEmptyString(getYAMLScalarValue(concurrency))) {
             return
           }
         } else if (isYAMLMapping(concurrency)) {
@@ -63,7 +64,10 @@ export default createESLintRule<Options, MessageIds>({
           )
 
           const group = resolveYAMLNode(groupPair?.value ?? null)
-          if (isYAMLScalar(group) && isNonEmptyString(group.value)) {
+          if (
+            isYAMLScalar(group) &&
+            isNonEmptyString(getYAMLScalarValue(group))
+          ) {
             return
           }
         }

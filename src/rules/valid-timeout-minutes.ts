@@ -1,6 +1,11 @@
 import { isInteger, isNumber } from '@ntnyq/utils'
 import { TIMEOUT_MINUTES } from '../constants/time'
-import { createESLintRule, isYAMLScalar, resolveOptions } from '../utils'
+import {
+  createESLintRule,
+  getYAMLScalarValue,
+  isYAMLScalar,
+  resolveOptions,
+} from '../utils'
 import { getPairKeyValue, isSingleExpression } from '../utils/action'
 import { visitWorkflow } from '../utils/workflow'
 import type { YAMLAst } from '../types/yaml'
@@ -197,15 +202,16 @@ export default createESLintRule<Options, MessageIds>({
         })
       }
 
-      if (typeof value.value === 'string' && isSingleExpression(value.value)) {
+      const scalarValue = getYAMLScalarValue(value)
+      if (typeof scalarValue === 'string' && isSingleExpression(scalarValue)) {
         return
       }
 
       // positive integer
       if (
-        !isNumber(value.value) ||
-        !isInteger(value.value) ||
-        value.value <= 0
+        !isNumber(scalarValue) ||
+        !isInteger(scalarValue) ||
+        scalarValue <= 0
       ) {
         return context.report({
           messageId: 'notInteger',
@@ -214,7 +220,7 @@ export default createESLintRule<Options, MessageIds>({
         })
       }
 
-      if (value.value < range.min || value.value > range.max) {
+      if (scalarValue < range.min || scalarValue > range.max) {
         return context.report({
           messageId: 'invalidRange',
           node,

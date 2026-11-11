@@ -1,5 +1,10 @@
 import { isNonEmptyString } from '@ntnyq/utils'
-import { createESLintRule, isYAMLMapping, isYAMLScalar } from '../utils'
+import {
+  createESLintRule,
+  getYAMLScalarValue,
+  isYAMLMapping,
+  isYAMLScalar,
+} from '../utils'
 import { getPairKeyValue } from '../utils/action'
 import { visitWorkflow } from '../utils/workflow'
 
@@ -52,7 +57,10 @@ export default createESLintRule<Options, MessageIds>({
                   continue
                 }
                 const value = resolve(namePair.value)
-                if (!isYAMLScalar(value) || !isNonEmptyString(value.value)) {
+                if (
+                  !isYAMLScalar(value) ||
+                  !isNonEmptyString(getYAMLScalarValue(value))
+                ) {
                   context.report({
                     node: namePair.value ?? namePair,
                     loc: namePair.value?.loc ?? namePair.loc,

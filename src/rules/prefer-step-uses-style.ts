@@ -1,5 +1,10 @@
 import { isNonEmptyString, isString } from '@ntnyq/utils'
-import { createESLintRule, isYAMLScalar, resolveOptions } from '../utils'
+import {
+  createESLintRule,
+  getYAMLScalarValue,
+  isYAMLScalar,
+  resolveOptions,
+} from '../utils'
 import { getPairKeyValue } from '../utils/action'
 import { visitWorkflow } from '../utils/workflow'
 
@@ -153,11 +158,14 @@ export default createESLintRule<Options, MessageIds>({
                 continue
               }
               const value = resolve(node.value)
+              const scalarValue = isYAMLScalar(value)
+                ? getYAMLScalarValue(value)
+                : null
               // step uses is not non-empty string
               if (
                 !node.value ||
                 !isYAMLScalar(value) ||
-                !isNonEmptyString(value.value)
+                !isNonEmptyString(scalarValue)
               ) {
                 context.report({
                   node: node.value || node,
@@ -165,7 +173,7 @@ export default createESLintRule<Options, MessageIds>({
                   loc: node.value?.loc || node.loc,
                 })
               } else {
-                const usesValue = value.value
+                const usesValue = scalarValue
 
                 if (ignores.some(regex => regex.test(usesValue))) {
                   continue

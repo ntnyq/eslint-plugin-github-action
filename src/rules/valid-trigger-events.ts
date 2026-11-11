@@ -2,6 +2,8 @@ import { isString } from '@ntnyq/utils'
 import { VALID_TRIGGER_EVENTS } from '../constants/event'
 import {
   createESLintRule,
+  getYAMLScalarValue,
+  hasExternalYAMLAlias,
   isYAMLMapping,
   isYAMLScalar,
   isYAMLSequence,
@@ -84,6 +86,7 @@ export default createESLintRule<Options, MessageIds>({
       }
 
       onMapping.pairs.forEach(pair => {
+        const canRemove = canFix && !hasExternalYAMLAlias(pair)
         const event = getPairKeyValue(pair)
         if (event) {
           if (VALID_TRIGGER_EVENTS.includes(event)) {
@@ -97,14 +100,18 @@ export default createESLintRule<Options, MessageIds>({
               event,
             },
             messageId: 'invalidEvent',
-            ...(canFix ? { fix: fixer => fixer.removeRange(pair.range) } : {}),
+            ...(canRemove
+              ? { fix: fixer => fixer.removeRange(pair.range) }
+              : {}),
           })
         } else {
           context.report({
             node: pair,
             loc: pair.loc,
             messageId: 'invalidPair',
-            ...(canFix ? { fix: fixer => fixer.removeRange(pair.range) } : {}),
+            ...(canRemove
+              ? { fix: fixer => fixer.removeRange(pair.range) }
+              : {}),
           })
         }
       })
@@ -114,8 +121,9 @@ export default createESLintRule<Options, MessageIds>({
       eventNode: YAMLAst.YAMLContent | YAMLAst.YAMLWithMeta | null,
     ) {
       const value = resolveYAMLNode(eventNode)
+      const scalarValue = isYAMLScalar(value) ? getYAMLScalarValue(value) : null
       const reportNode = eventNode ?? context.sourceCode.ast
-      if (!isYAMLScalar(value) || !isString(value.value)) {
+      if (!isYAMLScalar(value) || !isString(scalarValue)) {
         context.report({
           node: reportNode,
           loc: eventNode?.loc,
@@ -124,7 +132,7 @@ export default createESLintRule<Options, MessageIds>({
         return
       }
 
-      const event = value.value
+      const event = scalarValue
 
       if (VALID_TRIGGER_EVENTS.includes(event)) {
         return

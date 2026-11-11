@@ -3,7 +3,7 @@
  */
 
 import { isNonEmptyString } from '@ntnyq/utils'
-import { isYAMLScalar, resolveYAMLNode } from './ast'
+import { getYAMLScalarValue, isYAMLScalar, resolveYAMLNode } from './ast'
 import type { YAMLAst } from '../types/yaml'
 
 /**
@@ -14,10 +14,11 @@ import type { YAMLAst } from '../types/yaml'
  */
 export function getPairKeyValue(pair: YAMLAst.YAMLPair) {
   const key = resolveYAMLNode(pair.key)
-  if (!isYAMLScalar(key) || !isNonEmptyString(key.value)) {
+  const value = isYAMLScalar(key) ? getYAMLScalarValue(key) : null
+  if (!isNonEmptyString(value)) {
     return
   }
-  return key.value
+  return value
 }
 
 /**

@@ -19,6 +19,213 @@ function createConfig(rules: LinterTypes.RulesRecord): LinterTypes.Config[] {
 const filename = 'ci.yml'
 
 describe('YAML workflow semantics', () => {
+  it.each(['constructor', 'toString', '__proto__'])(
+    'reports an unresolved alias named %s without crashing',
+    alias => {
+      const messages = new Linter().verify(
+        `on: *${alias}`,
+        createConfig({ 'github-action/valid-trigger-events': 'error' }),
+        { filename },
+      )
+      expect(messages.map(message => message.messageId)).toEqual([
+        'invalidPair',
+      ])
+    },
+  )
+
+  it.each([
+    { code: 'name: !!str false', rule: 'require-action-name', errors: [] },
+    {
+      code: 'concurrency: !!str false',
+      rule: 'require-concurrency-group',
+      errors: [],
+    },
+    {
+      code: 'jobs: { test: { steps: [{ uses: !!int "10" }] } }',
+      rule: 'prefer-step-uses-style',
+      errors: ['invalidStyle'],
+    },
+    {
+      code: 'jobs: { test: { steps: [{ uses: !!int "10" }] } }',
+      rule: 'no-unpinned-uses',
+      errors: [],
+    },
+    {
+      code: 'name: !!int "10"',
+      rule: 'require-action-name',
+      errors: ['invalidName'],
+    },
+    {
+      code: 'run-name: !!str false',
+      rule: 'require-action-run-name',
+      errors: [],
+    },
+    {
+      code: 'jobs: { test: { name: !!str false } }',
+      rule: 'require-job-name',
+      errors: [],
+    },
+    {
+      code: 'jobs: { test: { steps: [{ name: !!str false }] } }',
+      rule: 'require-job-step-name',
+      errors: [],
+    },
+    {
+      code: 'jobs: { test: { timeout-minutes: !!int "10" } }',
+      rule: 'valid-timeout-minutes',
+      errors: [],
+    },
+    {
+      code: 'jobs: { test: { timeout-minutes: !!str 10 } }',
+      rule: 'valid-timeout-minutes',
+      errors: ['notInteger'],
+    },
+    {
+      code: 'timeout: &timeout !!int "10"\njobs: { test: { timeout-minutes: *timeout } }',
+      rule: 'valid-timeout-minutes',
+      errors: [],
+    },
+    {
+      code: 'concurrency: { group: !!str false }',
+      rule: 'require-concurrency-group',
+      errors: [],
+    },
+    {
+      code: 'concurrency: { cancel-in-progress: !!bool "true" }',
+      rule: 'prefer-cancel-in-progress',
+      errors: [],
+    },
+    {
+      code: 'concurrency: { cancel-in-progress: !!str true }',
+      rule: 'prefer-cancel-in-progress',
+      errors: ['preferCancelInProgress'],
+    },
+    {
+      code: 'jobs: { test: { strategy: { fail-fast: !!bool "false" } } }',
+      rule: 'prefer-fail-fast',
+      errors: ['unexpected'],
+    },
+    {
+      code: 'jobs: { test: { strategy: { fail-fast: !!str false } } }',
+      rule: 'prefer-fail-fast',
+      errors: [],
+    },
+    {
+      code: 'on: !!str false',
+      rule: 'valid-trigger-events',
+      errors: ['invalidEvent'],
+    },
+    {
+      code: 'on: { !!str false: {} }',
+      rule: 'valid-trigger-events',
+      errors: ['invalidEvent'],
+    },
+  ])('evaluates explicit tags for $rule: $code', ({ code, rule, errors }) => {
+    const messages = new Linter().verify(
+      code,
+      createConfig({ [`github-action/${rule}`]: 'error' }),
+      { filename },
+    )
+    expect(messages.map(message => message.messageId)).toEqual(errors)
+  })
+
+  it.each([
+    {
+      code: 'name: &target release-prod\nenv: { TARGET: *target }',
+      rule: 'action-name-casing',
+      error: 'actionNameNotMatch',
+    },
+    {
+      code: 'on:\n  unknown: &target { VALUE: test }\nenv: *target',
+      rule: 'valid-trigger-events',
+      error: 'invalidEvent',
+    },
+    {
+      code: 'on:\n  unknown:\n    nested: [&target test]\nenv: { VALUE: *target }',
+      rule: 'valid-trigger-events',
+      error: 'invalidEvent',
+    },
+    {
+      code: 'on:\n  1: &target test\nenv: { VALUE: *target }',
+      rule: 'valid-trigger-events',
+      error: 'invalidPair',
+    },
+    {
+      code: 'on: &events\n  unknown: test\nenv: *events',
+      rule: 'valid-trigger-events',
+      error: 'invalidEvent',
+    },
+    {
+      code: 'name: &target !!str false\nenv: { TARGET: *target }',
+      rule: 'action-name-casing',
+      error: 'actionNameNotMatch',
+    },
+  ])(
+    'preserves external aliases when fixing $rule: $code',
+    ({ code, rule, error }) => {
+      const result = new Linter().verifyAndFix(
+        code,
+        createConfig({ [`github-action/${rule}`]: 'error' }),
+        { filename },
+      )
+      expect(result.output).toBe(code)
+      expect(result.fixed).toBe(false)
+      expect(result.messages.map(message => message.messageId)).toEqual([error])
+      expect(
+        yamlParser.getStaticYAMLValue(yamlParser.parseYAML(result.output)),
+      ).toEqual(yamlParser.getStaticYAMLValue(yamlParser.parseYAML(code)))
+    },
+  )
+
+  it('fixes a tagged string name while preserving its effective type', () => {
+    const result = new Linter().verifyAndFix(
+      'name: !!str false',
+      createConfig({ 'github-action/action-name-casing': 'error' }),
+      { filename },
+    )
+    expect(result.fixed).toBe(true)
+    expect(result.messages).toEqual([])
+    expect(
+      yamlParser.getStaticYAMLValue(yamlParser.parseYAML(result.output)),
+    ).toEqual({ name: 'False' })
+  })
+
+  it.each([
+    {
+      code: 'name: &name unit-test',
+      output: 'name: &name Unit Test',
+      rule: 'action-name-casing',
+    },
+    {
+      code: 'name: &name unit-test\nother: &name untouched\nenv: { VALUE: *name }',
+      output:
+        'name: &name Unit Test\nother: &name untouched\nenv: { VALUE: *name }',
+      rule: 'action-name-casing',
+    },
+    {
+      code: 'on:\n  unknown: [&value test, *value]\n  push:',
+      output: 'on:\n  \n  push:',
+      rule: 'valid-trigger-events',
+    },
+    {
+      code: 'on:\n  unknown: &value test\n  push:\nenv: { VALUE: *missing }',
+      output: 'on:\n  \n  push:\nenv: { VALUE: *missing }',
+      rule: 'valid-trigger-events',
+    },
+  ])(
+    'keeps safe automatic fixes available: $code',
+    ({ code, output, rule }) => {
+      const result = new Linter().verifyAndFix(
+        code,
+        createConfig({ [`github-action/${rule}`]: 'error' }),
+        { filename },
+      )
+      expect(result.fixed).toBe(true)
+      expect(result.output).toBe(output)
+      expect(result.messages).toEqual([])
+    },
+  )
+
   it.each([
     {
       rule: 'no-external-job',

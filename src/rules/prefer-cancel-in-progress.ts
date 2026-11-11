@@ -1,5 +1,6 @@
 import {
   createESLintRule,
+  getYAMLScalarValue,
   isYAMLMapping,
   isYAMLScalar,
   resolveYAMLNode,
@@ -43,7 +44,7 @@ export default createESLintRule<Options, MessageIds>({
       )
 
       const cancel = resolveYAMLNode(cancelPair?.value ?? null)
-      if (!isYAMLScalar(cancel) || cancel.value !== true) {
+      if (!isYAMLScalar(cancel) || getYAMLScalarValue(cancel) !== true) {
         context.report({
           node: cancelPair?.value || cancelPair || concurrency,
           loc: cancelPair?.value?.loc || cancelPair?.loc || concurrency.loc,

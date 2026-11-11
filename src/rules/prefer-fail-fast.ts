@@ -1,4 +1,4 @@
-import { createESLintRule, isYAMLScalar } from '../utils'
+import { createESLintRule, getYAMLScalarValue, isYAMLScalar } from '../utils'
 import { getPairKeyValue } from '../utils/action'
 import { visitWorkflow } from '../utils/workflow'
 
@@ -29,7 +29,7 @@ export default createESLintRule<Options, MessageIds>({
                 continue
               }
               const value = resolve(pair.value)
-              if (isYAMLScalar(value) && value.value === false) {
+              if (isYAMLScalar(value) && getYAMLScalarValue(value) === false) {
                 context.report({
                   node: pair,
                   loc: pair.loc,

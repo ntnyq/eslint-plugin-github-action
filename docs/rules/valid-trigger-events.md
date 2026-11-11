@@ -16,7 +16,7 @@ since: v0.0.16
 
 ## :book: Rule Details
 
-This rule validates event names in all three `on` forms: a string (`on: push`), an array (`on: [push, pull_request]`), or a mapping (`on.<event_name>`). It reports unknown event names and non-string entries. It recognizes anchors, aliases, and metadata-wrapped keys, including the `image_version` event. Automatic fixes remove invalid entries from block-style event mappings defined at `on`; aliased mappings are reported without changing their anchor definitions.
+This rule validates event names in all three `on` forms: a string (`on: push`), an array (`on: [push, pull_request]`), or a mapping (`on.<event_name>`). It reports unknown event names and non-string entries. It recognizes anchors, aliases, and metadata-wrapped keys, including the `image_version` event. Automatic fixes remove invalid entries from block-style event mappings defined at `on`; aliased mappings and entries whose removal would affect aliases elsewhere are reported without an automatic fix. Explicit YAML tags are respected when reading event names.
 
 ::: correct
 

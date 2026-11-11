@@ -6,7 +6,7 @@ This ESM TypeScript package provides ESLint rules for GitHub Actions workflows. 
 
 ## Build, Test, and Development Commands
 
-Use a Node.js version satisfying `^22.13.0 || >=24` and the pnpm version pinned in `package.json`.
+Use a Node.js version satisfying `^22.19.0 || >=24.11.0` and the pnpm version pinned in `package.json`.
 
 - `pnpm install --frozen-lockfile`: install locked dependencies.
 - `pnpm build`: bundle the package and declarations with tsdown.

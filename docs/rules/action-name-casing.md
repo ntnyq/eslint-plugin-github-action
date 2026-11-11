@@ -14,7 +14,7 @@ since: v0.0.2
 
 ## :book: Rule Details
 
-This rule enforces consistent casing for the workflow `name`, including anchored and aliased names. Fixes add quotes when needed to preserve the YAML string type. An aliased name is replaced at its use without changing the anchor definition. Names whose converted value would be empty are reported without an automatic fix.
+This rule enforces consistent casing for the workflow `name`, including anchored and aliased names. Fixes add quotes when needed to preserve the YAML string type. An aliased name is replaced at its use without changing the anchor definition. Anchored names referenced elsewhere and names whose converted value would be empty are reported without an automatic fix. Explicit YAML tags are respected when reading the name.
 
 ::: correct
 

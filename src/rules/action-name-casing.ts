@@ -4,6 +4,8 @@ import {
   CASING,
   createESLintRule,
   getExactConverter,
+  getYAMLScalarValue,
+  hasExternalYAMLAlias,
   isYAMLScalar,
   resolveOptions,
 } from '../utils'
@@ -146,9 +148,12 @@ export default createESLintRule<Options, MessageIds>({
                 continue
               }
               const value = resolve(node.value)
+              const scalarValue = isYAMLScalar(value)
+                ? getYAMLScalarValue(value)
+                : null
               // name is a non-empty string
-              if (isYAMLScalar(value) && isNonEmptyString(value.value)) {
-                const name = value.value
+              if (isYAMLScalar(value) && isNonEmptyString(scalarValue)) {
+                const name = scalarValue
                 const sourceValue = node.value ?? value
                 const isAlias = sourceValue.type === 'YAMLAlias'
                 const range = isAlias ? sourceValue.range : value.range
@@ -164,7 +169,8 @@ export default createESLintRule<Options, MessageIds>({
                       caseTypes: caseTypes.join(', '),
                     },
                     fix:
-                      caseTypes.length === 1
+                      caseTypes.length === 1 &&
+                      !hasExternalYAMLAlias(sourceValue)
                         ? fixer => {
                             const result = getExactConverter(caseTypes[0])(name)
                             let replacement = result.value
