@@ -1,5 +1,5 @@
-import { createESLintRule, getYAMLScalarValue, isYAMLScalar } from '../utils'
-import { getPairKeyValue } from '../utils/action'
+import { getPairKeyValue, getYAMLScalarValue, isYAMLScalar } from '../utils/ast'
+import { createESLintRule } from '../utils/createRule'
 import { visitWorkflow } from '../utils/workflow'
 
 export const RULE_NAME = 'prefer-fail-fast'

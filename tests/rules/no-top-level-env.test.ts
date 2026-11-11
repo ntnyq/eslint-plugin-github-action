@@ -1,6 +1,6 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/no-top-level-env'
-import { $, run } from '../internal'
+import { $, run } from '../helpers/rule-tester'
 import type { Options } from '../../src/rules/no-top-level-env'
 
 run<Options>({

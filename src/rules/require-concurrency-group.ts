@@ -1,12 +1,12 @@
 import { isNonEmptyString } from '@ntnyq/utils'
 import {
-  createESLintRule,
+  findYAMLPair,
   getYAMLScalarValue,
   isYAMLMapping,
   isYAMLScalar,
   resolveYAMLNode,
-} from '../utils'
-import { getPairKeyValue } from '../utils/action'
+} from '../utils/ast'
+import { createESLintRule } from '../utils/createRule'
 import type { YAMLAst } from '../types/yaml'
 
 export const RULE_NAME = 'require-concurrency-group'
@@ -40,9 +40,7 @@ export default createESLintRule<Options, MessageIds>({
           return
         }
 
-        const concurrencyPair = workflow.pairs.find(
-          pair => getPairKeyValue(pair) === 'concurrency',
-        )
+        const concurrencyPair = findYAMLPair(workflow, 'concurrency')
 
         if (!concurrencyPair) {
           context.report({
@@ -59,9 +57,7 @@ export default createESLintRule<Options, MessageIds>({
             return
           }
         } else if (isYAMLMapping(concurrency)) {
-          const groupPair = concurrency.pairs.find(
-            pair => getPairKeyValue(pair) === 'group',
-          )
+          const groupPair = findYAMLPair(concurrency, 'group')
 
           const group = resolveYAMLNode(groupPair?.value ?? null)
           if (

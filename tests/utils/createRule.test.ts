@@ -3,6 +3,49 @@ import { createESLintRule } from '../../src/utils/createRule'
 import type { Rule } from 'eslint'
 
 describe('createRule', () => {
+  it.each([
+    { defaults: undefined, configured: [], expected: [] },
+    { defaults: [42], configured: [], expected: [42] },
+    { defaults: [42], configured: [0], expected: [0] },
+    { defaults: [true], configured: [false], expected: [false] },
+    { defaults: ['default'], configured: [''], expected: [''] },
+    { defaults: [42], configured: [undefined], expected: [42] },
+    { defaults: [42], configured: [null], expected: [42] },
+    { defaults: undefined, configured: ['custom'], expected: ['custom'] },
+    { defaults: [1, true], configured: [2], expected: [2, true] },
+    { defaults: [1], configured: [2, false], expected: [2, false] },
+    {
+      defaults: [{ nested: { min: 1, max: 10 }, labels: ['default'] }],
+      configured: [{ nested: { max: 5 }, labels: ['custom'] }],
+      expected: [{ nested: { min: 1, max: 5 }, labels: ['custom'] }],
+    },
+  ])(
+    'resolves options without mutating inputs: %j',
+    ({ defaults, configured, expected }) => {
+      const originalDefaults = structuredClone(defaults)
+      const originalConfigured = structuredClone(configured)
+      const rule = createESLintRule<unknown[], 'testMessage'>({
+        name: 'test-options',
+        meta: {
+          type: 'suggestion',
+          docs: { description: 'Test resolved rule options' },
+          schema: [],
+          defaultOptions: defaults,
+          messages: { testMessage: 'Test message' },
+        },
+        create(context, options) {
+          expect(options).toEqual(expected)
+          return {}
+        },
+      })
+
+      rule.create({ options: configured } as unknown as Rule.RuleContext)
+
+      expect(defaults).toEqual(originalDefaults)
+      expect(configured).toEqual(originalConfigured)
+    },
+  )
+
   it('should merge object options with object defaults', () => {
     type TestOptions = [{ max?: number; min?: number }]
     type TestMessageIds = 'testMessage'

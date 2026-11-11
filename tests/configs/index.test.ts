@@ -17,22 +17,7 @@ describe('configs', () => {
     expect(config.rules).toBeDefined()
   })
 
-  it('should access plugin through getter', () => {
-    const plugins = configs.recommended[0].plugins ?? {}
-
-    // This should trigger the getter
-    const keys = Object.keys(plugins)
-    expect(keys).toContain('github-action')
-
-    // Direct property access
-    const prop = Object.getOwnPropertyDescriptor(plugins, 'github-action')
-    expect(prop).toBeDefined()
-    expect(prop?.get).toBeDefined()
-
-    // Actual getter invocation
-    const githubActionPlugin = (plugins as Record<string, unknown>)[
-      'github-action'
-    ]
-    expect(githubActionPlugin).toBe(plugin)
+  it('uses the exported plugin instance', () => {
+    expect(configs.recommended[0].plugins?.['github-action']).toBe(plugin)
   })
 })

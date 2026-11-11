@@ -1,6 +1,6 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/require-job-name'
-import { $, run } from '../internal'
+import { $, run } from '../helpers/rule-tester'
 import type { Options } from '../../src/rules/require-job-name'
 
 run<Options>({

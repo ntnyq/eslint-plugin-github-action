@@ -2,7 +2,7 @@ import { Linter } from 'eslint'
 import { describe, expect, it } from 'vitest'
 import * as yamlParser from 'yaml-eslint-parser'
 import { plugin } from '../src'
-import { $ } from './internal'
+import { $ } from './helpers/rule-tester'
 import type { Linter as LinterTypes } from 'eslint'
 
 function createConfig(rules: LinterTypes.RulesRecord): LinterTypes.Config[] {

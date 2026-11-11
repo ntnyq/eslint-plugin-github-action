@@ -5,6 +5,7 @@
  * @copyright {@link https://github.com/ota-meshi/eslint-plugin-yml/blob/master/src/utils/ast-utils.ts}
  */
 
+import { isNonEmptyString } from '@ntnyq/utils'
 import { getStaticYAMLValue, traverseNodes } from 'yaml-eslint-parser'
 import type { YAMLAst } from '../types/yaml'
 
@@ -131,4 +132,29 @@ export function isYAMLSequence(
   value: YAMLAst.YAMLContent | YAMLAst.YAMLWithMeta | null,
 ): value is YAMLAst.YAMLSequence {
   return value?.type === 'YAMLSequence'
+}
+
+/**
+ * Get `key` value of YAMLPair.
+ *
+ * @param pair - YAMLPair
+ * @returns - `key` value of YAMLPair or `undefined`
+ */
+export function getPairKeyValue(pair: YAMLAst.YAMLPair) {
+  const key = resolveYAMLNode(pair.key)
+  const value = isYAMLScalar(key) ? getYAMLScalarValue(key) : null
+  if (!isNonEmptyString(value)) {
+    return
+  }
+  return value
+}
+
+/**
+ * Finds the first pair with the given effective string key in source order.
+ * @param node - Mapping to search without resolving its values.
+ * @param key - Effective string key to match.
+ * @returns The first matching pair, or undefined when absent.
+ */
+export function findYAMLPair(node: YAMLAst.YAMLMapping, key: string) {
+  return node.pairs.find(pair => getPairKeyValue(pair) === key)
 }

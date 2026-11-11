@@ -6,8 +6,8 @@ import {
   VALID_STRATEGY_KEYS,
   VALID_TOP_LEVEL_KEYS,
 } from '../constants/key'
-import { createESLintRule } from '../utils'
-import { getPairKeyValue } from '../utils/action'
+import { getPairKeyValue } from '../utils/ast'
+import { createESLintRule } from '../utils/createRule'
 import { visitWorkflow } from '../utils/workflow'
 import type { RuleContext } from '../types/eslint'
 import type { YAMLAst } from '../types/yaml'

@@ -35,7 +35,6 @@ function createRule<
       const optionsWithDefault = Array.from(
         { length: optionsCount },
         (_, i) => {
-          /* v8 ignore start */
           if (
             isObjectNotArray(context.options[i]) &&
             isObjectNotArray(resolvedDefaultOptions[i])
@@ -43,7 +42,6 @@ function createRule<
             return deepMerge(resolvedDefaultOptions[i], context.options[i])
           }
           return context.options[i] ?? resolvedDefaultOptions[i]
-          /* v8 ignore stop */
         },
       ) as unknown as TOptions
       return create(context, optionsWithDefault)

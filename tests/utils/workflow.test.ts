@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { parseYAML } from 'yaml-eslint-parser'
-import { getPairKeyValue } from '../../src/utils/action'
+import { getPairKeyValue } from '../../src/utils/ast'
 import { visitWorkflow } from '../../src/utils/workflow'
-import { $ } from '../internal'
+import { $ } from '../helpers/rule-tester'
 
 describe('visitWorkflow', () => {
   it('visits anchored mappings and recursive parallel groups once per role', () => {

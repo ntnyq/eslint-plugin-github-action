@@ -1,4 +1,4 @@
 import path from 'node:path'
 
-export const resolve = (...args: string[]) =>
+export const resolveProjectPath = (...args: string[]) =>
   path.resolve(import.meta.dirname, '..', ...args)

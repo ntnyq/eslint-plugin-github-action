@@ -4,17 +4,31 @@ export default defineConfig({
   test: {
     watch: false,
     coverage: {
-      exclude: ['**/src/types/**', '**/src/utils/index.ts', '**/src/dts.ts'],
+      exclude: ['**/src/types/**'],
       include: ['**/src/**/*.ts'],
       reporter: ['lcov', 'text'],
       thresholds: {
-        // Branch coverage at 97.3% due to JSON schema-guarded branches
-        // that are unreachable in practice (marked with v8 ignore comments)
+        // Allow for branches guarded by rule option schemas.
         branches: 97,
         functions: 100,
         lines: 100,
         statements: 100,
       },
     },
+    projects: [
+      {
+        test: {
+          exclude: ['tests/integration/**'],
+          include: ['tests/**/*.test.ts'],
+          name: 'source',
+        },
+      },
+      {
+        test: {
+          include: ['tests/integration/**/*.test.ts'],
+          name: 'integration',
+        },
+      },
+    ],
   },
 })

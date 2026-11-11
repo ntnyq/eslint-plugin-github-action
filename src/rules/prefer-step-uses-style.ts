@@ -1,11 +1,6 @@
 import { isNonEmptyString, isString } from '@ntnyq/utils'
-import {
-  createESLintRule,
-  getYAMLScalarValue,
-  isYAMLScalar,
-  resolveOptions,
-} from '../utils'
-import { getPairKeyValue } from '../utils/action'
+import { getPairKeyValue, getYAMLScalarValue, isYAMLScalar } from '../utils/ast'
+import { createESLintRule } from '../utils/createRule'
 import { visitWorkflow } from '../utils/workflow'
 
 const UsesStyle = {
@@ -114,9 +109,7 @@ export default createESLintRule<Options, MessageIds>({
       disallowDocker: 'Disallow using docker action.',
     },
   },
-  create(context) {
-    const rawOptions = resolveOptions(context.options, defaultOptions)
-
+  create(context, [rawOptions]) {
     const usesStyles: AllowedUsesStyle[] = []
     const ignores = isString(rawOptions)
       ? []

@@ -1,6 +1,6 @@
 import { globSync } from 'tinyglobby'
 import { version } from '../../../package.json'
-import { resolve } from '../../../scripts/utils'
+import { resolveProjectPath } from '../../../scripts/paths'
 import { packageName } from '../meta'
 import type { DefaultTheme } from 'vitepress'
 
@@ -20,10 +20,10 @@ function ruleToSidebarItem(ruleId: string): DefaultTheme.SidebarItem {
 }
 
 export function getThemeConfig() {
-  const rules = globSync(resolve('src/rules/*.ts'), {
+  const rules = globSync(resolveProjectPath('src/rules/*.ts'), {
     ignore: ['**/index.ts'],
     onlyFiles: true,
-    cwd: resolve(),
+    cwd: resolveProjectPath(),
   })
     .map(path => path.split('/').pop()!)
     .map(path => path.replace('.ts', ''))

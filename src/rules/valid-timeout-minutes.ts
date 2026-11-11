@@ -1,12 +1,8 @@
 import { isInteger, isNumber } from '@ntnyq/utils'
 import { TIMEOUT_MINUTES } from '../constants/time'
-import {
-  createESLintRule,
-  getYAMLScalarValue,
-  isYAMLScalar,
-  resolveOptions,
-} from '../utils'
-import { getPairKeyValue, isSingleExpression } from '../utils/action'
+import { getPairKeyValue, getYAMLScalarValue, isYAMLScalar } from '../utils/ast'
+import { createESLintRule } from '../utils/createRule'
+import { isSingleExpression } from '../utils/expression'
 import { visitWorkflow } from '../utils/workflow'
 import type { YAMLAst } from '../types/yaml'
 
@@ -139,8 +135,7 @@ export default createESLintRule<Options, MessageIds>({
       invalidRange: 'Timeout-minutes range should be {{min}}-{{max}}.',
     },
   },
-  create(context) {
-    const rawOptions = resolveOptions(context.options, defaultOptions)
+  create(context, [rawOptions]) {
     const jobTimeoutMinutes = {
       min: TIMEOUT_MINUTES.min,
       max: TIMEOUT_MINUTES.max,

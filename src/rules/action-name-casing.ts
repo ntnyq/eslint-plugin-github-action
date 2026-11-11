@@ -1,17 +1,15 @@
 import { isNonEmptyString, isString } from '@ntnyq/utils'
 import { parseYAML } from 'yaml-eslint-parser'
 import {
-  CASING,
-  createESLintRule,
-  getExactConverter,
+  getPairKeyValue,
   getYAMLScalarValue,
   hasExternalYAMLAlias,
   isYAMLScalar,
-  resolveOptions,
-} from '../utils'
-import { getPairKeyValue } from '../utils/action'
+} from '../utils/ast'
+import { CASING, getExactConverter } from '../utils/casing'
+import { createESLintRule } from '../utils/createRule'
 import { visitWorkflow } from '../utils/workflow'
-import type { CasingKind } from '../utils'
+import type { CasingKind } from '../utils/casing'
 
 type AllowedCasing = CasingKind
 
@@ -97,9 +95,7 @@ export default createESLintRule<Options, MessageIds>({
       actionNameNotMatch: `Action name '{{name}}' is not in {{caseTypes}}.`,
     },
   },
-  create(context) {
-    const rawOptions = resolveOptions(context.options, defaultOptions)
-
+  create(context, [rawOptions]) {
     const caseTypes: AllowedCasing[] = []
     const ignores = isString(rawOptions)
       ? []

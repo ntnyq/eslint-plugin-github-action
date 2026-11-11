@@ -1,5 +1,5 @@
-import { createESLintRule, isYAMLMapping, resolveOptions } from '../utils'
-import { getPairKeyValue } from '../utils/action'
+import { getPairKeyValue, isYAMLMapping } from '../utils/ast'
+import { createESLintRule } from '../utils/createRule'
 import { visitWorkflow } from '../utils/workflow'
 
 export const RULE_NAME = 'no-top-level-permissions'
@@ -42,11 +42,7 @@ export default createESLintRule<Options, MessageIds>({
       disallowTopLevelPermissions: 'Disallow using top level permissions.',
     },
   },
-  create(context) {
-    const { allowEmpty = false } = resolveOptions(
-      context.options,
-      defaultOptions,
-    )
+  create(context, [{ allowEmpty = false }]) {
     return {
       YAMLDocument(document) {
         visitWorkflow(document, {

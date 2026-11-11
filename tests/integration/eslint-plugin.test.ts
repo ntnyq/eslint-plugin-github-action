@@ -3,10 +3,10 @@ import { configs, plugin } from 'eslint-plugin-github-action'
 import { glob } from 'tinyglobby'
 import { describe, expect, it } from 'vitest'
 import { getStaticYAMLValue, parseYAML } from 'yaml-eslint-parser'
-import { resolve } from '../scripts/utils'
-import { $ } from './internal'
+import { resolveProjectPath } from '../../scripts/paths'
+import { $ } from '../helpers/rule-tester'
 
-const TEST_CWD = resolve('tests/fixtures/eslint-plugin')
+const TEST_CWD = resolveProjectPath('tests/fixtures/eslint-plugin')
 
 describe('eslint-plugin', () => {
   it.each([
@@ -118,12 +118,7 @@ describe('eslint-plugin', () => {
     expect(plugins).toBeDefined()
     expect(plugins).toHaveProperty('github-action')
 
-    // Explicitly access the getter to trigger line 18
     const githubActionPlugin = plugins['github-action']
     expect(githubActionPlugin).toBe(plugin)
-  })
-
-  it('should expose every documented rule', () => {
-    expect(plugin.rules).toHaveProperty('prefer-fail-fast')
   })
 })

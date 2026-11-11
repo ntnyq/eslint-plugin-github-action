@@ -1,6 +1,6 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/max-jobs-per-action'
-import { $, run } from '../internal'
+import { $, run } from '../helpers/rule-tester'
 import type { Options } from '../../src/rules/max-jobs-per-action'
 
 run<Options>({

@@ -4,7 +4,7 @@
  */
 
 import { isString } from '@ntnyq/utils'
-import { createESLintRule, resolveOptions } from '../utils'
+import { createESLintRule } from '../utils/createRule'
 import type { YAMLAst } from '../types/yaml'
 
 const actionExtension = {
@@ -69,9 +69,7 @@ export default createESLintRule<Options, MessageIds>({
       unexpected: 'Expected extension `{{expected}}`, but got `{{actual}}`.',
     },
   },
-  create(context) {
-    const rawOptions = resolveOptions(context.options, defaultOptions)
-
+  create(context, [rawOptions]) {
     const extension = isString(rawOptions)
       ? rawOptions
       : (rawOptions.extension ?? defaultOptions)

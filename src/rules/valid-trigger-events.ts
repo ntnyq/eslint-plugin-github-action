@@ -1,15 +1,15 @@
 import { isString } from '@ntnyq/utils'
 import { VALID_TRIGGER_EVENTS } from '../constants/event'
 import {
-  createESLintRule,
+  getPairKeyValue,
   getYAMLScalarValue,
   hasExternalYAMLAlias,
   isYAMLMapping,
   isYAMLScalar,
   isYAMLSequence,
   resolveYAMLNode,
-} from '../utils'
-import { getPairKeyValue } from '../utils/action'
+} from '../utils/ast'
+import { createESLintRule } from '../utils/createRule'
 import { visitWorkflow } from '../utils/workflow'
 import type { YAMLAst } from '../types/yaml'
 

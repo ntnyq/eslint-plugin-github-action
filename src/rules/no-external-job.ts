@@ -1,5 +1,5 @@
-import { createESLintRule } from '../utils'
-import { getPairKeyValue } from '../utils/action'
+import { getPairKeyValue } from '../utils/ast'
+import { createESLintRule } from '../utils/createRule'
 import { visitWorkflow } from '../utils/workflow'
 
 export const RULE_NAME = 'no-external-job'

@@ -37,7 +37,7 @@
   ],
   "scripts": {
     "build": "tsdown",
-    "coverage": "vitest --coverage",
+    "coverage": "pnpm build && vitest --coverage",
     "deploy": "run-s build docs:build",
     "dev": "tsdown --watch",
     "docs:build": "pnpm -C docs run build",
@@ -48,9 +48,11 @@
     "prepare": "husky",
     "prepublishOnly": "pnpm run build",
     "release": "run-s release:check release:version",
-    "release:check": "run-s format:check lint typecheck test",
+    "release:check": "run-s format:check lint test typecheck",
     "release:version": "bumpp",
-    "test": "vitest",
+    "test": "pnpm build && vitest",
+    "test:integration": "pnpm build && vitest --project integration",
+    "test:source": "vitest --project source",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {

@@ -1,5 +1,9 @@
-import { getPairKeyValue } from './action'
-import { isYAMLMapping, isYAMLSequence, resolveYAMLNode } from './ast'
+import {
+  getPairKeyValue,
+  isYAMLMapping,
+  isYAMLSequence,
+  resolveYAMLNode,
+} from './ast'
 import type { YAMLAst } from '../types/yaml'
 
 /**

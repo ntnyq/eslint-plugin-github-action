@@ -1,14 +1,9 @@
 import { isString } from '@ntnyq/utils'
-import {
-  CASING,
-  createESLintRule,
-  getExactConverter,
-  isYAMLMapping,
-  resolveOptions,
-} from '../utils'
-import { getPairKeyValue } from '../utils/action'
+import { getPairKeyValue, isYAMLMapping } from '../utils/ast'
+import { CASING, getExactConverter } from '../utils/casing'
+import { createESLintRule } from '../utils/createRule'
 import { visitWorkflow } from '../utils/workflow'
-import type { CasingKind } from '../utils'
+import type { CasingKind } from '../utils/casing'
 
 type AllowedCasing = Exclude<CasingKind, 'Title Case'>
 
@@ -89,9 +84,7 @@ export default createESLintRule<Options, MessageIds>({
       jobIdNotMatch: `Job id '{{id}}' is not in {{caseTypes}}.`,
     },
   },
-  create(context) {
-    const rawOptions = resolveOptions(context.options, defaultOptions)
-
+  create(context, [rawOptions]) {
     const caseTypes: AllowedCasing[] = []
     const ignores = isString(rawOptions)
       ? []

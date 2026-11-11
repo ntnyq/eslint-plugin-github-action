@@ -1,11 +1,12 @@
 import { isNonEmptyString } from '@ntnyq/utils'
 import {
-  createESLintRule,
+  findYAMLPair,
+  getPairKeyValue,
   getYAMLScalarValue,
   isYAMLMapping,
   isYAMLScalar,
-} from '../utils'
-import { getPairKeyValue } from '../utils/action'
+} from '../utils/ast'
+import { createESLintRule } from '../utils/createRule'
 import { visitWorkflow } from '../utils/workflow'
 
 export const RULE_NAME = 'require-job-name'
@@ -49,9 +50,7 @@ export default createESLintRule<Options, MessageIds>({
                   })
                   continue
                 }
-                const namePair = job.pairs.find(
-                  pair => getPairKeyValue(pair) === 'name',
-                )
+                const namePair = findYAMLPair(job, 'name')
                 if (!namePair) {
                   context.report({ node, loc: node.loc, messageId: 'noName' })
                   continue

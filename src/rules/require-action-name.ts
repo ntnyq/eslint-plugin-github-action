@@ -1,6 +1,6 @@
 import { isNonEmptyString } from '@ntnyq/utils'
-import { createESLintRule, getYAMLScalarValue, isYAMLScalar } from '../utils'
-import { getPairKeyValue } from '../utils/action'
+import { findYAMLPair, getYAMLScalarValue, isYAMLScalar } from '../utils/ast'
+import { createESLintRule } from '../utils/createRule'
 import { visitWorkflow } from '../utils/workflow'
 import type { YAMLAst } from '../types/yaml'
 
@@ -31,9 +31,7 @@ export default createESLintRule<Options, MessageIds>({
         }
         visitWorkflow(document, {
           workflow(node, resolve) {
-            const namePair = node.pairs.find(
-              pair => getPairKeyValue(pair) === 'name',
-            )
+            const namePair = findYAMLPair(node, 'name')
 
             if (!namePair) {
               return context.report({

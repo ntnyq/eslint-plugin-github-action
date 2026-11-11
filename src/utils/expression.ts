@@ -1,27 +1,4 @@
 /**
- * @file utils for GitHub action
- */
-
-import { isNonEmptyString } from '@ntnyq/utils'
-import { getYAMLScalarValue, isYAMLScalar, resolveYAMLNode } from './ast'
-import type { YAMLAst } from '../types/yaml'
-
-/**
- * Get `key` value of YAMLPair.
- *
- * @param pair - YAMLPair
- * @returns - `key` value of YAMLPair or `undefined`
- */
-export function getPairKeyValue(pair: YAMLAst.YAMLPair) {
-  const key = resolveYAMLNode(pair.key)
-  const value = isYAMLScalar(key) ? getYAMLScalarValue(key) : null
-  if (!isNonEmptyString(value)) {
-    return
-  }
-  return value
-}
-
-/**
  * Checks whether a value consists of one complete GitHub Actions expression.
  * Quoted expression strings may contain closing delimiters and escaped quotes.
  *

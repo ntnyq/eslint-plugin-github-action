@@ -1,5 +1,5 @@
-import { createESLintRule, isYAMLMapping, resolveOptions } from '../utils'
-import { getPairKeyValue } from '../utils/action'
+import { getPairKeyValue, isYAMLMapping } from '../utils/ast'
+import { createESLintRule } from '../utils/createRule'
 import { visitWorkflow } from '../utils/workflow'
 
 export const RULE_NAME = 'max-jobs-per-action'
@@ -28,9 +28,7 @@ export default createESLintRule<Options, MessageIds>({
       toManyJobs: 'There are {{count}} jobs, maximum allowed is {{limit}}.',
     },
   },
-  create(context) {
-    const optionLimit = resolveOptions(context.options, defaultOptions)
-
+  create(context, [optionLimit]) {
     /* v8 ignore next guard by json-schema */
     const limit = optionLimit >= 1 ? optionLimit : defaultOptions
 

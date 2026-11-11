@@ -1,11 +1,12 @@
 import {
-  createESLintRule,
+  findYAMLPair,
+  getPairKeyValue,
   getYAMLScalarValue,
   isYAMLMapping,
   isYAMLScalar,
   resolveYAMLNode,
-} from '../utils'
-import { getPairKeyValue } from '../utils/action'
+} from '../utils/ast'
+import { createESLintRule } from '../utils/createRule'
 import { visitWorkflow } from '../utils/workflow'
 import type { YAMLAst } from '../types/yaml'
 
@@ -39,9 +40,7 @@ export default createESLintRule<Options, MessageIds>({
         return
       }
 
-      const cancelPair = concurrency.pairs.find(
-        pair => getPairKeyValue(pair) === 'cancel-in-progress',
-      )
+      const cancelPair = findYAMLPair(concurrency, 'cancel-in-progress')
 
       const cancel = resolveYAMLNode(cancelPair?.value ?? null)
       if (!isYAMLScalar(cancel) || getYAMLScalarValue(cancel) !== true) {
