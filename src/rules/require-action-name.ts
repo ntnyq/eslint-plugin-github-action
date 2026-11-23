@@ -27,8 +27,10 @@ export default createESLintRule<Options, MessageIds>({
       YAMLDocument(document: YAMLAst.YAMLDocument) {
         if (!document.content) {
           context.report({ node: document, messageId: 'noName' })
+
           return
         }
+
         visitWorkflow(document, {
           workflow(node, resolve) {
             const namePair = findYAMLPair(node, 'name')
@@ -41,6 +43,7 @@ export default createESLintRule<Options, MessageIds>({
             }
 
             const value = resolve(namePair.value)
+
             if (
               !isYAMLScalar(value) ||
               !isNonEmptyString(getYAMLScalarValue(value))

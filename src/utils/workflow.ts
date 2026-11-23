@@ -78,22 +78,28 @@ export function visitWorkflow(
    */
   function visitMapping(value: YAMLValue, kind: MappingKind) {
     const node = resolve(value)
+
     if (!isYAMLMapping(node)) {
       return
     }
+
     let mappings = visited.get(kind)
+
     if (!mappings) {
       mappings = new Set()
       visited.set(kind, mappings)
     }
+
     if (mappings.has(node)) {
       return
     }
+
     mappings.add(node)
     visitors[kind]?.(node, resolve)
 
     for (const pair of node.pairs) {
       const key = getPairKeyValue(pair)
+
       if (kind === 'workflow' && key === 'jobs') {
         visitEntries(pair.value, 'job')
       } else if (kind === 'job') {
@@ -121,6 +127,7 @@ export function visitWorkflow(
    */
   function visitEntries(value: YAMLValue, kind: MappingKind) {
     const node = resolve(value)
+
     if (isYAMLMapping(node)) {
       for (const pair of node.pairs) {
         visitMapping(pair.value, kind)
@@ -137,10 +144,13 @@ export function visitWorkflow(
    */
   function visitSteps(value: YAMLValue) {
     const node = resolve(value)
+
     if (!isYAMLSequence(node) || visitedSequences.has(node)) {
       return
     }
+
     visitedSequences.add(node)
+
     for (const entry of node.entries) {
       visitMapping(entry, 'step')
     }

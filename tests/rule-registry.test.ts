@@ -40,6 +40,7 @@ describe('rule registry', () => {
 
   it('references only registered rules in presets', () => {
     const names = ruleNames.map(name => `github-action/${name}`)
+
     for (const preset of Object.values(configs)) {
       for (const config of preset) {
         for (const name of Object.keys(config.rules ?? {})) {

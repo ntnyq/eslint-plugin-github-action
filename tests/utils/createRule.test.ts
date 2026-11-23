@@ -35,6 +35,7 @@ describe('createRule', () => {
         },
         create(context, options) {
           expect(options).toEqual(expected)
+
           return {}
         },
       })
@@ -67,6 +68,7 @@ describe('createRule', () => {
       create(context, options) {
         // Verify that options were merged correctly
         expect(options[0]).toEqual({ max: 50, min: 0 })
+
         return {}
       },
     })
@@ -100,6 +102,7 @@ describe('createRule', () => {
       },
       create(context, options) {
         expect(options[0]).toBe(42)
+
         return {}
       },
     })
@@ -131,6 +134,7 @@ describe('createRule', () => {
       },
       create(context, options) {
         expect(options[0]).toBe('custom')
+
         return {}
       },
     })

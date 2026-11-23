@@ -10,6 +10,7 @@ describe('configs', () => {
 
   it('should have correct structure', () => {
     const config = configs.recommended[0]
+
     expect(config.name).toBe('github-action/recommended')
     expect(config.files).toEqual(['**/.github/workflows/*.y?(a)ml'])
     expect(config.plugins).toBeDefined()

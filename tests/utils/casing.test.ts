@@ -6,6 +6,7 @@ const CASING_FIXTURES = Object.values(CASING)
 describe('getExactConverter', () => {
   it('to camelCase', () => {
     const camelCase = getExactConverter(CASING.camelCase)
+
     expect(CASING_FIXTURES.map(camelCase)).toMatchInlineSnapshot(`
       [
         {
@@ -42,6 +43,7 @@ describe('getExactConverter', () => {
 
   it('to kebabCase', () => {
     const kebabCase = getExactConverter(CASING.kebabCase)
+
     expect(CASING_FIXTURES.map(kebabCase)).toMatchInlineSnapshot(`
       [
         {
@@ -78,6 +80,7 @@ describe('getExactConverter', () => {
 
   it('to pascalCase', () => {
     const pascalCase = getExactConverter(CASING.pascalCase)
+
     expect(CASING_FIXTURES.map(pascalCase)).toMatchInlineSnapshot(`
       [
         {
@@ -114,6 +117,7 @@ describe('getExactConverter', () => {
 
   it('to snakeCase', () => {
     const snakeCase = getExactConverter(CASING.snakeCase)
+
     expect(CASING_FIXTURES.map(snakeCase)).toMatchInlineSnapshot(`
       [
         {
@@ -150,6 +154,7 @@ describe('getExactConverter', () => {
 
   it('to titleCase', () => {
     const titleCase = getExactConverter(CASING.titleCase)
+
     expect(CASING_FIXTURES.map(titleCase)).toMatchInlineSnapshot(`
       [
         {
@@ -186,6 +191,7 @@ describe('getExactConverter', () => {
 
   it('to trainCase', () => {
     const trainCase = getExactConverter(CASING.trainCase)
+
     expect(CASING_FIXTURES.map(trainCase)).toMatchInlineSnapshot(`
       [
         {
@@ -222,6 +228,7 @@ describe('getExactConverter', () => {
 
   it('to screamingSnakeCase', () => {
     const screamingSnakeCase = getExactConverter(CASING.screamingSnakeCase)
+
     expect(CASING_FIXTURES.map(screamingSnakeCase)).toMatchInlineSnapshot(`
       [
         {

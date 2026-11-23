@@ -41,6 +41,7 @@ export default createESLintRule<Options, MessageIds>({
               if (getPairKeyValue(node) !== 'on') {
                 continue
               }
+
               validateEvents(node, resolve(node.value))
             }
           },
@@ -58,11 +59,13 @@ export default createESLintRule<Options, MessageIds>({
 
       if (isYAMLScalar(value)) {
         validateEvent(node.value)
+
         return
       }
 
       if (isYAMLSequence(value)) {
         value.entries.forEach(validateEvent)
+
         return
       }
 
@@ -72,6 +75,7 @@ export default createESLintRule<Options, MessageIds>({
           loc: node.value.loc,
           messageId: 'invalidPair',
         })
+
         return
       }
 
@@ -88,6 +92,7 @@ export default createESLintRule<Options, MessageIds>({
       onMapping.pairs.forEach(pair => {
         const canRemove = canFix && !hasExternalYAMLAlias(pair)
         const event = getPairKeyValue(pair)
+
         if (event) {
           if (VALID_TRIGGER_EVENTS.includes(event)) {
             return
@@ -123,12 +128,14 @@ export default createESLintRule<Options, MessageIds>({
       const value = resolveYAMLNode(eventNode)
       const scalarValue = isYAMLScalar(value) ? getYAMLScalarValue(value) : null
       const reportNode = eventNode ?? context.sourceCode.ast
+
       if (!isYAMLScalar(value) || !isString(scalarValue)) {
         context.report({
           node: reportNode,
           loc: eventNode?.loc,
           messageId: 'invalidPair',
         })
+
         return
       }
 

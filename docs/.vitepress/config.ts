@@ -37,11 +37,14 @@ export default defineConfig({
         render(tokens: MarkdownItToken[], idx: number) {
           if (tokens[idx].nesting === 1) {
             const next = tokens[idx + 1]
+
             if (next.type === 'fence') {
               next.info = [next.info, 'eslint-check'].filter(Boolean).join(' ')
             }
+
             return '<CustomWrapper type="correct">'
           }
+
           return '</CustomWrapper>\n'
         },
       })
@@ -50,11 +53,14 @@ export default defineConfig({
         render(tokens: MarkdownItToken[], idx: number) {
           if (tokens[idx].nesting === 1) {
             const next = tokens[idx + 1]
+
             if (next.type === 'fence') {
               next.info = [next.info, 'eslint-check'].filter(Boolean).join(' ')
             }
+
             return '<CustomWrapper type="incorrect">'
           }
+
           return '</CustomWrapper>\n'
         },
       })

@@ -13,17 +13,21 @@ import {
 
 function parseMapping(code: string) {
   const node = resolveYAMLNode(parseYAML(code).body[0].content)
+
   if (!isYAMLMapping(node)) {
     throw new Error('Expected a YAML mapping')
   }
+
   return node
 }
 
 function parsePair(code: string, key = 'value') {
   const pair = findYAMLPair(parseMapping(code), key)
+
   if (!pair) {
     throw new Error(`Expected a YAML pair named ${key}`)
   }
+
   return pair
 }
 
@@ -35,6 +39,7 @@ describe('YAML type guards', () => {
     { code: '[]', scalar: false, mapping: false, sequence: true },
   ])('identifies parsed content: $code', testCase => {
     const node = parseYAML(testCase.code).body[0].content
+
     expect(isYAMLScalar(node)).toBe(testCase.scalar)
     expect(isYAMLMapping(node)).toBe(testCase.mapping)
     expect(isYAMLSequence(node)).toBe(testCase.sequence)
@@ -57,6 +62,7 @@ describe('getPairKeyValue', () => {
 
   it('resolves aliased keys', () => {
     const node = parseMapping('first: &key name\n? *key\n: CI')
+
     expect(getPairKeyValue(node.pairs[1])).toBe('name')
   })
 })
@@ -66,6 +72,7 @@ describe('findYAMLPair', () => {
     const node = parseMapping(
       'first: &key name\n? *key\n: &value CI\n!!str name: other',
     )
+
     expect(findYAMLPair(node, 'name')).toBe(node.pairs[1])
     expect(findYAMLPair(node, 'name')?.value?.type).toBe('YAMLWithMeta')
   })
@@ -85,12 +92,15 @@ describe('resolveYAMLNode', () => {
 
   it('preserves the identity and range of unwrapped nodes', () => {
     const plain = parsePair('value: CI').value
+
     expect(resolveYAMLNode(plain)).toBe(plain)
 
     const wrapped = parsePair('value: &name !!str false').value
+
     if (wrapped?.type !== 'YAMLWithMeta') {
       throw new Error('Expected YAML metadata')
     }
+
     expect(resolveYAMLNode(wrapped)).toBe(wrapped.value)
     expect(resolveYAMLNode(wrapped)?.range).toEqual(wrapped.value?.range)
   })
@@ -99,6 +109,7 @@ describe('resolveYAMLNode', () => {
     const node = parseMapping(
       'first: &name first\nvalue: *name\nsecond: &name second\ncopy: *name',
     )
+
     expect(resolveYAMLNode(node.pairs[1].value)).toBe(
       resolveYAMLNode(node.pairs[0].value),
     )
@@ -121,9 +132,11 @@ describe('resolveYAMLNode', () => {
 
     const documents = parseYAML('value: &name CI\n---\nvalue: *name').body
     const node = documents[1].content
+
     if (!isYAMLMapping(node)) {
       throw new Error('Expected a YAML mapping')
     }
+
     expect(resolveYAMLNode(node.pairs[0].value)).toBeNull()
   })
 })
@@ -138,9 +151,11 @@ describe('getYAMLScalarValue', () => {
     { source: '&name !!str false', value: 'false' },
   ])('preserves explicit tag semantics: $source', ({ source, value }) => {
     const node = resolveYAMLNode(parsePair(`value: ${source}`).value)
+
     if (!isYAMLScalar(node)) {
       throw new Error('Expected a YAML scalar')
     }
+
     expect(getYAMLScalarValue(node)).toBe(value)
   })
 })

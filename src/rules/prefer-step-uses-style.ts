@@ -150,10 +150,12 @@ export default createESLintRule<Options, MessageIds>({
               if (getPairKeyValue(node) !== 'uses') {
                 continue
               }
+
               const value = resolve(node.value)
               const scalarValue = isYAMLScalar(value)
                 ? getYAMLScalarValue(value)
                 : null
+
               // step uses is not non-empty string
               if (
                 !node.value ||
@@ -226,6 +228,7 @@ function parseJobStepUses(uses: string) {
     isRepository: false,
     isDocker: false,
   }
+
   if (uses.startsWith('./') || uses.startsWith('$/')) {
     result.isRepository = true
   } else if (uses.startsWith('docker://')) {

@@ -28,7 +28,9 @@ export default createESLintRule<Options, MessageIds>({
               if (getPairKeyValue(pair) !== 'fail-fast') {
                 continue
               }
+
               const value = resolve(pair.value)
+
               if (isYAMLScalar(value) && getYAMLScalarValue(value) === false) {
                 context.report({
                   node: pair,

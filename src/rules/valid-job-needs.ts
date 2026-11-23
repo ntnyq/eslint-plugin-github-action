@@ -58,37 +58,48 @@ function findCycles(jobs: Map<string, Job>): Job[][] {
     if (root.index !== -1) {
       continue
     }
+
     enter(root)
+
     // Keep DFS frames on the heap so dependency depth cannot exhaust the call stack.
     while (frames.length) {
       const { job, dependencies } = frames[frames.length - 1]
       const next = dependencies.next()
+
       if (!next.done) {
         const dependency = next.value
+
         if (dependency.index === -1) {
           enter(dependency)
         } else if (dependency.onStack) {
           job.lowlink = Math.min(job.lowlink, dependency.index)
         }
+
         continue
       }
 
       frames.pop()
+
       if (frames.length) {
         const parent = frames[frames.length - 1].job
+
         parent.lowlink = Math.min(parent.lowlink, job.lowlink)
       }
+
       if (job.lowlink === job.index) {
         const component = stack.splice(job.stackIndex)
+
         for (const member of component) {
           member.onStack = false
         }
+
         if (component.length > 1) {
           cycles.push(component.sort((a, b) => a.order - b.order))
         }
       }
     }
   }
+
   return cycles.sort((a, b) => a[0].order - b[0].order)
 }
 
@@ -120,15 +131,19 @@ export default createESLintRule<Options, MessageIds>({
               if (getPairKeyValue(jobsPair) !== 'jobs') {
                 continue
               }
+
               const mapping = resolve(jobsPair.value)
+
               if (!isYAMLMapping(mapping)) {
                 continue
               }
 
               // Collect by ID, since aliased mappings can belong to several jobs.
               const jobs = new Map<string, Job>()
+
               for (const pair of mapping.pairs) {
                 const id = getPairKeyValue(pair)
+
                 if (id) {
                   jobs.set(id, {
                     id,
@@ -145,9 +160,11 @@ export default createESLintRule<Options, MessageIds>({
 
               for (const job of jobs.values()) {
                 const body = resolve(job.pair.value)
+
                 if (!isYAMLMapping(body)) {
                   continue
                 }
+
                 const jobAlias =
                   jobsPair.value?.type === 'YAMLAlias'
                     ? jobsPair.value
@@ -159,12 +176,15 @@ export default createESLintRule<Options, MessageIds>({
                   if (getPairKeyValue(pair) !== 'needs') {
                     continue
                   }
+
                   const needs = resolve(pair.value)
                   const alias =
                     jobAlias ??
                     (pair.value?.type === 'YAMLAlias' ? pair.value : undefined)
+
                   if (isYAMLSequence(needs)) {
                     let indicators: YAMLAst.Token[] | undefined
+
                     for (const [index, entry] of needs.entries.entries()) {
                       if (!entry) {
                         indicators ??= getYAMLSequenceEntryIndicators(
@@ -178,6 +198,7 @@ export default createESLintRule<Options, MessageIds>({
                         })
                         continue
                       }
+
                       validateDependency(
                         resolve(entry),
                         alias ?? entry,
@@ -207,6 +228,7 @@ export default createESLintRule<Options, MessageIds>({
                   .sort((a, b) => a.range[0] - b.range[0])
                 // Every multi-job component contains at least one internal edge.
                 const node = references[0]
+
                 context.report({
                   node,
                   loc: node.loc,
@@ -227,6 +249,7 @@ export default createESLintRule<Options, MessageIds>({
       jobs: Map<string, Job>,
     ) {
       const dependency = isYAMLScalar(value) ? getYAMLScalarValue(value) : null
+
       if (typeof dependency !== 'string' || !dependency.trim()) {
         context.report({ node, loc: node.loc, messageId: 'invalidNeeds' })
       } else if (hasExpression(dependency)) {
@@ -244,6 +267,7 @@ export default createESLintRule<Options, MessageIds>({
         })
       } else {
         const target = jobs.get(dependency)
+
         if (!target) {
           context.report({
             node,

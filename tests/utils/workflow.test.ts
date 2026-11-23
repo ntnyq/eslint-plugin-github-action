@@ -31,6 +31,7 @@ describe('visitWorkflow', () => {
           steps: *steps
     `).body
     const kinds: string[] = []
+
     visitWorkflow(document, {
       workflow: () => kinds.push('workflow'),
       job: () => kinds.push('job'),
@@ -70,16 +71,19 @@ describe('visitWorkflow', () => {
             - uses: *uses
     `).body
     const values: unknown[] = []
+
     for (const document of documents) {
       visitWorkflow(document, {
         step(node, resolve) {
           for (const pair of node.pairs) {
             const value = resolve(pair.value)
+
             values.push(value?.type === 'YAMLScalar' ? value.value : null)
           }
         },
       })
     }
+
     expect(values).toEqual([
       'first',
       'first',
@@ -119,6 +123,7 @@ describe('visitWorkflow', () => {
                   - uses: ignored
     `).body
     const keys: unknown[] = []
+
     visitWorkflow(document, {
       step(node) {
         keys.push(node.pairs.map(getPairKeyValue))

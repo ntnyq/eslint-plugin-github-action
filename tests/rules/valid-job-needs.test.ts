@@ -430,6 +430,7 @@ it.each([false, true])(
     const code = `jobs:\n${Array.from({ length: jobCount }, (_, index) => {
       const dependency =
         index + 1 < jobCount ? `job${index + 1}` : isCycle ? 'job0' : ''
+
       return `  job${index}: { needs: [${dependency}] }`
     }).join('\n')}`
     const messages = new Linter().verify(code, [
@@ -439,6 +440,7 @@ it.each([false, true])(
         rules: { [`test/${RULE_NAME}`]: 'error' },
       },
     ])
+
     expect(messages.map(message => message.messageId)).toEqual(
       isCycle ? ['circularDependency'] : [],
     )

@@ -32,11 +32,13 @@ export default createESLintRule<Options, MessageIds>({
     return {
       YAMLDocument(node: YAMLAst.YAMLDocument) {
         const workflow = resolveYAMLNode(node.content)
+
         if (!isYAMLMapping(workflow)) {
           context.report({
             node,
             messageId: 'noConcurrencyGroup',
           })
+
           return
         }
 
@@ -48,10 +50,12 @@ export default createESLintRule<Options, MessageIds>({
             loc: workflow.loc,
             messageId: 'noConcurrencyGroup',
           })
+
           return
         }
 
         const concurrency = resolveYAMLNode(concurrencyPair.value)
+
         if (isYAMLScalar(concurrency)) {
           if (isNonEmptyString(getYAMLScalarValue(concurrency))) {
             return
@@ -60,6 +64,7 @@ export default createESLintRule<Options, MessageIds>({
           const groupPair = findYAMLPair(concurrency, 'group')
 
           const group = resolveYAMLNode(groupPair?.value ?? null)
+
           if (
             isYAMLScalar(group) &&
             isNonEmptyString(getYAMLScalarValue(group))
