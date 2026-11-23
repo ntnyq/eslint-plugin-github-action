@@ -33,6 +33,7 @@ export default createESLintRule<Options, MessageIds>({
       value: YAMLAst.YAMLContent | null,
     ) {
       const scalarValue = isYAMLScalar(value) ? getYAMLScalarValue(value) : null
+
       if (
         !node.value ||
         !isYAMLScalar(value) ||
@@ -54,19 +55,23 @@ export default createESLintRule<Options, MessageIds>({
             messageId: 'disallowUnpinnedDockerUses',
           })
         }
+
         return
       }
 
       const atIndex = usesValue.lastIndexOf('@')
+
       if (atIndex === -1) {
         context.report({
           node: node.value,
           messageId: 'disallowUnpinnedUses',
         })
+
         return
       }
 
       const ref = usesValue.slice(atIndex + 1)
+
       if (!SHA1_PATTERN.test(ref)) {
         context.report({
           node: node.value,
@@ -85,12 +90,14 @@ export default createESLintRule<Options, MessageIds>({
         }
       }
     }
+
     return {
       YAMLDocument(document) {
         const visitors = {
           job: checkMapping,
           step: checkMapping,
         }
+
         visitWorkflow(document, visitors)
       },
     }

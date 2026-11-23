@@ -198,6 +198,7 @@ export default createESLintRule<Options, MessageIds>({
       }
 
       const scalarValue = getYAMLScalarValue(value)
+
       if (typeof scalarValue === 'string' && isSingleExpression(scalarValue)) {
         return
       }

@@ -20,6 +20,7 @@ describe('deepMerge', () => {
     b: [3, 4, 5],
     c: 2,
   }
+
   it('should merge two objects', () => {
     expect(deepMerge(OBJECT_DEEP, OBJECT_SHALLOW)).toMatchInlineSnapshot(`
       {

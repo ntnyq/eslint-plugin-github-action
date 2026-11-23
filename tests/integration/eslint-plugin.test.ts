@@ -27,6 +27,7 @@ describe('eslint-plugin', () => {
     const result = new Linter().verifyAndFix(code, configs.recommended, {
       filename: '.github/workflows/ci.yml',
     })
+
     expect(result.messages.map(message => message.messageId)).toEqual([
       'selfDependency',
       'unknownJob',
@@ -45,6 +46,7 @@ describe('eslint-plugin', () => {
     { min: 361 },
   ])('rejects timeout options beyond the step limit: %j', options => {
     const linter = new Linter()
+
     expect(() =>
       linter.verify(
         'jobs: {}',
@@ -74,6 +76,7 @@ describe('eslint-plugin', () => {
         config,
         { filename: '.github/workflows/ci.yml' },
       )
+
       expect(result.fixed).toBe(true)
       expect(result.messages).toEqual([])
       expect(getStaticYAMLValue(parseYAML(result.output))).toMatchObject({
@@ -113,6 +116,7 @@ describe('eslint-plugin', () => {
       ],
       { filename: '.github/workflows/ci.yml' },
     )
+
     expect(messages.map(message => message.messageId)).toEqual([
       'disallowUnpinnedUses',
       'notInteger',
@@ -148,6 +152,7 @@ describe('eslint-plugin', () => {
     expect(plugins).toHaveProperty('github-action')
 
     const githubActionPlugin = plugins['github-action']
+
     expect(githubActionPlugin).toBe(plugin)
   })
 })

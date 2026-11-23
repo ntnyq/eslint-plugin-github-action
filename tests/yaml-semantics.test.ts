@@ -27,6 +27,7 @@ describe('YAML workflow semantics', () => {
         createConfig({ 'github-action/valid-trigger-events': 'error' }),
         { filename },
       )
+
       expect(messages.map(message => message.messageId)).toEqual([
         'invalidPair',
       ])
@@ -126,6 +127,7 @@ describe('YAML workflow semantics', () => {
       createConfig({ [`github-action/${rule}`]: 'error' }),
       { filename },
     )
+
     expect(messages.map(message => message.messageId)).toEqual(errors)
   })
 
@@ -168,6 +170,7 @@ describe('YAML workflow semantics', () => {
         createConfig({ [`github-action/${rule}`]: 'error' }),
         { filename },
       )
+
       expect(result.output).toBe(code)
       expect(result.fixed).toBe(false)
       expect(result.messages.map(message => message.messageId)).toEqual([error])
@@ -183,6 +186,7 @@ describe('YAML workflow semantics', () => {
       createConfig({ 'github-action/action-name-casing': 'error' }),
       { filename },
     )
+
     expect(result.fixed).toBe(true)
     expect(result.messages).toEqual([])
     expect(
@@ -220,6 +224,7 @@ describe('YAML workflow semantics', () => {
         createConfig({ [`github-action/${rule}`]: 'error' }),
         { filename },
       )
+
       expect(result.fixed).toBe(true)
       expect(result.output).toBe(output)
       expect(result.messages).toEqual([])
@@ -300,6 +305,7 @@ describe('YAML workflow semantics', () => {
         createConfig({ [`github-action/${rule}`]: 'error' }),
         { filename },
       )
+
       expect(messages.map(message => message.messageId)).toEqual(messageIds)
     },
   )
@@ -331,6 +337,7 @@ describe('YAML workflow semantics', () => {
       }),
       { filename },
     )
+
     expect(messages).toEqual([])
   })
 
@@ -343,6 +350,7 @@ describe('YAML workflow semantics', () => {
       }),
       { filename },
     )
+
     expect(result.output).toBe(code)
     expect(result.fixed).toBe(false)
     expect(result.messages.map(message => message.messageId)).toEqual([
@@ -363,6 +371,7 @@ describe('YAML workflow semantics', () => {
       }),
       { filename },
     )
+
     expect(result.messages).toEqual([])
     expect(result.output).toBe(code)
     expect(result.fixed).toBe(false)
@@ -380,6 +389,7 @@ describe('YAML workflow semantics', () => {
       const value = yamlParser.getStaticYAMLValue(
         yamlParser.parseYAML(result.output),
       )
+
       expect(value).toHaveProperty('name', expect.any(String))
       expect(
         new Linter().verifyAndFix(result.output, config, { filename }).fixed,
@@ -396,6 +406,7 @@ describe('YAML workflow semantics', () => {
         createConfig({ 'github-action/no-unpinned-uses': 'error' }),
         { filename },
       )
+
       expect(messages.map(message => message.messageId)).toEqual([
         'disallowUnpinnedUses',
       ])
@@ -428,6 +439,7 @@ describe('YAML workflow semantics', () => {
       }),
       { filename },
     )
+
     expect(messages).toEqual([])
   })
 
@@ -446,6 +458,7 @@ describe('YAML workflow semantics', () => {
       createConfig({ 'github-action/prefer-fail-fast': 'error' }),
       { filename },
     )
+
     expect(messages.map(message => message.messageId)).toEqual([
       'unexpected',
       'unexpected',
@@ -464,6 +477,7 @@ describe('YAML workflow semantics', () => {
       createConfig({ 'github-action/valid-timeout-minutes': 'error' }),
       { filename },
     )
+
     expect(messages.map(message => message.messageId)).toEqual(errors)
   })
 
@@ -477,6 +491,7 @@ describe('YAML workflow semantics', () => {
       }),
       { filename },
     )
+
     expect(result.output).toBe(code)
     expect(result.fixed).toBe(false)
     expect(result.messages.map(message => message.messageId)).toEqual([
@@ -492,6 +507,7 @@ describe('YAML workflow semantics', () => {
       }),
       { filename },
     )
+
     expect(result.output).toBe('run-name: &name unit-test\nname: "Unit Test"')
     expect(result.messages).toEqual([])
   })

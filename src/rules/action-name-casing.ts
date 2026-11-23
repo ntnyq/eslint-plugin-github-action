@@ -143,10 +143,12 @@ export default createESLintRule<Options, MessageIds>({
               if (getPairKeyValue(node) !== 'name') {
                 continue
               }
+
               const value = resolve(node.value)
               const scalarValue = isYAMLScalar(value)
                 ? getYAMLScalarValue(value)
                 : null
+
               // name is a non-empty string
               if (isYAMLScalar(value) && isNonEmptyString(scalarValue)) {
                 const name = scalarValue
@@ -170,6 +172,7 @@ export default createESLintRule<Options, MessageIds>({
                         ? fixer => {
                             const result = getExactConverter(caseTypes[0])(name)
                             let replacement = result.value
+
                             if (!isNonEmptyString(replacement)) {
                               return null
                             }
@@ -179,6 +182,7 @@ export default createESLintRule<Options, MessageIds>({
                             const parsed = parseYAML(replacement, {
                               defaultYAMLVersion: '1.1',
                             }).body[0].content
+
                             if (
                               (style === 'plain' &&
                                 (!isYAMLScalar(parsed) ||

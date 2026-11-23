@@ -31,18 +31,21 @@ export default createESLintRule<Options, MessageIds>({
   create(context) {
     function checkConcurrency(node: YAMLAst.YAMLPair) {
       const concurrency = resolveYAMLNode(node.value)
+
       if (!isYAMLMapping(concurrency)) {
         context.report({
           node: node.value || node,
           loc: node.value?.loc || node.loc,
           messageId: 'preferCancelInProgress',
         })
+
         return
       }
 
       const cancelPair = findYAMLPair(concurrency, 'cancel-in-progress')
 
       const cancel = resolveYAMLNode(cancelPair?.value ?? null)
+
       if (!isYAMLScalar(cancel) || getYAMLScalarValue(cancel) !== true) {
         context.report({
           node: cancelPair?.value || cancelPair || concurrency,

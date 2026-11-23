@@ -42,9 +42,11 @@ export const convertersMap: Record<CasingKind, (value: string) => string> = {
 
 export function getExactConverter(caseType: string) {
   const convert = convertersMap[caseType as CasingKind]
+
   return (source: string) => {
     const value = convert(source)
     const changed = value !== source
+
     return {
       value,
       changed,

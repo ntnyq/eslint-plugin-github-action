@@ -36,12 +36,16 @@ export default createESLintRule<Options, MessageIds>({
               if (getPairKeyValue(jobsPair) !== 'jobs') {
                 continue
               }
+
               const jobs = resolve(jobsPair.value)
+
               if (!isYAMLMapping(jobs)) {
                 continue
               }
+
               for (const node of jobs.pairs) {
                 const job = resolve(node.value)
+
                 if (!isYAMLMapping(job)) {
                   context.report({
                     node: node.value ?? node,
@@ -50,12 +54,16 @@ export default createESLintRule<Options, MessageIds>({
                   })
                   continue
                 }
+
                 const namePair = findYAMLPair(job, 'name')
+
                 if (!namePair) {
                   context.report({ node, loc: node.loc, messageId: 'noName' })
                   continue
                 }
+
                 const value = resolve(namePair.value)
+
                 if (
                   !isYAMLScalar(value) ||
                   !isNonEmptyString(getYAMLScalarValue(value))

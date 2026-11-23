@@ -112,6 +112,7 @@ export default createESLintRule<Options, MessageIds>({
         caseTypes.push(defaultOptions)
       }
     }
+
     const converters = caseTypes.map(caseType => getExactConverter(caseType))
 
     function isJobIdValid(id: string) {
@@ -131,12 +132,16 @@ export default createESLintRule<Options, MessageIds>({
               if (getPairKeyValue(pair) !== 'jobs') {
                 continue
               }
+
               const jobs = resolve(pair.value)
+
               if (!isYAMLMapping(jobs)) {
                 continue
               }
+
               for (const node of jobs.pairs) {
                 const id = getPairKeyValue(node)
+
                 if (id && !isJobIdValid(id)) {
                   context.report({
                     node: node.key ?? node,

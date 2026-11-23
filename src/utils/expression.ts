@@ -16,10 +16,13 @@ export function hasExpression(value: string): boolean {
  */
 export function isSingleExpression(value: string): boolean {
   const source = value.trim()
+
   if (!source.startsWith('${{')) {
     return false
   }
+
   let inString = false
+
   for (let index = 3; index < source.length; index++) {
     if (source[index] === "'") {
       if (inString && source[index + 1] === "'") {
@@ -33,5 +36,6 @@ export function isSingleExpression(value: string): boolean {
       )
     }
   }
+
   return false
 }

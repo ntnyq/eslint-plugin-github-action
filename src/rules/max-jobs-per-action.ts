@@ -40,11 +40,15 @@ export default createESLintRule<Options, MessageIds>({
               if (getPairKeyValue(pair) !== 'jobs') {
                 continue
               }
+
               const node = resolve(pair.value)
+
               if (!isYAMLMapping(node)) {
                 continue
               }
+
               const count = node.pairs.length
+
               if (count > limit) {
                 context.report({
                   node,

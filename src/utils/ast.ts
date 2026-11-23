@@ -17,9 +17,11 @@ import type { YAMLAst } from '../types/yaml'
  */
 function getYAMLDocument(node: Exclude<YAMLAst.YAMLNode, YAMLAst.YAMLProgram>) {
   let parent: YAMLAst.YAMLNode = node
+
   while (parent.type !== 'YAMLDocument') {
     parent = parent.parent
   }
+
   return parent
 }
 
@@ -30,9 +32,11 @@ function getYAMLDocument(node: Exclude<YAMLAst.YAMLNode, YAMLAst.YAMLProgram>) {
  */
 function getYAMLAnchor(node: YAMLAst.YAMLAlias) {
   const document = getYAMLDocument(node)
+
   if (!Object.hasOwn(document.anchors, node.name)) {
     return
   }
+
   return document.anchors[node.name].findLast(
     anchor => anchor.range[0] < node.range[0],
   )
@@ -51,10 +55,13 @@ export function resolveYAMLNode(
   if (node?.type === 'YAMLWithMeta') {
     return node.value
   }
+
   if (node?.type === 'YAMLAlias') {
     const anchor = getYAMLAnchor(node)
+
     return anchor?.parent.value ?? null
   }
+
   return node
 }
 
@@ -80,6 +87,7 @@ export function hasExternalYAMLAlias(
   node: Exclude<YAMLAst.YAMLNode, YAMLAst.YAMLProgram>,
 ): boolean {
   let hasReference = false
+
   traverseNodes(getYAMLDocument(node), {
     enterNode(alias) {
       if (
@@ -88,7 +96,9 @@ export function hasExternalYAMLAlias(
       ) {
         return
       }
+
       const anchor = getYAMLAnchor(alias)
+
       if (
         anchor &&
         anchor.parent.range[0] < node.range[1] &&
@@ -99,6 +109,7 @@ export function hasExternalYAMLAlias(
     },
     leaveNode() {},
   })
+
   return hasReference
 }
 
@@ -144,9 +155,11 @@ export function isYAMLSequence(
 export function getPairKeyValue(pair: YAMLAst.YAMLPair) {
   const key = resolveYAMLNode(pair.key)
   const value = isYAMLScalar(key) ? getYAMLScalarValue(key) : null
+
   if (!isNonEmptyString(value)) {
     return
   }
+
   return value
 }
 

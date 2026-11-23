@@ -37,6 +37,7 @@ export default createESLintRule<Options, MessageIds>({
             }
 
             const value = resolve(namePair.value)
+
             if (
               !isYAMLScalar(value) ||
               !isNonEmptyString(getYAMLScalarValue(value))

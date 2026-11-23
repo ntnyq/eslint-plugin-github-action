@@ -51,7 +51,9 @@ export default createESLintRule<Options, MessageIds>({
               if (getPairKeyValue(node) !== 'permissions') {
                 continue
               }
+
               const value = resolve(node.value)
+
               if (
                 allowEmpty &&
                 isYAMLMapping(value) &&
@@ -59,6 +61,7 @@ export default createESLintRule<Options, MessageIds>({
               ) {
                 continue
               }
+
               context.report({
                 node,
                 loc: node.loc,
