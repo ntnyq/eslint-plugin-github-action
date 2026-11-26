@@ -73,8 +73,53 @@ run<Options>({
         },
       ],
     },
+    ...['CI', 'CI/CD', 'Deploy To AWS (CI)', 'Build & Test On Node.js'].map(
+      name => ({
+        filename: 'acronyms-and-punctuation.yml',
+        code: `name: ${name}`,
+      }),
+    ),
+    {
+      filename: 'minor-words.yml',
+      code: $`
+        name: Deploy to AWS
+      `,
+      options: [{ 'Title Case': true, allowLowercaseMinorWords: true }],
+    },
   ],
   invalid: [
+    // https://github.com/ntnyq/eslint-plugin-github-action/issues/105
+    {
+      filename: 'acronyms-and-punctuation.yml',
+      code: $`
+        name: Deploy to AWS (CI)
+      `,
+      output: $`
+        name: Deploy To AWS (CI)
+      `,
+      errors: [{ messageId: 'actionNameNotMatch' }],
+    },
+    {
+      filename: 'ampersand-and-dot.yml',
+      code: $`
+        name: Build & test on Node.js
+      `,
+      output: $`
+        name: Build & Test On Node.js
+      `,
+      errors: [{ messageId: 'actionNameNotMatch' }],
+    },
+    {
+      filename: 'lowercase-minor-words.yml',
+      code: $`
+        name: build & test on Node.js
+      `,
+      output: $`
+        name: Build & Test on Node.js
+      `,
+      options: [{ 'Title Case': true, allowLowercaseMinorWords: true }],
+      errors: [{ messageId: 'actionNameNotMatch' }],
+    },
     ...['|-', '>-', '|', '>'].map(style => ({
       filename: `block-${style}.yml`,
       code: `name: ${style}\n  false\non: push`,

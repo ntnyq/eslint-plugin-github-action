@@ -64,6 +64,7 @@ export default [...pluginGitHubAction.configs.recommended]
 | :------------------------------------------------------------------------------------------------ | :----------------------------------------------------- | :-: | :-: | :-: |
 | [action-name-casing](https://github-action.ntnyq.dev/rules/action-name-casing.html)               | Enforce naming convention for workflow name.           |     | 🔧  |     |
 | [job-id-casing](https://github-action.ntnyq.dev/rules/job-id-casing.html)                         | Enforce naming convention for job IDs.                 |     |     |     |
+| [job-name-casing](https://github-action.ntnyq.dev/rules/job-name-casing.html)                     | Enforce naming convention for job names.               |     | 🔧  |     |
 | [max-jobs-per-action](https://github-action.ntnyq.dev/rules/max-jobs-per-action.html)             | Enforce maximum jobs per workflow file.                |     |     |     |
 | [no-external-job](https://github-action.ntnyq.dev/rules/no-external-job.html)                     | Disallow using external jobs.                          |     |     |     |
 | [no-invalid-key](https://github-action.ntnyq.dev/rules/no-invalid-key.html)                       | Disallow using invalid key.                            | ✅  |     |     |
@@ -79,6 +80,7 @@ export default [...pluginGitHubAction.configs.recommended]
 | [require-concurrency-group](https://github-action.ntnyq.dev/rules/require-concurrency-group.html) | Require a workflow-level concurrency group.            |     |     |     |
 | [require-job-name](https://github-action.ntnyq.dev/rules/require-job-name.html)                   | Require a string job name.                             |     |     |     |
 | [require-job-step-name](https://github-action.ntnyq.dev/rules/require-job-step-name.html)         | Require a string job step name.                        |     |     |     |
+| [step-name-casing](https://github-action.ntnyq.dev/rules/step-name-casing.html)                   | Enforce naming convention for job step names.          |     | 🔧  |     |
 | [valid-job-needs](https://github-action.ntnyq.dev/rules/valid-job-needs.html)                     | Disallow invalid job dependencies.                     | ✅  |     |     |
 | [valid-trigger-events](https://github-action.ntnyq.dev/rules/valid-trigger-events.html)           | Disallow invalid trigger events.                       | ✅  | 🔧  |     |
 | [valid-timeout-minutes](https://github-action.ntnyq.dev/rules/valid-timeout-minutes.html)         | Disallow invalid timeout-minutes.                      | ✅  |     |     |

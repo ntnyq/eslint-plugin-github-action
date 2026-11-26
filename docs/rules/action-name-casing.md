@@ -16,10 +16,20 @@ since: v0.0.2
 
 This rule enforces consistent casing for the workflow `name`, including anchored and aliased names. Fixes add quotes when needed to preserve the YAML string type. An aliased name is replaced at its use without changing the anchor definition. Anchored names referenced elsewhere and names whose converted value would be empty are reported without an automatic fix. Explicit YAML tags are respected when reading the name.
 
+In `Title Case`, a name written as a single identifier, such as `unit_test`, `unitTest`, or `Unit-Test`, is split into words. In other names only the first letter of each word can change, so acronyms and punctuation such as `CI`, `AWS (CI)`, and `Node.js` are preserved, and <code v-pre>${{ … }}</code> expressions and backtick code spans are kept as written. The same conversion is used by [`job-name-casing`](./job-name-casing.md) and [`step-name-casing`](./step-name-casing.md).
+
 ::: correct
 
 ```yaml
 name: Unit Test
+```
+
+:::
+
+::: correct
+
+```yaml
+name: Deploy To AWS (CI)
 ```
 
 :::
@@ -99,6 +109,7 @@ type ActionNameCasingOptions = [
     | ({
         [key in AllowedCasing]?: boolean
       } & {
+        allowLowercaseMinorWords?: boolean
         ignores?: string[]
       })
   ),
@@ -106,6 +117,19 @@ type ActionNameCasingOptions = [
 ```
 
 The object form accepts multiple casing styles and regular expression strings in `ignores`. If no casing style is enabled, it falls back to `Title Case`. Automatic fixes are available only when one casing style is enabled.
+
+### `allowLowercaseMinorWords`
+
+When `true`, minor words such as `a`, `and`, `on`, `the`, `to`, and `with` may stay lowercase in `Title Case`, except as the first word. The list matches the [`title-case`](https://github.com/blakeembrey/change-case/tree/main/packages/title-case) package. Fixes leave minor words as written.
+
+::: correct
+
+```yaml
+# { "Title Case": true, "allowLowercaseMinorWords": true }
+name: Deploy to AWS
+```
+
+:::
 
 ### `"Title Case"` (default)
 

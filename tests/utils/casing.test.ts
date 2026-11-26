@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { CASING, getExactConverter } from '../../src/utils/casing'
+import {
+  CASING,
+  getExactConverter,
+  hasOpaqueSpan,
+  maskOpaqueSpans,
+  titleCase,
+} from '../../src/utils/casing'
 
 const CASING_FIXTURES = Object.values(CASING)
 
@@ -254,5 +260,69 @@ describe('getExactConverter', () => {
         },
       ]
     `)
+  })
+})
+
+describe('titleCase', () => {
+  it.each([
+    ['lint the code', 'Lint The Code'],
+    ['Deploy to AWS (CI)', 'Deploy To AWS (CI)'],
+    ['Build & test on Node.js', 'Build & Test On Node.js'],
+    ['CI', 'CI'],
+    ['  unit test\n', 'Unit Test'],
+    [
+      `run \`npm test\` on \${{ matrix.os }}`,
+      `Run \`npm test\` On \${{ matrix.os }}`,
+    ],
+    [`\${{ matrix.name }}`, `\${{ matrix.name }}`],
+    [`test \${{ '}}' }} and \${{ 1`, `Test \${{ '}}' }} And \${{ 1`],
+    ['use a ` backtick', 'Use A ` Backtick'],
+    ['build 2 targets', 'Build 2 Targets'],
+    ['unitTest', 'Unit Test'],
+    ['unit_test', 'Unit Test'],
+    ['Unit-Test', 'Unit Test'],
+    ['!', ''],
+  ])('converts %j to %j', (value, expected) => {
+    expect(titleCase(value)).toBe(expected)
+  })
+
+  it.each([
+    ['the build and test of the app', 'The Build and Test of the App'],
+    ['Test On Node', 'Test On Node'],
+    [`\${{ matrix.os }} on linux`, `\${{ matrix.os }} on Linux`],
+    ['lint (and test)', 'Lint (and Test)'],
+  ])('keeps minor words as written: %j to %j', (value, expected) => {
+    expect(titleCase(value, { allowLowercaseMinorWords: true })).toBe(expected)
+  })
+})
+
+describe('maskOpaqueSpans', () => {
+  it('replaces expressions and code spans in source order', () => {
+    const { masked, spans } = maskOpaqueSpans(`a \${{ x }} \`b\` c \`d`)
+    expect(masked).toBe('a \u{E000} \u{E000} c `d')
+    expect(spans).toEqual([`\${{ x }}`, '`b`'])
+  })
+
+  it('extends an unclosed expression to the end', () => {
+    expect(maskOpaqueSpans(`a \${{ b`).spans).toEqual([`\${{ b`])
+  })
+
+  it('detects opaque spans', () => {
+    expect(hasOpaqueSpan('Run `npm test`')).toBe(true)
+    expect(hasOpaqueSpan('Run Tests')).toBe(false)
+  })
+})
+
+describe('getExactConverter with opaque spans', () => {
+  it('leaves names with expressions unchanged for other casings', () => {
+    expect(
+      getExactConverter(CASING.kebabCase)(`Test \${{ matrix.os }}`),
+    ).toEqual({ value: `Test \${{ matrix.os }}`, changed: false })
+  })
+
+  it('converts names with expressions in Title Case', () => {
+    expect(
+      getExactConverter(CASING.titleCase)(`test \${{ matrix.os }}`),
+    ).toEqual({ value: `Test \${{ matrix.os }}`, changed: true })
   })
 })
