@@ -8,6 +8,30 @@ export function hasExpression(value: string): boolean {
 }
 
 /**
+ * Finds the end of the expression that opens at an index.
+ * Quoted expression strings may contain closing delimiters and escaped quotes.
+ *
+ * @param value - String containing the expression.
+ * @param start - Index of the expression opener `${{`.
+ * @returns Index just after the closing `}}`, or -1 when the expression is unclosed.
+ */
+export function findExpressionEnd(value: string, start: number): number {
+  let inString = false
+  for (let index = start + 3; index < value.length; index++) {
+    if (value[index] === "'") {
+      if (inString && value[index + 1] === "'") {
+        index++
+      } else {
+        inString = !inString
+      }
+    } else if (!inString && value.startsWith('}}', index)) {
+      return index + 2
+    }
+  }
+  return -1
+}
+
+/**
  * Checks whether a value consists of one complete GitHub Actions expression.
  * Quoted expression strings may contain closing delimiters and escaped quotes.
  *
@@ -19,19 +43,6 @@ export function isSingleExpression(value: string): boolean {
   if (!source.startsWith('${{')) {
     return false
   }
-  let inString = false
-  for (let index = 3; index < source.length; index++) {
-    if (source[index] === "'") {
-      if (inString && source[index + 1] === "'") {
-        index++
-      } else {
-        inString = !inString
-      }
-    } else if (!inString && source.startsWith('}}', index)) {
-      return (
-        source.slice(3, index).trim().length > 0 && index + 2 === source.length
-      )
-    }
-  }
-  return false
+  const end = findExpressionEnd(source, 0)
+  return end === source.length && source.slice(3, end - 2).trim().length > 0
 }
